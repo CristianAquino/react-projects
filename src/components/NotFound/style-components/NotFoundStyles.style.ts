@@ -26,4 +26,14 @@ const LinkRedirect = styled(Link)`
   font-weight: bold;
   color: #fff;
 `;
-export { Container, Message, LinkRedirect };
+const ButtonRedirect = styled.button`
+  font-size: 0.25em;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: underline;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+`;
+export { Container, Message, LinkRedirect, ButtonRedirect };
