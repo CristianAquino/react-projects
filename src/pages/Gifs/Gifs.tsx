@@ -1,5 +1,5 @@
 import { RoutesWithNotFound } from "@app/guards";
-import { PROYECTS_ROUTE, PUBLIC_ROUTE } from "@app/routes";
+import { PROYECTS_ROUTE } from "@app/routes";
 import { Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { Home } from "./components";
@@ -15,9 +15,9 @@ const Gifs = ({}: GifsProps) => {
   return (
     <RoutesWithNotFound
       message="Page not found"
-      pageRedirect={PUBLIC_ROUTE.PROYECTS + PROYECTS_ROUTE.GIFS}
+      pageRedirect={PROYECTS_ROUTE.GIFS}
     >
-      <Route path={`${PUBLIC_ROUTE.HOME}`} element={<LayoutGifs />}>
+      <Route path={`${PROYECTS_ROUTE.HOME}`} element={<LayoutGifs />}>
         <Route index element={<Home />} />
         <Route
           path={"/:keyword"}

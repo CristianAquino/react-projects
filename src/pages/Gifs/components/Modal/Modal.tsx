@@ -1,5 +1,5 @@
-import { Gif } from "@app/pages/Proyects/pages/Gifs/models";
-import { getGifById } from "@app/pages/Proyects/pages/Gifs/services";
+import { Gif } from "@app/pages/Gifs/models";
+import { getGifById } from "@app/pages/Gifs/services";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 

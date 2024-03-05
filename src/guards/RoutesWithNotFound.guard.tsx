@@ -4,7 +4,7 @@ import { NotFound } from "@components/index";
 interface Props {
   children: JSX.Element | JSX.Element[];
   message?: string;
-  pageRedirect: string;
+  pageRedirect?: string;
 }
 
 const RoutesWithNotFound = ({

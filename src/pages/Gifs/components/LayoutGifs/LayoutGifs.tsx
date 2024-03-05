@@ -39,7 +39,7 @@ const LayoutGifs = ({}: LayoutGifsProps) => {
         <meta name="theme-color" content="#ffffff" />
       </Helmet>
       {/* PAGE */}
-      <LogoLink to={"/proyects/gifs"} aria-label="link to gifs">
+      <LogoLink to={"/gifs"} aria-label="link to gifs">
         <GifsLogo />
       </LogoLink>
       <SearchForm />

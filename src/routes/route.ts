@@ -11,11 +11,7 @@ const API_ROUTE = {
 };
 
 export const PRIVATE_ROUTE = {};
-export const PUBLIC_ROUTE = {
-  HOME: "/",
-  PROYECTS: "/proyects",
-  COMPONENTS: "/components",
-};
+
 export const SERVICE_ROUTE = {
   ALLPRODUCTS: `${API_ROUTE.PRODUCT}/all-products`,
   ADDPRODUCT: `${API_ROUTE.PRODUCT}/add-product`,
@@ -25,6 +21,7 @@ export const SERVICE_ROUTE = {
   CHECKOUT: `${API_ROUTE.STRIPE}/create-checkout-session`,
 };
 export const PROYECTS_ROUTE = {
+  HOME: "/",
   ECOMMERCE: "/ecommerce",
   GIFS: "/gifs",
 };

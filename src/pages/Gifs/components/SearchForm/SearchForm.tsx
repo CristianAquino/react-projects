@@ -10,7 +10,7 @@ const SearchForm = ({}: SearchFormProps) => {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    navigate(`/proyects/gifs/${keyword}`);
+    navigate(`/gifs/${keyword}`);
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
