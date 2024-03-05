@@ -1,0 +1,27 @@
+:root {
+  color-scheme: light dark;
+  color: var(--darkColor);
+  background-color: var(--darkMode);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+#root {
+  min-width: 300px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --darkMode: #fff;
+    --darkColor: #242424;
+  }
+}

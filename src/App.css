@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  /* display: block; */
+  max-width: 100%;
+}
+svg.cent {
+  margin-inline: auto;
+}
+:root {
+  color-scheme: light dark;
+  --darkMode: #242424;
+  --darkColor: rgba(255, 255, 255, 0.87);
+  --blue: #0071ce;
+  --brand: #4c6980;
+  --nameP: #002849;
+  --primary: #15dbff;
+  --dsc: #ffad48;
+  /* https://web.dev/i18n/es/prefers-color-scheme/ */
+}

@@ -1,0 +1,12 @@
+{
+  "filter": [
+    {
+      "name": "categories",
+      "sections": ["all", "clothes", "shoes"]
+    },
+    {
+      "name": "prices",
+      "sections": ["$0 - $50", "$50 - $100", "$100 - $150"]
+    }
+  ]
+}
