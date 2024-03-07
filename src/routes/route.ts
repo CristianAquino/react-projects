@@ -23,7 +23,8 @@ export const SERVICE_ROUTE = {
 export const PROYECTS_ROUTE = {
   HOME: "/",
   ECOMMERCE: "/ecommerce",
-  GIFS: "/gifs",
+  GIFS: "/gif",
+  TEACHER: "/teacher",
 };
 
 export const COMPONENTS_ROUTE = {};
