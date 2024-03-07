@@ -7,6 +7,7 @@ import { Loading } from "@components/Loading";
 
 const Ecommerce = lazy(() => import("@pages/Ecommerce/Ecommerce"));
 const Gifs = lazy(() => import("@pages/Gifs/Gifs"));
+const Teacher = lazy(() => import("@pages/Teacher/Teacher"));
 
 function App() {
   return (
@@ -25,6 +26,14 @@ function App() {
           element={
             <Suspense fallback={<Loading />}>
               <Gifs />
+            </Suspense>
+          }
+        />
+        <Route
+          path={`${PROYECTS_ROUTE.TEACHER}/*`}
+          element={
+            <Suspense fallback={<Loading />}>
+              <Teacher />
             </Suspense>
           }
         />
