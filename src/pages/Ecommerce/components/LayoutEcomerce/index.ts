@@ -1,1 +1,0 @@
-export { default as LayoutEcomerce } from './LayoutEcomerce';

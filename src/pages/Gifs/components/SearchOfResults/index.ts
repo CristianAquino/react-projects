@@ -1,1 +1,0 @@
-export { default as SearchOfResults } from './SearchOfResults';
