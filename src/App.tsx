@@ -1,34 +1,18 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import "@app/App.css";
+import { Loading } from "@components/Loading";
 import { RoutesWithNotFound } from "@guards/index";
 import { PROYECTS_ROUTE } from "@routes/index";
 import { Suspense, lazy } from "react";
-import "@app/App.css";
-import { Loading } from "@components/Loading";
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter, Route } from "react-router-dom";
 
-const Ecommerce = lazy(() => import("@pages/Ecommerce/Ecommerce"));
-const Gifs = lazy(() => import("@pages/Gifs/Gifs"));
 const Teacher = lazy(() => import("@pages/Teacher/Teacher"));
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <RoutesWithNotFound message="Proyect not found">
-        <Route
-          path={`${PROYECTS_ROUTE.ECOMMERCE}/*`}
-          element={
-            <Suspense fallback={<Loading />}>
-              <Ecommerce />
-            </Suspense>
-          }
-        />
-        <Route
-          path={`${PROYECTS_ROUTE.GIFS}/*`}
-          element={
-            <Suspense fallback={<Loading />}>
-              <Gifs />
-            </Suspense>
-          }
-        />
         <Route
           path={`${PROYECTS_ROUTE.TEACHER}/*`}
           element={
