@@ -1,4 +1,4 @@
-import { getLocalStorage, notifyError } from "@app/helpers";
+import { getLocalStorage, notifyError, notifySuccess } from "@app/helpers";
 import axios, { AxiosRequestConfig } from "axios";
 import { TEACHER_ENDPOINT } from "../helpers";
 
@@ -23,10 +23,15 @@ export function axiosInterceptor() {
 
   axios.interceptors.response.use(
     (response) => {
+      if (response.data.message) {
+        notifySuccess(response.data.message);
+      }
       return response;
     },
     (error) => {
-      notifyError(error.response.data.detail);
+      if (error.response.data.detail) {
+        notifyError(error.response.data.detail);
+      }
       return Promise.reject(error);
     }
   );
