@@ -5,7 +5,7 @@ import { TEACHER_ENDPOINT } from "../helpers";
 export function axiosInterceptor() {
   function updateHeader(request: AxiosRequestConfig) {
     const newHeader = {
-      Authorization: getLocalStorage({ key: "token" }),
+      Authorization: "Bearer " + getLocalStorage({ key: "token" }).token,
       "Content-Type": "application/json",
     };
     request.headers = newHeader;
