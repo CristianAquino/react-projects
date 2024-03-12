@@ -25,13 +25,13 @@ function setCookie<T>({ key, value, time = 7 }: CookieProps<T>) {
   let currentDate = new Date();
   currentDate.setTime(currentDate.getTime() + 1000 * 60 * 60 * 24 * time);
   let expires = "expires=" + currentDate.toUTCString();
-  document.cookie = `${key}=${value}; ${expires};path=/teacher/*`;
+  document.cookie = `${key}=${value}; ${expires};path=/teacher`;
 }
 function getCookie({ key }: CookieProps<any>) {
   const value = document.cookie
     .split(";")
     .find((item) => item.trim().startsWith(key));
-  return value ? value : null;
+  return value ? value.split("=")[1] : null;
 }
 
 export {
