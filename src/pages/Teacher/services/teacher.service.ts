@@ -1,10 +1,16 @@
 import { loadAbort } from "@app/helpers";
 import axios from "axios";
 import { TEACHER_ENDPOINT } from "../helpers";
-import { CreateTeacherType, LoginTeacherType } from "../models";
+import {
+  CreateTeacherType,
+  LoginTeacherType,
+  ParamsPropsType,
+} from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
-// no olvidar poner authorization
-function post_register(data: CreateTeacherType) {
+
+function post_register({
+  data,
+}: Omit<ParamsPropsType<CreateTeacherType>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.post(
@@ -15,7 +21,7 @@ function post_register(data: CreateTeacherType) {
   };
 }
 
-function post_login(data: LoginTeacherType) {
+function post_login({ data }: Omit<ParamsPropsType<LoginTeacherType>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.post(
@@ -36,7 +42,9 @@ function get_teacher_me() {
   };
 }
 
-function put_teacher_me(data: Partial<CreateTeacherType>) {
+function put_teacher_me({
+  data,
+}: Omit<ParamsPropsType<Partial<CreateTeacherType>>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.put(VITE_API_BASE_TEACHER + TEACHER_ENDPOINT.TEACHER_ME, {
