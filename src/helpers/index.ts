@@ -1,3 +1,4 @@
+export * from "./ErrorBoundaries.util";
 export * from "./abort-controller.helper";
 export * from "./emoticons-for-not-found.helper";
 export * from "./getColors.helper";
