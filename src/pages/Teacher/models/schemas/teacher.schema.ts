@@ -1,20 +1,6 @@
 import { z } from "zod";
 
-const base = {
-  email: z
-    .string({ required_error: "email is required" })
-    .trim()
-    .email({ message: "invalid email" }),
-  password: z
-    .string({
-      required_error: "password is required",
-    })
-    .trim()
-    .min(8, { message: "min length must be 8" })
-    .max(32, { message: "max length must be 32" }),
-};
-
-const CreateTeacherSchema = z.object({
+const BaseDataSchema = {
   name: z
     .string({ required_error: "name is required" })
     .trim()
@@ -33,11 +19,25 @@ const CreateTeacherSchema = z.object({
     .min(3, { message: "min length must be 3" })
     .max(80, { message: "max length must be 80" })
     .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid second name" }),
-  ...base,
-});
+};
 
 const LoginTeacherSchema = z.object({
-  ...base,
+  email: z
+    .string({ required_error: "email is required" })
+    .trim()
+    .email({ message: "invalid email" }),
+  password: z
+    .string({
+      required_error: "password is required",
+    })
+    .trim()
+    .min(8, { message: "min length must be 8" })
+    .max(32, { message: "max length must be 32" }),
 });
 
-export { CreateTeacherSchema, LoginTeacherSchema };
+const CreateTeacherSchema = z.object({
+  ...BaseDataSchema,
+  ...LoginTeacherSchema.shape,
+});
+
+export { BaseDataSchema, CreateTeacherSchema, LoginTeacherSchema };
