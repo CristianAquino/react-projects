@@ -12,7 +12,7 @@ const Register = ({}: RegisterProps) => {
   const [form, setForm] = useState<CreateTeacherType>(REGISTER_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
   async function postData() {
-    await callEndpoint(post_register(form));
+    await callEndpoint(post_register({ data: form }));
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

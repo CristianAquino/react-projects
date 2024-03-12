@@ -15,7 +15,7 @@ const Login = ({}: LoginProps) => {
   const [form, setForm] = useState<LoginTeacherType>(LOGIN_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
   async function postData() {
-    const { data } = await callEndpoint(post_login(form));
+    const { data } = await callEndpoint(post_login({ data: form }));
     if (data) {
       setLocalStorage({ key: "token", value: data });
     }
