@@ -1,11 +1,11 @@
-import { getLocalStorage, notifyError, notifySuccess } from "@app/helpers";
+import { getCookie, notifyError, notifySuccess } from "@app/helpers";
 import axios, { AxiosRequestConfig } from "axios";
 import { TEACHER_ENDPOINT } from "../helpers";
 
 export function axiosInterceptor() {
   function updateHeader(request: AxiosRequestConfig) {
     const newHeader = {
-      Authorization: "Bearer " + getLocalStorage({ key: "token" }).token,
+      Authorization: "Bearer " + getCookie({ key: "_token" }),
       "Content-Type": "application/json",
     };
     request.headers = newHeader;
