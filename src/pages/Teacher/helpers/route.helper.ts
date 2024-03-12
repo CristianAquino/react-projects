@@ -4,7 +4,7 @@ const TEACHER_ENDPOINT = {
   TEACHER_ME: "teacher/me/",
 };
 const COURSE_ENDPOINT = {
-  GET_COURSE_ONE_BY_ID: "course/",
+  GET_COURSE_ONE_BY_ID: "course/one/",
   GET_COURSE_LIST: "course/list/",
   POST_COURSE_CREATE: "course/create/",
   PUT_COURSE_UPDATE_BY_ID: "course/update/",
