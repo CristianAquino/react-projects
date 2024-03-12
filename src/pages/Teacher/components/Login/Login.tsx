@@ -1,6 +1,6 @@
 "use client";
 
-import { setLocalStorage } from "@app/helpers";
+import { setCookie } from "@app/helpers";
 import { useState } from "react";
 import { LOGIN_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
@@ -14,10 +14,11 @@ export type LoginProps = {
 const Login = ({}: LoginProps) => {
   const [form, setForm] = useState<LoginTeacherType>(LOGIN_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
+
   async function postData() {
     const { data } = await callEndpoint(post_login({ data: form }));
     if (data) {
-      setLocalStorage({ key: "token", value: data });
+      setCookie<string>({ key: "_token", value: data.token, time: 15 });
     }
   }
 
@@ -28,6 +29,7 @@ const Login = ({}: LoginProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   return (
     <>
       <form onSubmit={handleSubmit} onChange={handleChange}>
@@ -41,7 +43,7 @@ const Login = ({}: LoginProps) => {
         </label>
         <input type="submit" value="Login" />
       </form>
-      {loading && "loading"}
+      {loading && <p>loading...</p>}
     </>
   );
 };
