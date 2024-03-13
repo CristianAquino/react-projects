@@ -29,11 +29,24 @@ const ME_TEACHER = {
 const LIST_COURSE = {
   courses: [],
 };
-
+const ME_COURSE = {
+  course: { id: "", ...REGISTER_COURSE },
+  students: [],
+};
+const ME_STUDENT = {
+  id: "",
+  name: "",
+  first_name: "",
+  second_name: "",
+  average: 0,
+  calification: "",
+};
 export {
+  LIST_COURSE,
   LOGIN_TEACHER,
+  ME_COURSE,
+  ME_TEACHER,
   REGISTER_COURSE,
   REGISTER_TEACHER,
-  ME_TEACHER,
-  LIST_COURSE,
+  ME_STUDENT,
 };
