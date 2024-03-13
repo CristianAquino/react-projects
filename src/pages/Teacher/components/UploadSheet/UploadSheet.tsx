@@ -4,7 +4,9 @@ import { ChangeEvent, useId, useState } from "react";
 import { read, utils } from "xlsx";
 import { ActionUploadSheet } from "..";
 import { sheetValidate } from "../../helpers";
+import { useFetchAndLoad } from "../../hooks";
 import { CreateStudentType } from "../../models";
+import { post_student_create } from "../../services";
 
 export type UploadSheetProps = {
   // types...
@@ -16,6 +18,16 @@ const UploadSheet = ({}: UploadSheetProps) => {
   const [sheetData, setSheetData] = useState<CreateStudentType>([]);
   const [sheetError, setSheetError] = useState<string | null>(null);
   const tableHeader = ["first_name", "second_name", "name"];
+  const { callEndpoint } = useFetchAndLoad();
+
+  async function add_student_to_corse() {
+    await callEndpoint(
+      post_student_create({
+        data: sheetData,
+        id: "ab1cd9fa-8dda-4aa8-a9dd-d7904bce95b3",
+      })
+    );
+  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files![0];
@@ -56,6 +68,9 @@ const UploadSheet = ({}: UploadSheetProps) => {
           You must ensure that access to the route is public access
         </p>
       </label>
+      {sheetData.length > 0 && (
+        <button onClick={add_student_to_corse}>Add students</button>
+      )}
       <input type="file" name="sheet" onChange={handleChange} />
       {!validateSheet && <p>invalid format</p>}
       {sheetData.length > 0 && (
