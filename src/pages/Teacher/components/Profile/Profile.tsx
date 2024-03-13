@@ -44,7 +44,7 @@ const Profile = ({}: ProfileProps) => {
         </thead>
         <tbody>
           {course.length > 0 ? (
-            course.map((course: any) => (
+            course.map((course) => (
               <tr key={course.id}>
                 <td>{course.name}</td>
                 <td>{course.level}</td>
