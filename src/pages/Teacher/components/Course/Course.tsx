@@ -39,20 +39,18 @@ const Course = ({}: CourseProps) => {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Level</th>
-            <th>Degree</th>
-            <th>Section</th>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Names</th>
           </tr>
         </thead>
         <tbody>
           {students.length > 0 ? (
-            students.map((course: any) => (
-              <tr key={course.id}>
-                <td>{course.name}</td>
-                <td>{course.level}</td>
-                <td>{course.degree}</td>
-                <td>{course.section}</td>
+            students.map((student) => (
+              <tr key={student.id}>
+                <td>{student.first_name}</td>
+                <td>{student.second_name}</td>
+                <td>{student.name}</td>
               </tr>
             ))
           ) : (
