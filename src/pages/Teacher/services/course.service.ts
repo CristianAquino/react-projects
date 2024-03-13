@@ -40,7 +40,10 @@ function get_course_list() {
   };
 }
 
-function put_course_id({ data, id }: ParamsPropsType<CreateCourseType>) {
+function put_course_id({
+  data,
+  id,
+}: ParamsPropsType<Partial<CreateCourseType>>) {
   const controller = loadAbort();
   return {
     call: axios.put(
