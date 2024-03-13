@@ -1,8 +1,9 @@
 "use client";
 
-import { removeLocalStorage } from "@app/helpers";
 import { useEffect, useState } from "react";
+import { ME_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
+import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
 
 export type ProfileProps = {
@@ -11,7 +12,8 @@ export type ProfileProps = {
 
 const Profile = ({}: ProfileProps) => {
   const { callEndpoint } = useFetchAndLoad();
-  const [account, setAccount] = useState<any>();
+  const [{ user, course }, setAccount] =
+    useState<ProfileTeacherType>(ME_TEACHER);
 
   useEffect(() => {
     async function getMe() {
@@ -21,18 +23,15 @@ const Profile = ({}: ProfileProps) => {
       }
     }
     getMe();
-    return () => {
-      setAccount(null);
-      removeLocalStorage({ key: "user" });
-    };
   }, []);
+
   return (
     <div>
       <h2>Teacher</h2>
-      <p>Names: {account?.user.name}</p>
-      <p>First Name: {account?.user.first_name}</p>
-      <p>Second Name: {account?.user.second_name}</p>
-      <p>Email: {account?.user.email}</p>
+      <p>Names: {user.name}</p>
+      <p>First Name: {user.first_name}</p>
+      <p>Second Name: {user.second_name}</p>
+      <p>Email: {user.email}</p>
       <h2>Courses</h2>
       <table>
         <thead>
@@ -44,17 +43,20 @@ const Profile = ({}: ProfileProps) => {
           </tr>
         </thead>
         <tbody>
-          {account?.course?.map((course: any) => (
-            <tr key={course.id}>
-              <td>{course.name}</td>
-              <td>{course.level}</td>
-              <td>{course.degree}</td>
-              <td>{course.section}</td>
-            </tr>
-          ))}
+          {course.length > 0 ? (
+            course.map((course: any) => (
+              <tr key={course.id}>
+                <td>{course.name}</td>
+                <td>{course.level}</td>
+                <td>{course.degree}</td>
+                <td>{course.section}</td>
+              </tr>
+            ))
+          ) : (
+            <p>No courses</p>
+          )}
         </tbody>
       </table>
-      <pre>{JSON.stringify(account, null, 2)}</pre>
     </div>
   );
 };
