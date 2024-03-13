@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const BaseDataSchema = {
+const BaseStudentDataSchema = {
   name: z
     .string({ required_error: "name is required" })
     .trim()
@@ -21,8 +21,24 @@ const BaseDataSchema = {
     .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid second name" }),
 };
 
-const CreateStudentSchema = z.array(z.object({ ...BaseDataSchema }));
+const MeStudentSchema = z.object({
+  id: z
+    .string({
+      invalid_type_error: "id must be a string",
+    })
+    .trim()
+    .uuid({ message: "invalid format" }),
+  average: z.number(),
+  calification: z.string(),
+  ...BaseStudentDataSchema,
+});
 
-const UpdateStudentSchema = z.object({ ...BaseDataSchema });
+const CreateStudentSchema = z.array(z.object({ ...BaseStudentDataSchema }));
+const UpdateStudentSchema = z.object({ ...BaseStudentDataSchema });
 
-export { CreateStudentSchema, UpdateStudentSchema };
+export {
+  BaseStudentDataSchema,
+  CreateStudentSchema,
+  UpdateStudentSchema,
+  MeStudentSchema,
+};

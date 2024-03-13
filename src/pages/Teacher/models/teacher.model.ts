@@ -1,6 +1,6 @@
 import { z } from "zod";
 import {
-  BaseDataSchema,
+  BaseTeacherDataSchema,
   CreateTeacherSchema,
   LoginTeacherSchema,
   MeTeacherSchema,
@@ -13,5 +13,5 @@ export type ParamsPropsType<T> = {
 
 export type CreateTeacherType = z.infer<typeof CreateTeacherSchema>;
 export type LoginTeacherType = z.infer<typeof LoginTeacherSchema>;
-export type PutTeacherType = z.infer<typeof BaseDataSchema>;
+export type PutTeacherType = z.infer<typeof BaseTeacherDataSchema>;
 export type ProfileTeacherType = z.infer<typeof MeTeacherSchema>;

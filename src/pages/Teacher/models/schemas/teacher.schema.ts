@@ -8,7 +8,7 @@ const ID = z
   .trim()
   .uuid({ message: "invalid format" });
 
-const BaseDataSchema = z.object({
+const BaseTeacherDataSchema = z.object({
   name: z
     .string({ required_error: "name is required" })
     .trim()
@@ -57,13 +57,13 @@ const LoginTeacherSchema = z.object({
 });
 
 const CreateTeacherSchema = z.object({
-  ...BaseDataSchema.shape,
+  ...BaseTeacherDataSchema.shape,
   ...LoginTeacherSchema.shape,
 });
 
 const MeTeacherSchema = z.object({
   user: z.object({
-    ...BaseDataSchema.shape,
+    ...BaseTeacherDataSchema.shape,
     email: z
       .string({ required_error: "email is required" })
       .trim()
@@ -78,7 +78,7 @@ const MeTeacherSchema = z.object({
 });
 
 export {
-  BaseDataSchema,
+  BaseTeacherDataSchema,
   CreateTeacherSchema,
   LoginTeacherSchema,
   MeTeacherSchema,
