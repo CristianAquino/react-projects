@@ -5,6 +5,7 @@ import {
   CreateTeacherType,
   LoginTeacherType,
   ParamsPropsType,
+  PutTeacherType,
 } from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
 
@@ -44,7 +45,7 @@ function get_teacher_me() {
 
 function put_teacher_me({
   data,
-}: Omit<ParamsPropsType<Partial<CreateTeacherType>>, "id">) {
+}: Omit<ParamsPropsType<Partial<PutTeacherType>>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.put(VITE_API_BASE_TEACHER + TEACHER_ENDPOINT.TEACHER_ME, {
