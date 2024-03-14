@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { AnyZodObject, ZodArray, ZodEffects, ZodError } from "zod";
+import { AnyZodObject, ZodError } from "zod";
 
 type Props<T> = {
-  schema: AnyZodObject | ZodEffects<AnyZodObject> | ZodArray<AnyZodObject>;
+  schema: AnyZodObject;
   data: T;
 };
 function useValidateForm<T>({ schema, data }: Props<T>) {
   const [errors, setErrors] = useState<{ [K in keyof T]: K[] }>();
+  let flag = errors ? true : false;
 
   function validateZodInput({ schema, data }: Props<T>) {
     try {
@@ -36,7 +37,7 @@ function useValidateForm<T>({ schema, data }: Props<T>) {
     };
   }, [data]);
 
-  return { errors };
+  return { errors, flag };
 }
 
 export { useValidateForm };
