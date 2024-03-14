@@ -7,6 +7,5 @@ export * from "./Login";
 export * from "./Profile";
 export * from "./Register";
 export * from "./RegisterCourse";
-export * from "./RegisterStudent";
 export * from "./Student";
 export * from "./UploadSheet";
