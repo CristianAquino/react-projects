@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { TableData } from "..";
 import { ME_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { MeCourseType } from "../../models/course.model";
@@ -12,52 +14,37 @@ export type CourseProps = {
 
 const Course = ({}: CourseProps) => {
   const [{ course, students }, setCourse] = useState<MeCourseType>(ME_COURSE);
-  const { callEndpoint } = useFetchAndLoad();
-  // recordar que aqui va el id desde la ruta
+  const { loading, callEndpoint } = useFetchAndLoad();
+  const { id } = useParams();
 
   useEffect(() => {
     async function getCourseData() {
-      const { data } = await callEndpoint(
-        get_course_one_id({ id: "ab1cd9fa-8dda-4aa8-a9dd-d7904bce95b3" })
-      );
-      if (data) {
-        setCourse(data);
+      if (id) {
+        const { data } = await callEndpoint(get_course_one_id({ id }));
+        if (data) {
+          setCourse(data);
+        }
+      } else {
+        return;
       }
     }
     getCourseData();
+    return () => {
+      setCourse(ME_COURSE);
+    };
   }, []);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
-      <h2>Profile Course</h2>
-      <h2>Course</h2>
+      <h2>Course Info</h2>
       <p>Course Name: {course.name}</p>
       <p>Level: {course.level}</p>
       <p>Degree: {course.degree}</p>
       <p>Section: {course.section}</p>
-      <h2>Courses Data</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Second Name</th>
-            <th>Names</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.length > 0 ? (
-            students.map((student) => (
-              <tr key={student.id}>
-                <td>{student.first_name}</td>
-                <td>{student.second_name}</td>
-                <td>{student.name}</td>
-              </tr>
-            ))
-          ) : (
-            <p>No courses</p>
-          )}
-        </tbody>
-      </table>
+      <h2>Students Data</h2>
+      <TableData datos={students} type="student" />
     </div>
   );
 };
