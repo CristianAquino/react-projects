@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { ME_STUDENT } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { MeStudentType } from "../../models";
@@ -13,18 +14,21 @@ export type StudentProps = {
 const Student = ({}: StudentProps) => {
   const [student, setStudent] = useState<MeStudentType>(ME_STUDENT);
   const { callEndpoint } = useFetchAndLoad();
+  const { id } = useParams();
 
   useEffect(() => {
     async function get_one_student() {
-      const { data } = await callEndpoint(
-        get_student_one_id({ id: "16606ae4-b77e-4c41-9a47-14732cb90082" })
-      );
-      if (data) {
-        setStudent(data);
+      if (id) {
+        const { data } = await callEndpoint(get_student_one_id({ id }));
+        if (data) {
+          setStudent(data);
+        }
       }
     }
     get_one_student();
-    return () => {}; // cleanup function...
+    return () => {
+      setStudent(ME_STUDENT);
+    };
   }, []);
   return (
     <div>
