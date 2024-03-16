@@ -6,6 +6,8 @@ import { LOGIN_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { LoginTeacherType } from "../../models";
 import { post_login } from "../../services";
+import { useNavigate } from "react-router-dom";
+import { PRIVATE_ROUTE, PROYECTS_ROUTE } from "@app/routes";
 
 export type LoginProps = {
   // types...
@@ -14,11 +16,13 @@ export type LoginProps = {
 const Login = ({}: LoginProps) => {
   const [form, setForm] = useState<LoginTeacherType>(LOGIN_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
+  const navigate = useNavigate();
 
   async function postData() {
     const { data } = await callEndpoint(post_login({ data: form }));
     if (data) {
       setCookie<string>({ key: "_token", value: data.token, time: 15 });
+      navigate(PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD);
     }
   }
 
