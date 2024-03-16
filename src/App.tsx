@@ -10,19 +10,14 @@ const Teacher = lazy(() => import("@pages/Teacher/Teacher"));
 
 function App() {
   return (
-    <BrowserRouter>
-      <Toaster />
-      <RoutesWithNotFound message="Proyect not found">
-        <Route
-          path={`${PROYECTS_ROUTE.TEACHER}/*`}
-          element={
-            <Suspense fallback={<Loading />}>
-              <Teacher />
-            </Suspense>
-          }
-        />
-      </RoutesWithNotFound>
-    </BrowserRouter>
+    <Suspense fallback={<Loading />}>
+      <BrowserRouter>
+        <Toaster />
+        <RoutesWithNotFound message="Proyect not found">
+          <Route path={`${PROYECTS_ROUTE.TEACHER}/*`} element={<Teacher />} />
+        </RoutesWithNotFound>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 

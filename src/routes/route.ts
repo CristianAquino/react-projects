@@ -10,7 +10,9 @@ const API_ROUTE = {
   ORDER: `${VITE_BASE_ROUTE}/order`,
 };
 
-export const PRIVATE_ROUTE = {};
+export const PRIVATE_ROUTE = {
+  DASHBOARD: "/dashboard",
+};
 
 export const SERVICE_ROUTE = {
   ALLPRODUCTS: `${API_ROUTE.PRODUCT}/all-products`,
