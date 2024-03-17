@@ -74,16 +74,20 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
           close register modal
         </button>
       </Modal>
-      {tk ? (
-        <button onClick={handleLogout}>Logout</button>
-      ) : (
-        <>
-          <button onClick={() => handleOpenModal(modalLoginRef)}>login</button>
-          <button onClick={() => handleOpenModal(modalRegisterRef)}>
-            register
-          </button>
-        </>
-      )}
+      <div>
+        {tk ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <>
+            <button onClick={() => handleOpenModal(modalLoginRef)}>
+              login
+            </button>
+            <button onClick={() => handleOpenModal(modalRegisterRef)}>
+              register
+            </button>
+          </>
+        )}
+      </div>
       <Content>
         <Outlet />
       </Content>
