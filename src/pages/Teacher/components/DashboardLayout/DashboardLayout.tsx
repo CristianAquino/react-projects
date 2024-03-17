@@ -1,13 +1,46 @@
 "use client";
 
 import { Helmet } from "react-helmet";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { PiNotebook, PiStudent, PiUserCircle } from "react-icons/pi";
+import { Outlet } from "react-router-dom";
+import {
+  Action,
+  ContentList,
+  Detail,
+  List,
+  MenuNavigate,
+  Summary,
+} from "./styled-components";
 
 export type DashboardLayoutProps = {
   // types...
 };
 
 const DashboardLayout = ({}: DashboardLayoutProps) => {
+  const navigation = [
+    {
+      title: "me",
+      icon: <PiUserCircle />,
+      links: [{ name: "profile", link: "me/profile" }],
+    },
+    {
+      title: "course",
+      icon: <PiNotebook />,
+      links: [
+        { name: "register course", link: "course/register" },
+        { name: "list courses", link: "course/list" },
+      ],
+    },
+    {
+      title: "student",
+      icon: <PiStudent />,
+      links: [
+        { name: "info student", link: "student/info" },
+        { name: "register student", link: "student/register" },
+      ],
+    },
+  ];
+
   return (
     <div style={{ display: "flex" }}>
       {/* SEO */}
@@ -18,46 +51,30 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
           content="dashboard page for teachers created by CRdev where CRUD actions will be carried out for students, courses, grades and attendance"
         />
       </Helmet>
-      <section style={{ width: "30%", height: "100%" }}>
-        <details>
-          <summary>Me</summary>
-          <hr />
-          <ul>
-            <li>
-              <NavLink
-                style={({ isActive }) => (isActive ? { color: "red" } : {})}
-                to={"me/profile"}
-              >
-                Profile
-              </NavLink>
-            </li>
-          </ul>
-        </details>
-        <details>
-          <summary>Course</summary>
-          <hr />
-          <ul>
-            <li>
-              <Link to={"course/register"}>Register Course</Link>
-            </li>
-            <li>
-              <Link to={"course/list"}> List Course</Link>
-            </li>
-          </ul>
-        </details>
-        <details>
-          <summary>Student</summary>
-          <hr />
-          <ul>
-            <li>
-              <Link to={"student/info"}>Info Student</Link>
-            </li>
-            <li>
-              <Link to={"student/register"}>Register Student</Link>
-            </li>
-          </ul>
-        </details>
-        <details>
+      <MenuNavigate>
+        {navigation.map(({ title, links, icon }) => (
+          <Detail key={title} open={title === "me" ? true : false}>
+            <Summary>
+              <span>{icon}</span>
+              <span>{title}</span>
+            </Summary>
+            <ContentList>
+              {links.map(({ name, link }) => (
+                <List key={name}>
+                  <Action
+                    style={({ isActive }) =>
+                      isActive ? { color: " #00aeff" } : {}
+                    }
+                    to={link}
+                  >
+                    {name}
+                  </Action>
+                </List>
+              ))}
+            </ContentList>
+          </Detail>
+        ))}
+        {/* <details>
           <summary>Calification</summary>
           <hr />
           <ul>
@@ -70,8 +87,8 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
           <ul>
             <li>Create Attendance</li>
           </ul>
-        </details>
-      </section>
+        </details> */}
+      </MenuNavigate>
       <Outlet />
     </div>
   );
