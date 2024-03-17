@@ -6,7 +6,7 @@ import { ME_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
-import { Content, DataLabel, Label } from "./styled-components";
+import { Container, ImageProfile, Label, Title } from "./styled-components";
 
 export type ProfileProps = {
   // types...
@@ -33,20 +33,30 @@ const Profile = ({}: ProfileProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h2>Teacher</h2>
-      <div>
-        <Content>
-          <Label>Names</Label>:<DataLabel>{user.name}</DataLabel>
-        </Content>
-        {/* <p>: </p> */}
-        <p>First Name: {user.first_name}</p>
-        <p>Second Name: {user.second_name}</p>
-        <p>Email: {user.email}</p>
-        <h2>Courses</h2>
+    <Container>
+      <Title>Teacher</Title>
+      <div style={{ inlineSize: "100%", display: "flex", gap: "1rem" }}>
+        <div style={{ inlineSize: "40%" }}>
+          <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
+        </div>
+        <div style={{ inlineSize: "60%" }}>
+          <Label>
+            <span>names </span>: <span>{user.name}</span>
+          </Label>
+          <Label>
+            <span>first name </span>: <span>{user.first_name}</span>
+          </Label>
+          <Label>
+            <span>last name </span>: <span>{user.second_name}</span>
+          </Label>
+          <Label>
+            <span>email </span>: <span>{user.email}</span>
+          </Label>
+        </div>
       </div>
+      <Title>Courses</Title>
       <TableData datos={course} type="course" />
-    </div>
+    </Container>
   );
 };
 
