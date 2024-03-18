@@ -13,3 +13,4 @@ export * from "./RegisterCourse";
 export * from "./Student";
 export * from "./TableData";
 export * from "./UploadSheet";
+export * from "./Navigation";
