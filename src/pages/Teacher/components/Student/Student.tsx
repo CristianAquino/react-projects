@@ -6,6 +6,7 @@ import { ME_STUDENT } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { MeStudentType } from "../../models";
 import { get_student_one_id } from "../../services";
+import { Container, ImageProfile, Label, Title } from "..";
 
 export type StudentProps = {
   // types...
@@ -31,14 +32,34 @@ const Student = ({}: StudentProps) => {
     };
   }, []);
   return (
-    <div>
-      <h2>Profile Student</h2>
-      <p>Name: {student.name}</p>
-      <p>First Name: {student.first_name}</p>
-      <p>Second Name: {student.second_name}</p>
-      <p>Average: {student.average}</p>
-      <p>Calification: {student.calification}</p>
-    </div>
+    <Container>
+      <Title>Profile Student</Title>
+      <div style={{ inlineSize: "100%", display: "flex", gap: "1rem" }}>
+        <div style={{ inlineSize: "40%" }}>
+          <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
+        </div>
+        <div style={{ inlineSize: "60%" }}>
+          <Label>
+            <span>Name </span>: <span>{student.name}</span>
+          </Label>
+          <Label>
+            <span>First Name </span>: <span>{student.first_name}</span>
+          </Label>
+          <Label>
+            <span>First Name </span>: <span>{student.second_name}</span>
+          </Label>
+          <Label>
+            <span>Average </span>: <span>{student.average}</span>
+          </Label>
+          <Label>
+            <span>Calification </span>:{" "}
+            <span>
+              {student.calification ? student.calification : "no register"}
+            </span>
+          </Label>
+        </div>
+      </div>
+    </Container>
   );
 };
 

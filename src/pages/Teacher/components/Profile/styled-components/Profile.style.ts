@@ -6,8 +6,13 @@ const Container = styled.div`
   gap: 1rem;
 `;
 const Title = styled.h2`
+  --min: 0.75rem;
+  --mid: calc(1rem + 1vw);
+  --max: 2.5rem;
+
   inline-size: fit-content;
   position: relative;
+  font-size: clamp(var(--mid), var(--mid), var(--max));
   &::after {
     content: "";
     width: 100%;

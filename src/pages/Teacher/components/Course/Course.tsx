@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TableData } from "..";
+import { Container, Label, TableData, Title } from "..";
 import { ME_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { MeCourseType } from "../../models/course.model";
@@ -37,15 +37,25 @@ const Course = ({}: CourseProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h2>Course Info</h2>
-      <p>Course Name: {course.name}</p>
-      <p>Level: {course.level}</p>
-      <p>Degree: {course.degree}</p>
-      <p>Section: {course.section}</p>
-      <h2>Students Data</h2>
+    <Container>
+      <Title>Course Info</Title>
+      <div style={{ inlineSize: "60%" }}>
+        <Label>
+          <span>Course Name </span>: <span>{course.name}</span>
+        </Label>
+        <Label>
+          <span>Level </span>: <span>{course.level}</span>
+        </Label>
+        <Label>
+          <span>Degree </span>: <span>{course.degree}</span>
+        </Label>
+        <Label>
+          <span>Section </span>: <span>{course.section}</span>
+        </Label>
+      </div>
+      <Title>Students Data</Title>
       <TableData datos={students} type="student" />
-    </div>
+    </Container>
   );
 };
 
