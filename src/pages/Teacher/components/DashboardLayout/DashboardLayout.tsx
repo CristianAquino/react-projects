@@ -1,7 +1,12 @@
 "use client";
 
 import { Helmet } from "react-helmet";
-import { PiNotebook, PiStudent, PiUserCircle } from "react-icons/pi";
+import {
+  PiArrowBendDownRight,
+  PiNotebook,
+  PiStudent,
+  PiUserCircle,
+} from "react-icons/pi";
 import { Outlet } from "react-router-dom";
 import {
   Action,
@@ -42,7 +47,7 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
   ];
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", padding: "1rem" }}>
       {/* SEO */}
       <Helmet>
         <title>Dashboard | Teacher</title>
@@ -63,10 +68,11 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
                 <List key={name}>
                   <Action
                     style={({ isActive }) =>
-                      isActive ? { color: " #00aeff" } : {}
+                      isActive ? { color: "#00aeff" } : {}
                     }
                     to={link}
                   >
+                    <PiArrowBendDownRight />
                     {name}
                   </Action>
                 </List>
