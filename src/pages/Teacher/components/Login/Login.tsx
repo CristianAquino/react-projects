@@ -1,19 +1,21 @@
 "use client";
 
 import { setCookie } from "@app/helpers";
+import { PRIVATE_ROUTE, PROYECTS_ROUTE } from "@app/routes";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LOGIN_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { LoginTeacherType } from "../../models";
 import { post_login } from "../../services";
-import { useNavigate } from "react-router-dom";
-import { PRIVATE_ROUTE, PROYECTS_ROUTE } from "@app/routes";
+import { Form, InputButtons, Label, LoadingForm } from "./styled-components";
 
 export type LoginProps = {
   // types...
+  children: React.ReactNode;
 };
 
-const Login = ({}: LoginProps) => {
+const Login = ({ children }: LoginProps) => {
   const [form, setForm] = useState<LoginTeacherType>(LOGIN_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const Login = ({}: LoginProps) => {
     if (data) {
       setCookie<string>({ key: "_token", value: data.token, time: 15 });
       navigate(PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD);
+      setForm(LOGIN_TEACHER);
     }
   }
 
@@ -35,20 +38,25 @@ const Login = ({}: LoginProps) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} onChange={handleChange}>
-        <label aria-label="insert your email">
-          Email:
-          <input type="email" name="email" value={form.email} />
-        </label>
-        <label aria-label="insert your password">
-          Password:
-          <input type="password" name="password" value={form.password} />
-        </label>
+    <Form onSubmit={handleSubmit} onChange={handleChange}>
+      <Label aria-label="insert your email">
+        <span>email:</span>
+        <input type="text" name="email" value={form.email} />
+      </Label>
+      <Label aria-label="insert your password">
+        <span>password:</span>
+        <input type="password" name="password" value={form.password} />
+      </Label>
+      <InputButtons>
         <input type="submit" value="Login" />
-      </form>
-      {loading && <p>loading...</p>}
-    </>
+        {children}
+      </InputButtons>
+      {loading && (
+        <LoadingForm>
+          <p>loading...</p>
+        </LoadingForm>
+      )}
+    </Form>
   );
 };
 

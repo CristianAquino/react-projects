@@ -1,12 +1,18 @@
 "use client";
 import React, { useState } from "react";
 import { Container, Title } from "..";
-import { LabelError } from "../..";
 import { REGISTER_COURSE } from "../../helpers";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { CreateCourseSchema, CreateCourseType } from "../../models";
 import { post_course_create } from "../../services";
-import { Form, InputButton, Label, Option, Select } from "./styled-components";
+import { Label } from "../Login/styled-components";
+import {
+  FormCourse,
+  InputButtonsCourse,
+  LabelErrorCourse,
+  Option,
+  Select,
+} from "./styled-components";
 
 export type RegisterCourseProps = {
   // types...
@@ -47,28 +53,32 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
   return (
     <Container>
       <Title>Register Course</Title>
-      <Form onSubmit={handleSubmit} onChange={handleChange}>
+      <FormCourse onSubmit={handleSubmit} onChange={handleChange}>
         <Label aria-label="enter the name of the course">
-          Name course:
+          <span>name course:</span>
           <input type="text" name="name" value={form.name} autoFocus />
         </Label>
-        {errors?.name &&
-          errors.name.map((error) => (
-            <LabelError key={error}>{error}</LabelError>
-          ))}
+        <div>
+          {errors?.name &&
+            errors.name.map((error) => (
+              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+            ))}
+        </div>
         <Label aria-label="select course level">
-          Level:
+          <span>level:</span>
           <Select name="level" defaultValue={form.level}>
             <Option value="primaria">primaria</Option>
             <Option value="secundaria">secundaria</Option>
           </Select>
         </Label>
-        {errors?.level &&
-          errors.level.map((error) => (
-            <LabelError key={error}>{error}</LabelError>
-          ))}
+        <div>
+          {errors?.level &&
+            errors.level.map((error) => (
+              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+            ))}
+        </div>
         <Label aria-label="select course level">
-          Degree:
+          <span>degree:</span>
           <Select name="degree" defaultValue={form.degree}>
             {degree.map((e) => (
               <Option key={e} value={e}>
@@ -77,20 +87,26 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
             ))}
           </Select>
         </Label>
-        {errors?.degree &&
-          errors.degree.map((error) => (
-            <LabelError key={error}>{error}</LabelError>
-          ))}
+        <div>
+          {errors?.degree &&
+            errors.degree.map((error) => (
+              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+            ))}
+        </div>
         <Label aria-label="enter the section of the course">
-          Section:
+          <span>section:</span>
           <input type="text" name="section" value={form.section} />
         </Label>
-        {errors?.section &&
-          errors.section.map((error) => (
-            <LabelError key={error}>{error}</LabelError>
-          ))}
-        <InputButton type="submit" value="Register" disabled={flag} />
-      </Form>
+        <div>
+          {errors?.section &&
+            errors.section.map((error) => (
+              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+            ))}
+        </div>
+        <InputButtonsCourse>
+          <input type="submit" value="Register" disabled={flag} />
+        </InputButtonsCourse>
+      </FormCourse>
     </Container>
   );
 };
