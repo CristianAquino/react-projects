@@ -26,7 +26,10 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
     {
       title: "me",
       icon: <PiUserCircle />,
-      links: [{ name: "profile", link: "me/profile" }],
+      links: [
+        { name: "profile", link: "me/profile" },
+        { name: "update data", link: "me/update" },
+      ],
     },
     {
       title: "course",
@@ -58,7 +61,7 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
       </Helmet>
       <MenuNavigate>
         {navigation.map(({ title, links, icon }) => (
-          <Detail key={title} open={title === "me" ? true : false}>
+          <Detail key={title} open>
             <Summary>
               <span>{icon}</span>
               <span>{title}</span>

@@ -1,5 +1,5 @@
 "use client";
-import { getCookie, setCookie } from "@app/helpers";
+import { getCookie, removeLocalStorage, setCookie } from "@app/helpers";
 import { Suspense, lazy, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -29,6 +29,8 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
 
   function handleLogout() {
     setCookie({ key: "_token", value: "", time: -1 });
+    removeLocalStorage({ key: "user" });
+    removeLocalStorage({ key: "courses" });
     navigate("/teacher");
   }
 

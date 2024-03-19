@@ -12,6 +12,7 @@ import {
   RegisterCourse,
   Student,
   UploadSheet,
+  UpdateTeacher,
 } from "..";
 
 const Home = lazy(() => import("./Home/Home"));
@@ -26,6 +27,7 @@ const Dashboard = ({}: DashboardProps) => {
         <Route path="/" element={<Home />}>
           <Route index element={<p>Ninguna accion realizada</p>} />
           <Route path="me/profile" element={<Profile />} />
+          <Route path="me/update" element={<UpdateTeacher />} />
           <Route path="course/register" element={<RegisterCourse />} />
           <Route path="course/list" element={<ListCourse />} />
           <Route path="calification/register" element={<RegisterCourse />} />
