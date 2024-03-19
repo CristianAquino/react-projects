@@ -1,23 +1,17 @@
 import styled from "styled-components";
+import { Form, InputButtons, LabelError } from "../../Login/styled-components";
 
-const Form = styled.form`
-  & label > input[type="text"] {
-    border: none;
-    background-color: transparent;
-    border-block-end: 2px solid #1567ff;
-    caret-color: #1567ff;
-    margin-inline-start: 1rem;
-    inline-size: 40%;
-  }
+const FormCourse = styled(Form)`
+  inline-size: 100%;
 `;
 const Select = styled.select`
   border: none;
   background-color: #1567ff;
-  margin-inline-start: 1rem;
   inline-size: 40%;
   padding: 0.5rem;
   border-radius: 0.5rem;
   vertical-align: 0.75rem;
+  transform: translateX(-80%);
 `;
 const Option = styled.option`
   text-align: center;
@@ -26,16 +20,12 @@ const Option = styled.option`
     background-color: #242424;
   }
 `;
-const Label = styled.label`
-  display: block;
-  margin-block-end: 1rem;
-  text-align: start;
-  font-size: 1.5rem;
+const LabelErrorCourse = styled(LabelError)`
+  inline-size: 100%;
 `;
-const InputButton = styled.input.attrs({ type: "submit" })`
-  padding: 0.5rem;
-  background-color: #1567ff;
-  font-size: 1.5rem;
-  border-radius: 0.5rem;
+const InputButtonsCourse = styled(InputButtons)`
+  & * {
+    inline-size: 100%;
+  }
 `;
-export { Label, Select, InputButton, Form, Option };
+export { Select, FormCourse, Option, LabelErrorCourse, InputButtonsCourse };

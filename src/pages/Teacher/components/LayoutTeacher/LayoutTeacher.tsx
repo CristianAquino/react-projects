@@ -3,7 +3,7 @@ import { getCookie, setCookie } from "@app/helpers";
 import { Suspense, lazy, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Modal } from "..";
+import { Modal, Navigation, Title } from "..";
 import { Container, Content } from "./styled-components";
 
 const Login = lazy(() => import("../Login/Login"));
@@ -54,40 +54,48 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
       </Helmet>
       <Modal ref={modalLoginRef}>
         <Suspense fallback={<p>Loading...</p>}>
-          <Login />
+          <Title>Login</Title>
+          <Login>
+            <button
+              onClick={() => handleCloseModal(modalLoginRef)}
+              formMethod="dialog"
+              type="reset"
+            >
+              cancel
+            </button>
+          </Login>
         </Suspense>
-        <button
-          onClick={() => handleCloseModal(modalLoginRef)}
-          formMethod="dialog"
-        >
-          close login modal
-        </button>
       </Modal>
       <Modal ref={modalRegisterRef}>
         <Suspense fallback={<p>Loading...</p>}>
-          <Register />
+          <Title>Register</Title>
+          <Register>
+            <button
+              onClick={() => handleCloseModal(modalRegisterRef)}
+              formMethod="dialog"
+              type="button"
+            >
+              cancel
+            </button>
+          </Register>
         </Suspense>
-        <button
-          onClick={() => handleCloseModal(modalRegisterRef)}
-          formMethod="dialog"
-        >
-          close register modal
-        </button>
       </Modal>
-      <div>
-        {tk ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <>
-            <button onClick={() => handleOpenModal(modalLoginRef)}>
-              login
-            </button>
-            <button onClick={() => handleOpenModal(modalRegisterRef)}>
-              register
-            </button>
-          </>
-        )}
-      </div>
+      <Navigation>
+        <section>
+          {tk ? (
+            <button onClick={handleLogout}>logout</button>
+          ) : (
+            <>
+              <button onClick={() => handleOpenModal(modalLoginRef)}>
+                login
+              </button>
+              <button onClick={() => handleOpenModal(modalRegisterRef)}>
+                register
+              </button>
+            </>
+          )}
+        </section>
+      </Navigation>
       <Content>
         <Outlet />
       </Content>
