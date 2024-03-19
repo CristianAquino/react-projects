@@ -12,7 +12,9 @@ const Title = styled.h2`
 
   inline-size: fit-content;
   position: relative;
+  text-transform: capitalize;
   font-size: clamp(var(--mid), var(--mid), var(--max));
+
   &::after {
     content: "";
     width: 100%;
@@ -33,6 +35,7 @@ const Data = styled.div`
 const Label = styled.p`
   text-align: start;
   font-size: 1.5rem;
+  margin-block-end: 0.5rem;
 
   & span:first-child {
     font-weight: bold;
