@@ -35,7 +35,6 @@ const Data = styled.div`
 const Label = styled.p`
   text-align: start;
   font-size: 1.5rem;
-  margin-block-end: 0.5rem;
 
   & span:first-child {
     font-weight: bold;
@@ -47,5 +46,10 @@ const ImageProfile = styled.img`
   aspect-ratio: 1/1;
   object-fit: contain;
 `;
-
-export { Container, Content, ImageProfile, Label, Title, Data };
+const ContentData = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-inline-size: 100%;
+`;
+export { Container, Content, ContentData, Data, ImageProfile, Label, Title };

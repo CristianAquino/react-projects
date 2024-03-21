@@ -1,13 +1,19 @@
 "use client";
 
+import { getLocalStorage, setLocalStorage } from "@app/helpers";
 import { useEffect, useState } from "react";
 import { TableData } from "..";
 import { ME_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
-import { Container, ImageProfile, Label, Title } from "./styled-components";
-import { getLocalStorage, setLocalStorage } from "@app/helpers";
+import {
+  Container,
+  ContentData,
+  ImageProfile,
+  Label,
+  Title,
+} from "./styled-components";
 
 export type ProfileProps = {
   // types...
@@ -48,7 +54,7 @@ const Profile = ({}: ProfileProps) => {
         <div style={{ inlineSize: "40%" }}>
           <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
         </div>
-        <div style={{ inlineSize: "60%" }}>
+        <ContentData style={{ inlineSize: "60%" }}>
           <Label>
             <span>names: </span>
             <span>{user.name}</span>
@@ -65,7 +71,7 @@ const Profile = ({}: ProfileProps) => {
             <span>email: </span>
             <span>{user.email}</span>
           </Label>
-        </div>
+        </ContentData>
       </div>
       <Title>courses</Title>
       <TableData datos={course} type="course" />
