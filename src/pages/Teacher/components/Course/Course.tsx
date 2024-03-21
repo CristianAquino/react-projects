@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Label, TableData, Title } from "..";
+import { TableData } from "..";
 import { ME_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { MeCourseType } from "../../models/course.model";
 import { get_course_one_id } from "../../services";
+import {
+  Container,
+  ContentData,
+  Label,
+  Title,
+} from "../Profile/styled-components";
 
 export type CourseProps = {
   // types...
@@ -38,21 +44,25 @@ const Course = ({}: CourseProps) => {
 
   return (
     <Container>
-      <Title>Course Info</Title>
-      <div style={{ inlineSize: "60%" }}>
+      <Title>course info</Title>
+      <ContentData>
         <Label>
-          <span>Course Name </span>: <span>{course.name}</span>
+          <span>course name: </span>
+          <span>{course.name}</span>
         </Label>
         <Label>
-          <span>Level </span>: <span>{course.level}</span>
+          <span>level: </span>
+          <span>{course.level}</span>
         </Label>
         <Label>
-          <span>Degree </span>: <span>{course.degree}</span>
+          <span>degree: </span>
+          <span>{course.degree}</span>
         </Label>
         <Label>
-          <span>Section </span>: <span>{course.section}</span>
+          <span>section: </span>
+          <span>{course.section}</span>
         </Label>
-      </div>
+      </ContentData>
       <Title>Students Data</Title>
       <TableData datos={students} type="student" />
     </Container>
