@@ -24,13 +24,10 @@ const Title = styled.h2`
     border: 1px solid #1567ff;
   }
 `;
-const Content = styled.div`
+const ContentData = styled.div`
   inline-size: 100%;
   display: flex;
-  justify-content: center;
-`;
-const Data = styled.div`
-  inline-size: 60%;
+  gap: 1rem;
 `;
 const Label = styled.p`
   text-align: start;
@@ -46,10 +43,10 @@ const ImageProfile = styled.img`
   aspect-ratio: 1/1;
   object-fit: contain;
 `;
-const ContentData = styled.section`
+const Data = styled.section`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   max-inline-size: 100%;
 `;
-export { Container, Content, ContentData, Data, ImageProfile, Label, Title };
+export { Container, ContentData, Data, ImageProfile, Label, Title };

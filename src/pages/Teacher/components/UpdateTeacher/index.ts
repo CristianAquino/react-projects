@@ -1,1 +1,0 @@
-export { default as UpdateTeacher } from './UpdateTeacher';

@@ -3,13 +3,14 @@
 import { getLocalStorage, setLocalStorage } from "@app/helpers";
 import { useEffect, useState } from "react";
 import { TableData } from "..";
-import { ME_TEACHER } from "../../helpers";
+import { PROFILE_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
 import {
   Container,
   ContentData,
+  Data,
   ImageProfile,
   Label,
   Title,
@@ -24,7 +25,7 @@ const Profile = ({}: ProfileProps) => {
   const me = getLocalStorage({ key: "user" });
   const courses = getLocalStorage({ key: "courses" });
   const [{ user, course }, setAccount] =
-    useState<ProfileTeacherType>(ME_TEACHER);
+    useState<ProfileTeacherType>(PROFILE_TEACHER);
 
   useEffect(() => {
     async function getMe() {
@@ -41,7 +42,7 @@ const Profile = ({}: ProfileProps) => {
     }
     getMe();
     return () => {
-      setAccount(ME_TEACHER);
+      setAccount(PROFILE_TEACHER);
     };
   }, []);
 
@@ -50,11 +51,11 @@ const Profile = ({}: ProfileProps) => {
   return (
     <Container>
       <Title>teacher</Title>
-      <div style={{ inlineSize: "100%", display: "flex", gap: "1rem" }}>
+      <ContentData>
         <div style={{ inlineSize: "40%" }}>
           <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
         </div>
-        <ContentData style={{ inlineSize: "60%" }}>
+        <Data style={{ inlineSize: "60%" }}>
           <Label>
             <span>names: </span>
             <span>{user.name}</span>
@@ -71,8 +72,8 @@ const Profile = ({}: ProfileProps) => {
             <span>email: </span>
             <span>{user.email}</span>
           </Label>
-        </ContentData>
-      </div>
+        </Data>
+      </ContentData>
       <Title>courses</Title>
       <TableData datos={course} type="course" />
     </Container>

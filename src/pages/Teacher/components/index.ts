@@ -13,6 +13,6 @@ export * from "./Register";
 export * from "./RegisterCourse";
 export * from "./Student";
 export * from "./TableData";
-export * from "./UpdateTeacher";
+export * from "./UpdateProfile";
 export * from "./UpdateCourse";
 export * from "./UploadSheet";
