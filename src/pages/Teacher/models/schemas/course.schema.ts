@@ -1,6 +1,13 @@
 import { z } from "zod";
 import { Level } from "..";
 
+const ID = z
+  .string({
+    invalid_type_error: "id must be a string",
+  })
+  .trim()
+  .uuid({ message: "invalid format" });
+
 const CreateCourseSchema = z.object({
   name: z
     .string({ required_error: "name is required" })
@@ -23,35 +30,19 @@ const CreateCourseSchema = z.object({
 const ListCourseSchema = z.object({
   courses: z.array(
     z.object({
-      id: z
-        .string({
-          invalid_type_error: "id must be a string",
-        })
-        .trim()
-        .uuid({ message: "invalid format" }),
+      id: ID,
       ...CreateCourseSchema.shape,
     })
   ),
 });
-
-const MeCourseSchema = z.object({
+const OneCourseSchema = z.object({
   course: z.object({
-    id: z
-      .string({
-        invalid_type_error: "id must be a string",
-      })
-      .trim()
-      .uuid({ message: "invalid format" }),
+    id: ID,
     ...CreateCourseSchema.shape,
   }),
   students: z.array(
     z.object({
-      id: z
-        .string({
-          invalid_type_error: "id must be a string",
-        })
-        .trim()
-        .uuid({ message: "invalid format" }),
+      id: ID,
       name: z
         .string({ required_error: "name is required" })
         .trim()
@@ -73,4 +64,14 @@ const MeCourseSchema = z.object({
     })
   ),
 });
-export { CreateCourseSchema, ListCourseSchema, MeCourseSchema };
+const UpdateCourseSchema = z.object({
+  id: ID,
+  ...CreateCourseSchema.shape,
+});
+
+export {
+  CreateCourseSchema,
+  ListCourseSchema,
+  OneCourseSchema,
+  UpdateCourseSchema,
+};

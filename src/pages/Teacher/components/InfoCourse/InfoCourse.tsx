@@ -3,23 +3,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TableData } from "..";
-import { ME_COURSE } from "../../helpers";
+import { ONE_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
-import { MeCourseType } from "../../models/course.model";
+import { OneCourseType } from "../../models/course.model";
 import { get_course_one_id } from "../../services";
-import {
-  Container,
-  ContentData,
-  Label,
-  Title,
-} from "../Profile/styled-components";
+import { Container, Data, Label, Title } from "../Profile/styled-components";
 
-export type CourseProps = {
+export type InfoCourseProps = {
   // types...
 };
 
-const Course = ({}: CourseProps) => {
-  const [{ course, students }, setCourse] = useState<MeCourseType>(ME_COURSE);
+const InfoCourse = ({}: InfoCourseProps) => {
+  const [{ course, students }, setCourse] = useState<OneCourseType>(ONE_COURSE);
   const { loading, callEndpoint } = useFetchAndLoad();
   const { id } = useParams();
 
@@ -36,7 +31,7 @@ const Course = ({}: CourseProps) => {
     }
     getCourseData();
     return () => {
-      setCourse(ME_COURSE);
+      setCourse(ONE_COURSE);
     };
   }, []);
 
@@ -45,7 +40,7 @@ const Course = ({}: CourseProps) => {
   return (
     <Container>
       <Title>course info</Title>
-      <ContentData>
+      <Data>
         <Label>
           <span>course name: </span>
           <span>{course.name}</span>
@@ -62,11 +57,11 @@ const Course = ({}: CourseProps) => {
           <span>section: </span>
           <span>{course.section}</span>
         </Label>
-      </ContentData>
+      </Data>
       <Title>Students Data</Title>
       <TableData datos={students} type="student" />
     </Container>
   );
 };
 
-export default Course;
+export default InfoCourse;
