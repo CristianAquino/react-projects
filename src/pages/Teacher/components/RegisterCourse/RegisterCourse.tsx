@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Container, Title } from "..";
 import { REGISTER_COURSE } from "../../helpers";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { CreateCourseSchema, CreateCourseType } from "../../models";
 import { post_course_create } from "../../services";
 import { Label } from "../Login/styled-components";
+import { Container, Title } from "../Profile/styled-components";
 import {
   FormCourse,
   InputButtonsCourse,
@@ -52,7 +52,7 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
 
   return (
     <Container>
-      <Title>Register Course</Title>
+      <Title>register course</Title>
       <FormCourse onSubmit={handleSubmit} onChange={handleChange}>
         <Label aria-label="enter the name of the course">
           <span>name course:</span>
@@ -79,7 +79,7 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
         </div>
         <Label aria-label="select course level">
           <span>degree:</span>
-          <Select name="degree" defaultValue={form.degree}>
+          <Select name="degree" value={form.degree}>
             {degree.map((e) => (
               <Option key={e} value={e}>
                 {e}
