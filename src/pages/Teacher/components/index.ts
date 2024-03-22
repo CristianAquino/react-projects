@@ -1,5 +1,6 @@
 export * from "./ActionUploadSheet";
-export * from "./Course";
+export * from "./ActionsInCourses";
+export * from "./InfoCourse";
 export * from "./Dashboard";
 export * from "./DashboardLayout";
 export * from "./Home";
@@ -14,5 +15,4 @@ export * from "./RegisterCourse";
 export * from "./Student";
 export * from "./TableData";
 export * from "./UpdateProfile";
-export * from "./UpdateCourse";
 export * from "./UploadSheet";
