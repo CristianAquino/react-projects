@@ -15,4 +15,4 @@ export * from "./RegisterCourse";
 export * from "./Student";
 export * from "./TableData";
 export * from "./UpdateProfile";
-export * from "./UploadSheet";
+export * from "./RegisterStudents";
