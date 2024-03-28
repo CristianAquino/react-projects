@@ -2,11 +2,11 @@
 
 import { getLocalStorage, setLocalStorage } from "@app/helpers";
 import { useEffect, useState } from "react";
-import { TableData } from "..";
 import { PROFILE_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
+import { TableDataCourse } from "../TableData/TableData";
 import {
   Container,
   ContentData,
@@ -75,7 +75,7 @@ const Profile = ({}: ProfileProps) => {
         </Data>
       </ContentData>
       <Title>courses</Title>
-      <TableData datos={course} type="course" />
+      <TableDataCourse datos={course} url={"/teacher/dashboard/course/info"} />
     </Container>
   );
 };
