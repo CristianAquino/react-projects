@@ -61,6 +61,8 @@ const OneCourseSchema = z.object({
         .min(3, { message: "min length must be 3" })
         .max(80, { message: "max length must be 80" })
         .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid second name" }),
+      average: z.number(),
+      calification: z.string(),
     })
   ),
 });
