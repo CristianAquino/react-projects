@@ -17,3 +17,4 @@ export * from "./UpdateProfile";
 export * from "./RegisterStudents";
 export * from "./RegisterAttendance";
 export * from "./TakeAttendanceCourse";
+export * from "./SearchCourse";

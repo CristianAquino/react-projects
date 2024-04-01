@@ -1,6 +1,5 @@
 "use client";
 
-import { getLocalStorage } from "@app/helpers";
 import { ChangeEvent, useId, useState } from "react";
 import { PiXCircle } from "react-icons/pi";
 import { read, utils } from "xlsx";
@@ -13,7 +12,6 @@ import { LabelError } from "../Login/styled-components";
 import { Container, Title } from "../Profile/styled-components";
 import {
   ButtonAddStudents,
-  ContentSearch,
   LabelSheet,
   RadioInput,
   SelectCourse,
@@ -21,9 +19,11 @@ import {
 
 export type RegisterStudentsProps = {
   // types...
+  course: any;
+  uploadCourse: (up: any) => void;
 };
 
-const RegisterStudents = ({}: RegisterStudentsProps) => {
+const RegisterStudents = ({ course, uploadCourse }: RegisterStudentsProps) => {
   // for upload sheet
   const [validateSheet, setValidateSheet] = useState(true);
   const [sheetData, setSheetData] = useState<CreateStudentType>([]);
@@ -33,9 +33,6 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
   //
   const urlSheetID = useId();
   const { callEndpoint } = useFetchAndLoad();
-  const [search, setSearch] = useState("");
-  const courses = getLocalStorage({ key: "courses" });
-  const [selectCourse, setSelectCourse] = useState<any>(null);
   const [methodUplaod, setMethodUpload] =
     useState<typeof BASE_CHANGE_UPLOAD>(BASE_CHANGE_UPLOAD);
 
@@ -43,7 +40,7 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
     await callEndpoint(
       post_student_create({
         data: sheetData,
-        id: selectCourse?.id,
+        id: course?.id,
       })
     );
   }
@@ -79,88 +76,49 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
     return;
   }
 
-  function handleSelectCourse(course: any) {
-    setSelectCourse(course);
-    setSearch("");
-  }
-
   function handleResetCourse() {
-    setSelectCourse(null);
-    setSearch("");
     setSheetData([]);
     setMethodUpload(BASE_CHANGE_UPLOAD);
-  }
-
-  function filterCourse() {
-    let c = courses.filter((e: any) => {
-      if (search == "") return;
-      return e.name.toLowerCase().includes(search.toLowerCase());
-    });
-
-    if (search.length > 0 && c.length == 0) {
-      return <li>The course could not be found, create it or search again</li>;
-    }
-    return c.map((e: any) => (
-      <li key={e.name} onClick={() => handleSelectCourse(e)}>
-        {e.name}
-      </li>
-    ));
+    uploadCourse(null);
   }
 
   return (
     <Container>
       <Title>register students</Title>
-      {!selectCourse && (
+      <Container>
         <LabelSheet>
-          <span>
-            Enter the name of the course to which you want to add students
-          </span>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            autoFocus
-          />
+          <SelectCourse onClick={handleResetCourse}>
+            Course: {course.name} <PiXCircle title="remove course" />
+          </SelectCourse>
         </LabelSheet>
-      )}
-      <ContentSearch>{filterCourse()}</ContentSearch>
-
-      {selectCourse && (
-        <Container>
-          <LabelSheet>
-            <SelectCourse onClick={handleResetCourse}>
-              Course: {selectCourse.name} <PiXCircle title="remove course" />
-            </SelectCourse>
-          </LabelSheet>
-          <RadioInput>
-            <input
-              type="radio"
-              name="methodUpload"
-              onChange={(e) => {
-                setMethodUpload({
-                  ...BASE_CHANGE_UPLOAD,
-                  url: e.target.checked,
-                });
-                setSheetData([]);
-              }}
-            />
-            <p>Upload student data from a url</p>
-          </RadioInput>
-          <RadioInput>
-            <input
-              type="radio"
-              name="methodUpload"
-              onChange={(e) =>
-                setMethodUpload({
-                  ...BASE_CHANGE_UPLOAD,
-                  file: e.target.checked,
-                })
-              }
-            />
-            <p>Upload student data from pc</p>
-          </RadioInput>
-        </Container>
-      )}
+        <RadioInput>
+          <input
+            type="radio"
+            name="methodUpload"
+            onChange={(e) => {
+              setMethodUpload({
+                ...BASE_CHANGE_UPLOAD,
+                url: e.target.checked,
+              });
+              setSheetData([]);
+            }}
+          />
+          <p>Upload student data from a url</p>
+        </RadioInput>
+        <RadioInput>
+          <input
+            type="radio"
+            name="methodUpload"
+            onChange={(e) =>
+              setMethodUpload({
+                ...BASE_CHANGE_UPLOAD,
+                file: e.target.checked,
+              })
+            }
+          />
+          <p>Upload student data from pc</p>
+        </RadioInput>
+      </Container>
       {methodUplaod.url && (
         <LabelSheet>
           <p>Paste the path where your sheet is hosted</p>
