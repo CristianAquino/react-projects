@@ -10,7 +10,7 @@ type CookieProps<T> = {
 
 // local storage
 function setLocalStorage<T>({ key, value }: LocalStorageProps<T>) {
-  localStorage.setItem(key, JSON.stringify({ ...value }));
+  localStorage.setItem(key, JSON.stringify(value));
 }
 function getLocalStorage({ key }: LocalStorageProps<any>) {
   const item = localStorage.getItem(key);
