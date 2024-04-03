@@ -1,11 +1,9 @@
 "use client";
 
-import { getLocalStorage, setLocalStorage } from "@app/helpers";
-import { useEffect, useState } from "react";
-import { PROFILE_TEACHER } from "../../helpers";
+import { useEffect } from "react";
 import { useFetchAndLoad } from "../../hooks";
-import { ProfileTeacherType } from "../../models";
 import { get_teacher_me } from "../../services";
+import { useCourseStorage, useTeacherStorage } from "../../store";
 import { TableDataCourse } from "../TableData/TableData";
 import {
   Container,
@@ -22,28 +20,22 @@ export type ProfileProps = {
 
 const Profile = ({}: ProfileProps) => {
   const { loading, callEndpoint } = useFetchAndLoad();
-  const me = getLocalStorage({ key: "user" });
-  const courses = getLocalStorage({ key: "courses" });
-  const [{ user, course }, setAccount] =
-    useState<ProfileTeacherType>(PROFILE_TEACHER);
+  const course = useCourseStorage((state) => state.course);
+  const user = useTeacherStorage((state) => state.user);
+  const setAddCourse = useCourseStorage((state) => state.setAddCourse);
+  const setAddTeacher = useTeacherStorage((state) => state.setAddTeacher);
 
   useEffect(() => {
     async function getMe() {
-      if (!me) {
+      if (!user.id) {
         const { data } = await callEndpoint(get_teacher_me());
         if (data) {
-          setLocalStorage({ key: "user", value: data.user });
-          setLocalStorage({ key: "courses", value: data.course });
-          setAccount(data);
+          setAddCourse(data.course);
+          setAddTeacher(data.user);
         }
-      } else {
-        setAccount({ user: me, course: courses });
       }
     }
     getMe();
-    return () => {
-      setAccount(PROFILE_TEACHER);
-    };
   }, []);
 
   if (loading) return <p>Loading...</p>;

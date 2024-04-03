@@ -1,10 +1,10 @@
 "use client";
 
-import { getLocalStorage } from "@app/helpers";
 import { useRef, useState } from "react";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
-import { BaseTeacherDataSchema, PutTeacherType } from "../../models";
+import { BaseTeacherDataSchema, PutUpdateTeacherType } from "../../models";
 import { put_teacher_me } from "../../services";
+import { useTeacherStorage } from "../../store";
 import { Label } from "../Login/styled-components";
 import { Container, Title } from "../Profile/styled-components";
 import {
@@ -18,9 +18,10 @@ export type UpdateProfileProps = {
 };
 
 const UpdateProfile = ({}: UpdateProfileProps) => {
-  const user = getLocalStorage({ key: "user" });
   const UpRef = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<PutTeacherType>(user);
+  const user = useTeacherStorage((state) => state.user);
+  const setUpdateTeacher = useTeacherStorage((state) => state.setUpdateTeacher);
+  const [form, setForm] = useState<PutUpdateTeacherType>(user);
   const { callEndpoint } = useFetchAndLoad();
   const { errors, flag } = useValidateForm({
     schema: BaseTeacherDataSchema,
@@ -29,6 +30,7 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
 
   async function postData() {
     await callEndpoint(put_teacher_me({ data: form }));
+    setUpdateTeacher(form);
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
