@@ -11,7 +11,7 @@ export type ParamsPropsType<T> = {
   id: string;
 };
 
-export type CreateTeacherType = z.infer<typeof CreateTeacherSchema>;
-export type LoginTeacherType = z.infer<typeof LoginTeacherSchema>;
-export type PutTeacherType = z.infer<typeof BaseTeacherDataSchema>;
-export type ProfileTeacherType = z.infer<typeof MeTeacherSchema>;
+export type PostCreateTeacherType = z.infer<typeof CreateTeacherSchema>;
+export type PostLoginTeacherType = z.infer<typeof LoginTeacherSchema>;
+export type PutUpdateTeacherType = z.infer<typeof BaseTeacherDataSchema>;
+export type GetMeTeacherDataType = z.infer<typeof MeTeacherSchema>;

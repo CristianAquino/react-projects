@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { CreateCourseSchema } from ".";
 
-const ID = z
+const Id = z
   .string({
     invalid_type_error: "id must be a string",
   })
@@ -62,19 +61,12 @@ const CreateTeacherSchema = z.object({
 });
 
 const MeTeacherSchema = z.object({
-  user: z.object({
-    ...BaseTeacherDataSchema.shape,
-    email: z
-      .string({ required_error: "email is required" })
-      .trim()
-      .email({ message: "invalid email" }),
-  }),
-  course: z.array(
-    z.object({
-      id: ID,
-      ...CreateCourseSchema.shape,
-    })
-  ),
+  ...BaseTeacherDataSchema.shape,
+  id: Id,
+  email: z
+    .string({ required_error: "email is required" })
+    .trim()
+    .email({ message: "invalid email" }),
 });
 
 export {
