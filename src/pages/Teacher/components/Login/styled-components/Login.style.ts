@@ -32,10 +32,9 @@ const Label = styled.label`
 const InputButtons = styled.div`
   display: flex;
   gap: 1rem;
-  margin-block-start: 1rem;
 
   & * {
-    inline-size: 50%;
+    inline-size: 100%;
     padding: 0.5rem;
     font-size: 1.5rem;
     border-radius: 0.5rem;
@@ -72,11 +71,12 @@ const LoadingForm = styled.div`
   font-size: 3rem;
 `;
 const LabelError = styled.p`
+  inline-size: 100%;
   color: #fff;
   padding: 0.5rem;
   border-radius: 0.5rem;
   background-color: #ea0000;
-  margin-block-end: 0.5rem;
+  margin-block-end: 0.25rem;
   font-size: 1rem;
 `;
-export { Form, Label, InputButtons, LoadingForm, LabelError };
+export { Form, InputButtons, Label, LabelError, LoadingForm };

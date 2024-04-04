@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_TEACHER } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
-import { LoginTeacherType } from "../../models";
+import { PostLoginTeacherType } from "../../models";
 import { post_login } from "../../services";
 import { Form, InputButtons, Label, LoadingForm } from "./styled-components";
 
@@ -16,7 +16,7 @@ export type LoginProps = {
 };
 
 const Login = ({ children }: LoginProps) => {
-  const [form, setForm] = useState<LoginTeacherType>(LOGIN_TEACHER);
+  const [form, setForm] = useState<PostLoginTeacherType>(LOGIN_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
   const navigate = useNavigate();
 
@@ -24,7 +24,9 @@ const Login = ({ children }: LoginProps) => {
     const { data } = await callEndpoint(post_login({ data: form }));
     if (data) {
       setCookie<string>({ key: "_token", value: data.token, time: 15 });
-      navigate(PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD);
+      navigate(
+        PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD + "/me/profile"
+      );
       setForm(LOGIN_TEACHER);
     }
   }

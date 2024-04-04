@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { REGISTER_TEACHER } from "../../helpers";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
-import { CreateTeacherSchema, CreateTeacherType } from "../../models";
+import { CreateTeacherSchema, PostCreateTeacherType } from "../../models";
 import { post_register } from "../../services";
 import {
   Form,
@@ -18,7 +18,7 @@ export type RegisterProps = {
 };
 
 const Register = ({ children }: RegisterProps) => {
-  const [form, setForm] = useState<CreateTeacherType>(REGISTER_TEACHER);
+  const [form, setForm] = useState<PostCreateTeacherType>(REGISTER_TEACHER);
   const { loading, callEndpoint } = useFetchAndLoad();
   const { errors, flag } = useValidateForm({
     schema: CreateTeacherSchema,
