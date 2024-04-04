@@ -5,13 +5,9 @@ import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { BaseTeacherDataSchema, PutUpdateTeacherType } from "../../models";
 import { put_teacher_me } from "../../services";
 import { useTeacherStorage } from "../../store";
-import { Label } from "../Login/styled-components";
+import { InputButtons, Label, LabelError } from "../Login/styled-components";
 import { Container, Title } from "../Profile/styled-components";
-import {
-  FormCourse,
-  InputButtonsCourse,
-  LabelErrorCourse,
-} from "../RegisterCourse/styled-components";
+import { FormCourse } from "../RegisterCourse/styled-components";
 
 export type UpdateProfileProps = {
   // types...
@@ -48,32 +44,35 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
           <span>name:</span>
           <input type="text" name="name" value={form.name} autoFocus />
         </Label>
-        <div>
-          {errors?.name &&
-            errors.name.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.name && (
+          <div>
+            {errors.name.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label aria-label="update your first name">
           <span>first name:</span>
           <input type="text" name="first_name" value={form.first_name} />
         </Label>
-        <div>
-          {errors?.first_name &&
-            errors.first_name.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.first_name && (
+          <div>
+            {errors.first_name.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label aria-label="update your second name">
           <span>second name:</span>
           <input type="text" name="second_name" value={form.second_name} />
         </Label>
-        <div>
-          {errors?.second_name &&
-            errors.second_name.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.second_name && (
+          <div>
+            {errors.second_name.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label
           aria-label="update your profile picture"
           onClick={() => UpRef.current?.click()}
@@ -82,9 +81,9 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
           <span>select file</span>
         </Label>
         <input ref={UpRef} type="file" name="file" hidden />
-        <InputButtonsCourse>
+        <InputButtons>
           <input type="submit" value="Register" disabled={flag} />
-        </InputButtonsCourse>
+        </InputButtons>
       </FormCourse>
     </Container>
   );
