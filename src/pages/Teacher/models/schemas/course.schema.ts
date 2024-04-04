@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { Level } from "..";
 
-const ID = z
+const Id = z
   .string({
     invalid_type_error: "id must be a string",
   })
@@ -15,7 +14,7 @@ const CreateCourseSchema = z.object({
     .min(3, { message: "min length must be 3" })
     .max(80, { message: "max length must be 80" })
     .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid name" }),
-  level: z.nativeEnum(Level),
+  level: z.enum(["primaria", "secundaria"]),
   degree: z
     .number({ required_error: "degree is required" })
     .lte(6, { message: "max degree must be 6" })
@@ -27,22 +26,16 @@ const CreateCourseSchema = z.object({
     .regex(/^([A-U]|\d)$/, { message: "invalid section" }),
 });
 
-const ListCourseSchema = z.object({
-  courses: z.array(
-    z.object({
-      id: ID,
-      ...CreateCourseSchema.shape,
-    })
-  ),
+const CourseSchema = z.object({
+  id: Id,
+  ...CreateCourseSchema.shape,
 });
+
 const OneCourseSchema = z.object({
-  course: z.object({
-    id: ID,
-    ...CreateCourseSchema.shape,
-  }),
+  course: CourseSchema,
   students: z.array(
     z.object({
-      id: ID,
+      id: Id,
       name: z
         .string({ required_error: "name is required" })
         .trim()
@@ -66,14 +59,7 @@ const OneCourseSchema = z.object({
     })
   ),
 });
-const UpdateCourseSchema = z.object({
-  id: ID,
-  ...CreateCourseSchema.shape,
-});
 
-export {
-  CreateCourseSchema,
-  ListCourseSchema,
-  OneCourseSchema,
-  UpdateCourseSchema,
-};
+const ListCourseSchema = z.array(CourseSchema);
+
+export { CourseSchema, CreateCourseSchema, ListCourseSchema, OneCourseSchema };
