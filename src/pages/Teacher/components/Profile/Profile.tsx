@@ -20,18 +20,18 @@ export type ProfileProps = {
 
 const Profile = ({}: ProfileProps) => {
   const { loading, callEndpoint } = useFetchAndLoad();
-  const course = useCourseStorage((state) => state.course);
+  const courses = useCourseStorage((state) => state.courses);
   const user = useTeacherStorage((state) => state.user);
-  const setAddCourse = useCourseStorage((state) => state.setAddCourse);
-  const setAddTeacher = useTeacherStorage((state) => state.setAddTeacher);
+  const setCourses = useCourseStorage((state) => state.setCourses);
+  const setTeacher = useTeacherStorage((state) => state.setTeacher);
 
   useEffect(() => {
     async function getMe() {
       if (!user.id) {
         const { data } = await callEndpoint(get_teacher_me());
         if (data) {
-          setAddCourse(data.course);
-          setAddTeacher(data.user);
+          setCourses(data.courses);
+          setTeacher(data.user);
         }
       }
     }
@@ -67,7 +67,7 @@ const Profile = ({}: ProfileProps) => {
         </Data>
       </ContentData>
       <Title>courses</Title>
-      <TableDataCourse datos={course} url={"/teacher/dashboard/course/info"} />
+      <TableDataCourse datos={courses} url={"/teacher/dashboard/course/info"} />
     </Container>
   );
 };
