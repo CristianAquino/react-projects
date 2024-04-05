@@ -1,1 +1,1 @@
-export { default as RegisterCourse } from './RegisterCourse';
+export { default as RegisterCourse } from "./RegisterCourse";

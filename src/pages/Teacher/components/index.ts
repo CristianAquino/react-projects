@@ -1,4 +1,3 @@
-export * from "./ActionUploadSheet";
 export * from "./ActionsInCourses";
 export * from "./Dashboard";
 export * from "./DashboardLayout";
@@ -14,8 +13,9 @@ export * from "./RegisterAttendance";
 export * from "./RegisterCalification";
 export * from "./RegisterCourse";
 export * from "./RegisterStudents";
+export * from "./RegisterStudentsInCourse";
 export * from "./SaveCalificationCourse";
-export * from "./SearchCourse";
+export * from "./SearchInTable";
 export * from "./Student";
 export * from "./TableData";
 export * from "./TakeAttendanceCourse";
