@@ -1,12 +1,11 @@
 "use client";
 
-import { getLocalStorage } from "@app/helpers";
 import { useEffect, useState } from "react";
+import { SearchInTable } from "..";
 import { useFetchAndLoad } from "../../hooks";
-import { ListCourseType } from "../../models";
 import { get_course_list } from "../../services";
+import { useCourseStorage } from "../../store";
 import { Container, Title } from "../Profile/styled-components";
-import { LabelSheet } from "../RegisterStudents/styled-components";
 import { TableDataCourseUpdate } from "../TableData/TableData";
 
 export type ActionsInCoursesProps = {
@@ -16,20 +15,16 @@ export type ActionsInCoursesProps = {
 const ActionsInCourses = ({}: ActionsInCoursesProps) => {
   const { callEndpoint } = useFetchAndLoad();
   const [search, setSearch] = useState("");
-  const course = getLocalStorage({ key: "courses" });
-  const [{ courses }, setAccount] = useState<ListCourseType>({
-    courses: course,
-  });
+  const courses = useCourseStorage((state) => state.courses);
+  const setCourses = useCourseStorage((state) => state.setCourses);
 
   useEffect(() => {
     async function get_list_course() {
-      if (!course) {
+      if (courses.length == 0) {
         const { data } = await callEndpoint(get_course_list());
         if (data) {
-          setAccount(data);
+          setCourses(data);
         }
-      } else {
-        setAccount({ courses: course });
       }
     }
     get_list_course();
@@ -38,19 +33,14 @@ const ActionsInCourses = ({}: ActionsInCoursesProps) => {
   return (
     <Container>
       <Title>list of courses</Title>
-      <LabelSheet>
-        <span>
-          Select or search for a course for which you want to edit your
-          information
-        </span>
-        <input
-          type="text"
-          value={search}
-          aria-label="insert the name of the course to search"
-          onChange={(e) => setSearch(e.target.value)}
-          autoFocus
-        />
-      </LabelSheet>
+      <SearchInTable
+        title={
+          "Select or search for a course for which you want to edit your information"
+        }
+        search={search}
+        onchange={setSearch}
+        ariaLabel="insert the name of the course to search"
+      />
       <TableDataCourseUpdate
         url={"/teacher/dashboard/course/info"}
         datos={courses.filter((e: any) => {
