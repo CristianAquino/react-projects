@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useFetchAndLoad } from "../../hooks";
 import { get_course_list } from "../../services";
-import { useCourseStorage } from "../../store";
+import { useAttendanceStorage, useCourseStorage } from "../../store";
 import { Container, Title } from "../Profile/styled-components";
 import { SearchInTable } from "../SearchInTable";
 import { TableDataCourse } from "../TableData/TableData";
@@ -17,17 +17,21 @@ const RegisterAttendance = ({}: RegisterAttendanceProps) => {
   const { loading, callEndpoint } = useFetchAndLoad();
   const courses = useCourseStorage((state) => state.courses);
   const setCourses = useCourseStorage((state) => state.setCourses);
+  const setAttendance = useAttendanceStorage((state) => state.setAttendances);
 
   useEffect(() => {
     async function get_list_course() {
       if (courses.length == 0) {
         const { data } = await callEndpoint(get_course_list());
         if (data) {
-          setCourses(data);
+          setCourses(data.courses);
         }
       }
     }
     get_list_course();
+    return () => {
+      setAttendance([]);
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;
