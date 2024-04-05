@@ -66,7 +66,7 @@ const Profile = ({}: ProfileProps) => {
           </Label>
         </Data>
       </ContentData>
-      <Title>courses</Title>
+      <Title>me courses</Title>
       <TableDataCourse datos={courses} url={"/teacher/dashboard/course/info"} />
     </Container>
   );
