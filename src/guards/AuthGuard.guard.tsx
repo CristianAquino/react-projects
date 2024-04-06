@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const AuthGuard = () => {
   const user = getCookie({ key: "_token" });
+  if (!user) localStorage.clear();
   return user ? <Outlet /> : <Navigate replace to={PROYECTS_ROUTE.TEACHER} />;
 };
 export default AuthGuard;
