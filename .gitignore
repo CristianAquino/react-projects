@@ -28,3 +28,6 @@ dist-ssr
 
 # lock
 pnpm-lock.yaml
+
+# data test
+public/data/*
