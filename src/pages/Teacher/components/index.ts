@@ -1,4 +1,5 @@
 export * from "./ActionsInCourses";
+export * from "./CourseDataTarget";
 export * from "./Dashboard";
 export * from "./DashboardLayout";
 export * from "./Home";
