@@ -45,7 +45,7 @@ const Profile = ({}: ProfileProps) => {
       <Title>teacher</Title>
       <ContentData>
         <div style={{ inlineSize: "40%" }}>
-          <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
+          <ImageProfile src={user.thumbnail} />
         </div>
         <Data style={{ inlineSize: "60%" }}>
           <Label>

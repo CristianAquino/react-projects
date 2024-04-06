@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { BaseTeacherDataSchema, PutUpdateTeacherType } from "../../models";
 import { put_teacher_me } from "../../services";
@@ -14,19 +14,24 @@ export type UpdateProfileProps = {
 };
 
 const UpdateProfile = ({}: UpdateProfileProps) => {
-  const UpRef = useRef<HTMLInputElement>(null);
-  const user = useTeacherStorage((state) => state.user);
+  const { id, email, thumbnail, ...data } = useTeacherStorage(
+    (state) => state.user
+  );
   const setUpdateTeacher = useTeacherStorage((state) => state.setUpdateTeacher);
-  const [form, setForm] = useState<PutUpdateTeacherType>(user);
-  const { callEndpoint } = useFetchAndLoad();
+  const [form, setForm] = useState<PutUpdateTeacherType>(data);
+  const { loading, callEndpoint } = useFetchAndLoad();
   const { errors, flag } = useValidateForm({
     schema: BaseTeacherDataSchema,
     data: form,
   });
 
   async function postData() {
-    await callEndpoint(put_teacher_me({ data: form }));
-    setUpdateTeacher(form);
+    const resp = await callEndpoint(put_teacher_me({ data: form }));
+    if (resp.status < 300) {
+      setUpdateTeacher(form);
+    } else {
+      setUpdateTeacher(data);
+    }
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,16 +78,14 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
             ))}
           </div>
         )}
-        <Label
-          aria-label="update your profile picture"
-          onClick={() => UpRef.current?.click()}
-        >
-          <span>image profile:</span>
-          <span>select file</span>
-        </Label>
-        <input ref={UpRef} type="file" name="file" hidden />
         <InputButtons>
-          <input type="submit" value="Register" disabled={flag} />
+          {loading ? (
+            <button style={{ backgroundColor: "#0d4dff" }} disabled>
+              loading
+            </button>
+          ) : (
+            <input type="submit" value="Update Data" disabled={flag} />
+          )}
         </InputButtons>
       </FormCourse>
     </Container>

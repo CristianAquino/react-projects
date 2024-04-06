@@ -63,6 +63,9 @@ const CreateTeacherSchema = z.object({
 const MeTeacherSchema = z.object({
   ...BaseTeacherDataSchema.shape,
   id: Id,
+  thumbnail: z
+    .string({ required_error: "image is required" })
+    .url({ message: "invalid url" }),
   email: z
     .string({ required_error: "email is required" })
     .trim()
