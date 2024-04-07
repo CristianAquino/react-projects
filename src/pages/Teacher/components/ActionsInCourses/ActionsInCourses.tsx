@@ -23,7 +23,7 @@ const ActionsInCourses = ({}: ActionsInCoursesProps) => {
       if (courses.length == 0) {
         const { data } = await callEndpoint(get_course_list());
         if (data) {
-          setCourses(data);
+          setCourses(data.courses);
         }
       }
     }
