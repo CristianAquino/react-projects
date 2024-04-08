@@ -1,11 +1,13 @@
 "use client";
 
-import { Helmet } from "react-helmet";
+import { SEO } from "@app/components";
 import {
   PiArrowBendDownRight,
-  PiNotebook,
-  PiStudent,
-  PiUserCircle,
+  PiExamThin,
+  PiHandThin,
+  PiNotebookThin,
+  PiStudentThin,
+  PiUserCircleThin,
 } from "react-icons/pi";
 import { Outlet } from "react-router-dom";
 import {
@@ -25,7 +27,7 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
   const navigation = [
     {
       title: "me",
-      icon: <PiUserCircle />,
+      icon: <PiUserCircleThin />,
       links: [
         { name: "profile", link: "me/profile" },
         { name: "update data", link: "me/update" },
@@ -33,7 +35,7 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
     },
     {
       title: "course",
-      icon: <PiNotebook />,
+      icon: <PiNotebookThin />,
       links: [
         { name: "register course", link: "course/register" },
         { name: "list courses", link: "course/list" },
@@ -41,24 +43,33 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
     },
     {
       title: "student",
-      icon: <PiStudent />,
+      icon: <PiStudentThin />,
       links: [
         { name: "info student", link: "student/info" },
         { name: "register student", link: "student/register" },
       ],
+    },
+    {
+      title: "attendance",
+      icon: <PiHandThin />,
+      links: [{ name: "register attendance", link: "attendance/search" }],
+    },
+    {
+      title: "calification",
+      icon: <PiExamThin />,
+      links: [{ name: "register calification", link: "calification/search" }],
     },
   ];
 
   return (
     <div style={{ display: "flex", padding: "1rem" }}>
       {/* SEO */}
-      <Helmet>
-        <title>Dashboard | Teacher</title>
-        <meta
-          name="description"
-          content="dashboard page for teachers created by CRdev where CRUD actions will be carried out for students, courses, grades and attendance"
-        />
-      </Helmet>
+      <SEO
+        title={"Dashboard | Teacher"}
+        description={
+          "dashboard page for teachers created by CRdev where CRUD actions will be carried out for students, courses, grades and attendance"
+        }
+      />
       <MenuNavigate>
         {navigation.map(({ title, links, icon }) => (
           <Detail key={title} open>
@@ -83,20 +94,6 @@ const DashboardLayout = ({}: DashboardLayoutProps) => {
             </ContentList>
           </Detail>
         ))}
-        {/* <details>
-          <summary>Calification</summary>
-          <hr />
-          <ul>
-            <li>Create Calification</li>
-          </ul>
-        </details>
-        <details>
-          <summary>Attendance</summary>
-          <hr />
-          <ul>
-            <li>Create Attendance</li>
-          </ul>
-        </details> */}
       </MenuNavigate>
       <Outlet />
     </div>

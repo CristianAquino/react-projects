@@ -6,14 +6,21 @@ const MenuNavigate = styled.section`
   --mid: calc(1rem + 1vw);
   --max: 2.5rem;
   inline-size: 30%;
-  block-size: 100%;
+  block-size: calc(100vh - 112px);
   position: sticky;
-  inset-block-start: 0;
+  inset-block-start: 1rem;
   font-size: clamp(var(--min), var(--mid), var(--max));
   text-transform: capitalize;
+  overflow-y: scroll;
+  scrollbar-width: none;
+
+  &:hover {
+    scrollbar-width: thin;
+    scrollbar-color: #1567ff transparent;
+  }
 `;
 const Detail = styled.details`
-  inline-size: max(40%, 80%);
+  inline-size: max(40%, 90%);
   border-radius: 0.5rem;
   position: relative;
   margin-block-end: 1rem;
