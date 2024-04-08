@@ -1,5 +1,6 @@
 "use client";
 
+import { SEO } from "@app/components";
 import { useEffect, useState } from "react";
 import { useFetchAndLoad } from "../../hooks";
 import { get_course_list } from "../../services";
@@ -38,6 +39,10 @@ const RegisterAttendance = ({}: RegisterAttendanceProps) => {
 
   return (
     <Container>
+      <SEO
+        title={"Dashboard | Teacher - Register Attendance"}
+        description={"take attendance from students"}
+      />
       <Title>register attendance</Title>
       <SearchInTable
         title={
