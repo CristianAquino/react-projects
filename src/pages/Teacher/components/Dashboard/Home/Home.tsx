@@ -8,7 +8,9 @@ export type HomeProps = {
 
 const Home = ({}: HomeProps) => {
   return (
-    <div style={{ width: "70%", height: "100%" }}>
+    <div
+      style={{ inlineSize: "70%", blockSize: "100%", paddingInline: "1rem" }}
+    >
       <Outlet />
     </div>
   );

@@ -1,9 +1,11 @@
 "use client";
-import { getCookie, removeLocalStorage, setCookie } from "@app/helpers";
+import { SEO } from "@app/components";
+import { getCookie } from "@app/helpers";
 import { Suspense, lazy, useEffect, useRef } from "react";
-import { Helmet } from "react-helmet";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Modal, Navigation, Title } from "..";
+import { Modal, Navigation } from "..";
+import { useTeacherStorage } from "../../store";
+import { Title } from "../Profile/styled-components";
 import { Container, Content } from "./styled-components";
 
 const Login = lazy(() => import("../Login/Login"));
@@ -18,6 +20,7 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
   const modalRegisterRef = useRef<HTMLDialogElement>(null);
   const navigate = useNavigate();
   const tk = getCookie({ key: "_token" });
+  const logout = useTeacherStorage((state) => state.logout);
 
   function handleOpenModal(element: any) {
     element.current.showModal();
@@ -28,9 +31,7 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
   }
 
   function handleLogout() {
-    setCookie({ key: "_token", value: "", time: -1 });
-    removeLocalStorage({ key: "user" });
-    removeLocalStorage({ key: "courses" });
+    logout();
     navigate("/teacher");
   }
 
@@ -47,41 +48,70 @@ const LayoutTeacher = ({}: LayoutTeacherProps) => {
   return (
     <Container>
       {/* SEO */}
-      <Helmet>
-        <title>Home | Teacher</title>
-        <meta
-          name="description"
-          content="main page of the project for teachers created by CRdev where actions such as student registration, courses, grades and attendance will be carried out"
+      <SEO
+        title={"Home | Teacher"}
+        description={
+          "main page of the project for teachers created by CRdev where actions such as student registration, courses, grades and attendance will be carried out"
+        }
+      >
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/teacherIcon/apple-touch-icon.png"
         />
-      </Helmet>
-      <Modal ref={modalLoginRef}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Title>Login</Title>
-          <Login>
-            <button
-              onClick={() => handleCloseModal(modalLoginRef)}
-              formMethod="dialog"
-              type="reset"
-            >
-              cancel
-            </button>
-          </Login>
-        </Suspense>
-      </Modal>
-      <Modal ref={modalRegisterRef}>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Title>Register</Title>
-          <Register>
-            <button
-              onClick={() => handleCloseModal(modalRegisterRef)}
-              formMethod="dialog"
-              type="button"
-            >
-              cancel
-            </button>
-          </Register>
-        </Suspense>
-      </Modal>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/teacherIcon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/teacherIcon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/teacherIcon/site.webmanifest" />
+        <link
+          rel="mask-icon"
+          href="/teacherIcon/safari-pinned-tab.svg"
+          color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#00aba9" />
+        <meta name="theme-color" content="#ffffff" />
+      </SEO>
+      {!tk && (
+        <>
+          <Modal ref={modalLoginRef}>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Title>Login</Title>
+              <Login>
+                <button
+                  onClick={() => handleCloseModal(modalLoginRef)}
+                  formMethod="dialog"
+                  type="reset"
+                >
+                  cancel
+                </button>
+              </Login>
+            </Suspense>
+          </Modal>
+          <Modal ref={modalRegisterRef}>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Title>Register</Title>
+              <Register>
+                <button
+                  onClick={() => handleCloseModal(modalRegisterRef)}
+                  formMethod="dialog"
+                  type="button"
+                >
+                  cancel
+                </button>
+              </Register>
+            </Suspense>
+          </Modal>
+        </>
+      )}
       <Navigation>
         <section>
           {tk ? (
