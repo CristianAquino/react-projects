@@ -1,34 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import { SEO } from "@app/components";
+import { useState } from "react";
 import { REGISTER_COURSE } from "../../helpers";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
-import { CreateCourseSchema, CreateCourseType } from "../../models";
+import { CreateCourseSchema, PostCreateCourseType } from "../../models";
 import { post_course_create } from "../../services";
-import { Label } from "../Login/styled-components";
+import { useCourseStorage } from "../../store";
+import { InputButtons, Label, LabelError } from "../Login/styled-components";
 import { Container, Title } from "../Profile/styled-components";
-import {
-  FormCourse,
-  InputButtonsCourse,
-  LabelErrorCourse,
-  Option,
-  Select,
-} from "./styled-components";
+import { FormCourse, Option, Select } from "./styled-components";
 
 export type RegisterCourseProps = {
   // types...
 };
 
 const RegisterCourse = ({}: RegisterCourseProps) => {
-  const [form, setForm] = useState<CreateCourseType>(REGISTER_COURSE);
+  const [form, setForm] = useState<PostCreateCourseType>(REGISTER_COURSE);
   const [degree, setDegree] = useState<number[]>([1, 2, 3, 4, 5, 6]);
-  const { callEndpoint } = useFetchAndLoad();
+  const setAddCourse = useCourseStorage((state) => state.setAddCourse);
+  const { loading, callEndpoint } = useFetchAndLoad();
   const { errors, flag } = useValidateForm({
     schema: CreateCourseSchema,
     data: form,
   });
-
   async function postData() {
-    await callEndpoint(post_course_create({ data: form }));
+    const resp = await callEndpoint(post_course_create({ data: form }));
+    if (resp.status < 300) {
+      const id = crypto.randomUUID();
+      const course = { ...form, id };
+      setAddCourse(course);
+      setForm(REGISTER_COURSE);
+    }
   }
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,9 +38,6 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    if (e.target.name === "degree") {
-      return setForm({ ...form, degree: parseInt(e.target.value) });
-    }
     if (e.target.value === "primaria") {
       setDegree([1, 2, 3, 4, 5, 6]);
     } else if (e.target.value === "secundaria") {
@@ -52,31 +51,37 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
 
   return (
     <Container>
+      <SEO
+        title={"Dashboard | Teacher - Register Course"}
+        description={"course registration"}
+      />
       <Title>register course</Title>
       <FormCourse onSubmit={handleSubmit} onChange={handleChange}>
         <Label aria-label="enter the name of the course">
           <span>name course:</span>
           <input type="text" name="name" value={form.name} autoFocus />
         </Label>
-        <div>
-          {errors?.name &&
-            errors.name.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.name && (
+          <div>
+            {errors.name.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label aria-label="select course level">
           <span>level:</span>
-          <Select name="level" defaultValue={form.level}>
+          <Select name="level" value={form.level}>
             <Option value="primaria">primaria</Option>
             <Option value="secundaria">secundaria</Option>
           </Select>
         </Label>
-        <div>
-          {errors?.level &&
-            errors.level.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.level && (
+          <div>
+            {errors.level.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label aria-label="select course level">
           <span>degree:</span>
           <Select name="degree" value={form.degree}>
@@ -87,25 +92,33 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
             ))}
           </Select>
         </Label>
-        <div>
-          {errors?.degree &&
-            errors.degree.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.degree && (
+          <div>
+            {errors.degree.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
+          </div>
+        )}
         <Label aria-label="enter the section of the course">
           <span>section:</span>
           <input type="text" name="section" value={form.section} />
         </Label>
-        <div>
-          {errors?.section &&
-            errors.section.map((error) => (
-              <LabelErrorCourse key={error}>{error}</LabelErrorCourse>
+        {errors?.section && (
+          <div>
+            {errors.section.map((error) => (
+              <LabelError key={error}>{error}</LabelError>
             ))}
-        </div>
-        <InputButtonsCourse>
-          <input type="submit" value="Register" disabled={flag} />
-        </InputButtonsCourse>
+          </div>
+        )}
+        <InputButtons>
+          {loading ? (
+            <button style={{ backgroundColor: "#0d4dff" }} disabled>
+              loading...
+            </button>
+          ) : (
+            <input type="submit" value="Register" disabled={flag} />
+          )}
+        </InputButtons>
       </FormCourse>
     </Container>
   );

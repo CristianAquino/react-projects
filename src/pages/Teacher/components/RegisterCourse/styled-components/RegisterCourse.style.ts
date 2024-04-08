@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form, InputButtons, LabelError } from "../../Login/styled-components";
+import { Form } from "../../Login/styled-components";
 
 const FormCourse = styled(Form)`
   inline-size: 100%;
@@ -20,12 +20,4 @@ const Option = styled.option`
     background-color: #242424;
   }
 `;
-const LabelErrorCourse = styled(LabelError)`
-  inline-size: 100%;
-`;
-const InputButtonsCourse = styled(InputButtons)`
-  & * {
-    inline-size: 100%;
-  }
-`;
-export { Select, FormCourse, Option, LabelErrorCourse, InputButtonsCourse };
+export { FormCourse, Option, Select };

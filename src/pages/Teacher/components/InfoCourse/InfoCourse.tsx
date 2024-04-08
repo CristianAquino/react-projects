@@ -1,20 +1,22 @@
 "use client";
 
+import { SEO } from "@app/components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TableData } from "..";
 import { ONE_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
-import { OneCourseType } from "../../models/course.model";
+import { GetOneCourseType } from "../../models/course.model";
 import { get_course_one_id } from "../../services";
 import { Container, Data, Label, Title } from "../Profile/styled-components";
+import { TableDataStudentInfo } from "../TableData/TableData";
 
 export type InfoCourseProps = {
   // types...
 };
 
 const InfoCourse = ({}: InfoCourseProps) => {
-  const [{ course, students }, setCourse] = useState<OneCourseType>(ONE_COURSE);
+  const [{ course, students }, setCourse] =
+    useState<GetOneCourseType>(ONE_COURSE);
   const { loading, callEndpoint } = useFetchAndLoad();
   const { id } = useParams();
 
@@ -25,8 +27,6 @@ const InfoCourse = ({}: InfoCourseProps) => {
         if (data) {
           setCourse(data);
         }
-      } else {
-        return;
       }
     }
     getCourseData();
@@ -39,6 +39,10 @@ const InfoCourse = ({}: InfoCourseProps) => {
 
   return (
     <Container>
+      <SEO
+        title={`Dashboard | Teacher - ${course.name} Information`}
+        description={`information about ${course.name}`}
+      />
       <Title>course info</Title>
       <Data>
         <Label>
@@ -59,7 +63,10 @@ const InfoCourse = ({}: InfoCourseProps) => {
         </Label>
       </Data>
       <Title>Students Data</Title>
-      <TableData datos={students} type="student" />
+      <TableDataStudentInfo
+        datos={students}
+        url={"/teacher/dashboard/student/info"}
+      />
     </Container>
   );
 };
