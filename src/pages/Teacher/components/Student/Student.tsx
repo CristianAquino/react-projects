@@ -9,6 +9,7 @@ import { get_student_one_id } from "../../services";
 import {
   Container,
   ContentData,
+  Data,
   ImageProfile,
   Label,
   Title,
@@ -43,11 +44,11 @@ const Student = ({}: StudentProps) => {
   return (
     <Container>
       <Title>profile student</Title>
-      <div style={{ inlineSize: "100%", display: "flex", gap: "1rem" }}>
+      <ContentData>
         <div style={{ inlineSize: "40%" }}>
           <ImageProfile src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640-300x300.png" />
         </div>
-        <ContentData style={{ inlineSize: "60%" }}>
+        <Data style={{ inlineSize: "60%" }}>
           <Label>
             <span>name: </span>
             <span>{student.name}</span>
@@ -70,8 +71,8 @@ const Student = ({}: StudentProps) => {
               {student.calification ? student.calification : "no register"}
             </span>
           </Label>
-        </ContentData>
-      </div>
+        </Data>
+      </ContentData>
     </Container>
   );
 };

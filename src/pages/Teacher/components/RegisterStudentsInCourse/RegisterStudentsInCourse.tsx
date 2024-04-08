@@ -1,20 +1,17 @@
 "use client";
 
 import { ChangeEvent, useId, useState } from "react";
-import { PiXCircle } from "react-icons/pi";
 import { read, utils } from "xlsx";
 import { BASE_CHANGE_UPLOAD, sheetValidate } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { CourseType, CreateStudentType } from "../../models";
 import { post_student_create } from "../../services";
+import { CourseDataTarget } from "../CourseDataTarget";
 import { LabelError } from "../Login/styled-components";
 import { Label } from "../SearchInTable/styled-components";
 import { TableDataStudent } from "../TableData/TableData";
-import {
-  ButtonAddStudents,
-  RadioInput,
-  SelectCourse,
-} from "./styled-components";
+import { ButtonAddStudents, RadioInput } from "./styled-components";
+import { Title } from "../Profile/styled-components";
 
 export type RegisterStudentsInCourseProps = {
   // types...
@@ -46,7 +43,6 @@ const RegisterStudentsInCourse = ({
       })
     );
   }
-  // realizar un target de course
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files![0];
@@ -88,11 +84,8 @@ const RegisterStudentsInCourse = ({
   return (
     <>
       <>
-        <Label>
-          <SelectCourse onClick={handleResetCourse}>
-            Course: {course.name} <PiXCircle title="remove course" />
-          </SelectCourse>
-        </Label>
+        <CourseDataTarget course={course} handleRemove={handleResetCourse} />
+        <Title>upload data</Title>
         <RadioInput>
           <input
             type="radio"

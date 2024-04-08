@@ -1,5 +1,6 @@
 "use client";
 
+import { SEO } from "@app/components";
 import { useEffect, useState } from "react";
 import { RegisterStudentsInCourse, SearchInTable } from "..";
 import { useFetchAndLoad } from "../../hooks";
@@ -24,7 +25,7 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
       if (courses.length == 0) {
         const { data } = await callEndpoint(get_course_list());
         if (data) {
-          setCourses(data);
+          setCourses(data.courses);
         }
       }
     }
@@ -39,6 +40,10 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
 
   return (
     <Container>
+      <SEO
+        title={"Dashboard | Teacher - Add Students To Course"}
+        description={"add students to previously created courses"}
+      />
       <Title>register students</Title>
       {!selectCourse && (
         <>
