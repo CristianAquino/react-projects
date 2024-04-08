@@ -16,14 +16,14 @@ const CreateCourseSchema = z.object({
     .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid name" }),
   level: z.enum(["primaria", "secundaria"]),
   degree: z
-    .number({ required_error: "degree is required" })
-    .lte(6, { message: "max degree must be 6" })
-    .gte(1, { message: "min degree must be 1" }),
+    .string({ required_error: "degree is required" })
+    .trim()
+    .regex(/^[1-6]$/gi, { message: "degree out of range" }),
   section: z
     .string({ required_error: "section is required" })
     .trim()
     .max(1)
-    .regex(/^([A-U]|\d)$/, { message: "invalid section" }),
+    .regex(/^([A-H]|U|\d)$/, { message: "invalid section" }),
 });
 
 const CourseSchema = z.object({
