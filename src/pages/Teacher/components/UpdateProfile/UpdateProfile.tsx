@@ -1,5 +1,6 @@
 "use client";
 
+import { SEO } from "@app/components";
 import { useState } from "react";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { BaseTeacherDataSchema, PutUpdateTeacherType } from "../../models";
@@ -41,8 +42,14 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  if (loading) return <p>Loading...</p>;
+
   return (
     <Container>
+      <SEO
+        title={"Dashboard | Teacher - Update Profile"}
+        description={"teacher information update"}
+      />
       <Title>update data teacher</Title>
       <FormCourse onSubmit={handleSubmit} onChange={handleChange}>
         <Label aria-label="add a new name">
@@ -81,7 +88,7 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
         <InputButtons>
           {loading ? (
             <button style={{ backgroundColor: "#0d4dff" }} disabled>
-              loading
+              loading...
             </button>
           ) : (
             <input type="submit" value="Update Data" disabled={flag} />

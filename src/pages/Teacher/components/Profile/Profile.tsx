@@ -1,5 +1,6 @@
 "use client";
 
+import { SEO } from "@app/components";
 import { useEffect } from "react";
 import { useFetchAndLoad } from "../../hooks";
 import { get_teacher_me } from "../../services";
@@ -42,6 +43,10 @@ const Profile = ({}: ProfileProps) => {
 
   return (
     <Container>
+      <SEO
+        title={"Dashboard | Teacher - Profile"}
+        description={"teacher information"}
+      />
       <Title>teacher</Title>
       <ContentData>
         <div style={{ inlineSize: "40%" }}>
