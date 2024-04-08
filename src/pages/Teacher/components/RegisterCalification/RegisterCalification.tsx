@@ -1,13 +1,12 @@
 "use client";
 
-import { getLocalStorage } from "@app/helpers";
+import { SEO } from "@app/components";
 import { useEffect, useState } from "react";
-import { LIST_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
-import { ListCourseType } from "../../models";
 import { get_course_list } from "../../services";
+import { useCalificationStore, useCourseStorage } from "../../store";
 import { Container, Title } from "../Profile/styled-components";
-import { LabelSheet } from "../RegisterStudents/styled-components";
+import { SearchInTable } from "../SearchInTable";
 import { TableDataCourse } from "../TableData/TableData";
 
 export type RegisterCalificationProps = {
@@ -17,39 +16,44 @@ export type RegisterCalificationProps = {
 const RegisterCalification = ({}: RegisterCalificationProps) => {
   const [search, setSearch] = useState("");
   const { loading, callEndpoint } = useFetchAndLoad();
-  const course = getLocalStorage({ key: "courses" });
-  const [{ courses }, setAccount] = useState<ListCourseType>(LIST_COURSE);
+  const courses = useCourseStorage((state) => state.courses);
+  const setCourses = useCourseStorage((state) => state.setCourses);
+  const setCalifications = useCalificationStore(
+    (state) => state.setCalifications
+  );
 
   useEffect(() => {
     async function get_list_course() {
-      if (!course) {
+      if (courses.length == 0) {
         const { data } = await callEndpoint(get_course_list());
         if (data) {
-          setAccount(data);
+          setCourses(data);
         }
-      } else {
-        setAccount({ courses: course });
       }
     }
     get_list_course();
+    return () => {
+      setCalifications([]);
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <Container>
-      <Title>list of course</Title>
-      <LabelSheet>
-        <span>
-          Enter the name of the course to which you want to add attendances
-        </span>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          autoFocus
-        />
-      </LabelSheet>
+      <SEO
+        title={"Dashboard | Teacher - Register Califications"}
+        description={"record of the grades of students belonging to a course"}
+      />
+      <Title>register califications</Title>
+      <SearchInTable
+        title={
+          "Enter the name of the course to which you want to add attendances"
+        }
+        search={search}
+        onchange={setSearch}
+        ariaLabel="insert the name of the course to search"
+      />
       <TableDataCourse
         url={"/teacher/dashboard/calification/search"}
         datos={courses.filter((e: any) => {
