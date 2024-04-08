@@ -1,5 +1,6 @@
 "use client";
 
+import { TeacherLogo } from "@app/assets/teacherLogo";
 import { Container } from "./styled-components";
 
 export type NavigationProps = {
@@ -10,7 +11,7 @@ export type NavigationProps = {
 const Navigation = ({ children }: NavigationProps) => {
   return (
     <Container>
-      <p>logo</p>
+      <TeacherLogo />
       {children}
     </Container>
   );
