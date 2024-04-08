@@ -14,20 +14,18 @@ const REGISTER_TEACHER = {
   ...BASE_DATA,
   ...LOGIN_TEACHER,
 };
-const PROFILE_TEACHER = {
-  user: {
-    id: "",
-    email: "",
-    ...BASE_DATA,
-  },
-  course: [],
+const ME_TEACHER = {
+  id: "",
+  email: "",
+  thumbnail: "",
+  ...BASE_DATA,
 };
 const UPDATE_TEACHER = BASE_DATA;
 // COURSE
 const REGISTER_COURSE = {
   name: "",
   level: Level.primaria,
-  degree: 1,
+  degree: "1",
   section: "",
 };
 const UPDATE_COURSE = {
@@ -84,11 +82,14 @@ export {
   BASE_DATA,
   LIST_COURSE,
   LOGIN_TEACHER,
+  ME_ATTENDANCE,
+  ME_CALIFICATION,
   ME_STUDENT,
+  ME_TEACHER,
   ONE_COURSE,
-  PROFILE_TEACHER,
   REGISTER_COURSE,
   REGISTER_TEACHER,
+  UPDATE_ATTENDANCE,
   UPDATE_COURSE,
   UPDATE_TEACHER,
 };
