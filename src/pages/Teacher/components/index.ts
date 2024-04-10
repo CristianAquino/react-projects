@@ -4,6 +4,7 @@ export * from "./Dashboard";
 export * from "./DashboardLayout";
 export * from "./Home";
 export * from "./InfoCourse";
+export * from "./InitialOptionPage";
 export * from "./LayoutTeacher";
 export * from "./Login";
 export * from "./Modal";
