@@ -23,14 +23,16 @@ export function axiosInterceptor() {
 
   axios.interceptors.response.use(
     (response) => {
-      if (response.data.message) {
-        notifySuccess(response.data.message);
+      if (response.data && response.config.method === "post") {
+        notifySuccess(
+          response.data.message ?? "The action performed correctly"
+        );
       }
       return response;
     },
     (error) => {
-      if (error.response.data.detail) {
-        notifyError(error.response.data.detail);
+      if (error.response.data) {
+        notifyError(error.response.data.detail ?? "An error has occurred");
       }
       return Promise.reject(error);
     }
