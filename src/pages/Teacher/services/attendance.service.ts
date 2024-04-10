@@ -7,6 +7,7 @@ import {
   UpdateAttendanceType,
 } from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
+// const BASE_TEACHER = "http://localhost:5173/data/";
 
 function post_attendance_create({
   data,

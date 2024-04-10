@@ -1,17 +1,22 @@
 import { loadAbort } from "@app/helpers";
 import axios from "axios";
 import { COURSE_ENDPOINT } from "../helpers";
-import { CreateCourseType, ParamsPropsType } from "../models";
+import { ParamsPropsType, PostCreateCourseType } from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
+// const BASE_TEACHER = "http://localhost:5173/data/";
 
 function post_course_create({
   data,
-}: Pick<ParamsPropsType<CreateCourseType>, "data">) {
+}: Pick<ParamsPropsType<PostCreateCourseType>, "data">) {
   const controller = loadAbort();
+  //
   return {
     call: axios.post(
       VITE_API_BASE_TEACHER + COURSE_ENDPOINT.POST_COURSE_CREATE,
-      { ...data, signal: controller.signal }
+      {
+        ...data,
+        signal: controller.signal,
+      }
     ),
     controller,
   };
@@ -43,7 +48,7 @@ function get_course_list() {
 function put_course_id({
   data,
   id,
-}: ParamsPropsType<Partial<CreateCourseType>>) {
+}: ParamsPropsType<Partial<PostCreateCourseType>>) {
   const controller = loadAbort();
   return {
     call: axios.put(

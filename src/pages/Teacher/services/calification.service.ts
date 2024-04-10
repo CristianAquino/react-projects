@@ -7,6 +7,7 @@ import {
   UpdateCalificationType,
 } from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
+// const BASE_TEACHER = "http://localhost:5173/data/";
 
 function post_calification_create({
   data,
@@ -41,13 +42,15 @@ function get_calification_list_id({
 
 function put_calification({
   data,
-}: Pick<ParamsPropsType<UpdateCalificationType>, "data">) {
+  id,
+}: ParamsPropsType<UpdateCalificationType>) {
   const controller = loadAbort();
   return {
     call: axios.put(
-      VITE_API_BASE_TEACHER + CALIFICATION_ENDPOINT.PUT_CALIFICATION_UPDATE,
-      { data, signal: controller.signal },
-      { transformRequest: [(data) => JSON.stringify(data.data)] }
+      VITE_API_BASE_TEACHER +
+        CALIFICATION_ENDPOINT.PUT_CALIFICATION_UPDATE +
+        id,
+      { ...data, signal: controller.signal }
     ),
     controller,
   };

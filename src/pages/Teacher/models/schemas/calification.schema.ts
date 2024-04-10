@@ -6,43 +6,37 @@ const Id = z
   .uuid({ message: "invalid id" });
 
 const BaseCalificationDataSchema = z.object({
-  id: Id,
-  califications: z.object({
-    pt: z
-      .number()
-      .lte(20, {
-        message: "The grade entered must be less than or equal to 20",
-      })
-      .gte(0, {
-        message: "The grade entered must be greater than or equal to 0",
-      }),
-    pp: z
-      .number()
-      .lte(20, {
-        message: "The grade entered must be less than or equal to 20",
-      })
-      .gte(0, {
-        message: "The grade entered must be greater than or equal to 0",
-      }),
-    pe: z
-      .number()
-      .lte(20, {
-        message: "The grade entered must be less than or equal to 20",
-      })
-      .gte(0, {
-        message: "The grade entered must be greater than or equal to 0",
-      }),
-  }),
+  pt: z
+    .number()
+    .lte(20, {
+      message: "The grade entered must be less than or equal to 20",
+    })
+    .gte(0, {
+      message: "The grade entered must be greater than or equal to 0",
+    }),
+  pp: z
+    .number()
+    .lte(20, {
+      message: "The grade entered must be less than or equal to 20",
+    })
+    .gte(0, {
+      message: "The grade entered must be greater than or equal to 0",
+    }),
+  pe: z
+    .number()
+    .lte(20, {
+      message: "The grade entered must be less than or equal to 20",
+    })
+    .gte(0, {
+      message: "The grade entered must be greater than or equal to 0",
+    }),
 });
 
-const CreateCalificationSchema = z.array(BaseCalificationDataSchema);
-
-const UpdateCalificationSchema = z.array(
-  z.object({
-    id: Id,
-    calification: z.number().gte(0).lte(20),
-  })
+const CreateCalificationSchema = z.array(
+  z.object({ ...BaseCalificationDataSchema.shape, id: Id })
 );
+
+const UpdateCalificationSchema = BaseCalificationDataSchema;
 
 const InitialCalificationSchema = z.array(
   z.object({
@@ -65,9 +59,7 @@ const InitialCalificationSchema = z.array(
       .min(3, { message: "min length must be 3" })
       .max(80, { message: "max length must be 80" })
       .regex(/^[a-zA-Z\s]+$/gi, { message: "invalid second name" }),
-    pt: z.number(),
-    pp: z.number(),
-    pe: z.number(),
+    ...BaseCalificationDataSchema.shape,
   })
 );
 

@@ -26,9 +26,7 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
   async function postData() {
     const resp = await callEndpoint(post_course_create({ data: form }));
     if (resp.status < 300) {
-      const id = crypto.randomUUID();
-      const course = { ...form, id };
-      setAddCourse(course);
+      setAddCourse(resp.data);
       setForm(REGISTER_COURSE);
     }
   }

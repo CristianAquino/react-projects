@@ -6,7 +6,11 @@ import { Modal, SearchInTable } from "..";
 import { UPDATE_COURSE } from "../../helpers";
 import { useFetchAndLoad, useValidateForm } from "../../hooks";
 import { CourseType, CreateCourseSchema } from "../../models";
-import { delete_course_id, get_course_list } from "../../services";
+import {
+  delete_course_id,
+  get_course_list,
+  put_course_id,
+} from "../../services";
 import { useCourseStorage } from "../../store";
 import {
   InputButtons,
@@ -75,10 +79,14 @@ const ActionsInCourses = ({}: ActionsInCoursesProps) => {
   }
   async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // await callEndpoint(
-    //   put_course_id({ data: course, id: course.id })
-    // );
-    setUpdateCourse(course);
+    const resp = await callEndpoint(
+      put_course_id({ data: course, id: course.id })
+    );
+    if (resp.status < 300) {
+      setUpdateCourse(course);
+    } else {
+      setcourse(course);
+    }
   }
   const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     if (e.target.value === "primaria") {

@@ -2,16 +2,17 @@ import { loadAbort } from "@app/helpers";
 import axios from "axios";
 import { TEACHER_ENDPOINT } from "../helpers";
 import {
-  CreateTeacherType,
-  LoginTeacherType,
   ParamsPropsType,
-  PutTeacherType,
+  PostCreateTeacherType,
+  PostLoginTeacherType,
+  PutUpdateTeacherType,
 } from "../models";
 const { VITE_API_BASE_TEACHER } = import.meta.env;
+// const BASE_TEACHER = "http://localhost:5173/data/";
 
 function post_register({
   data,
-}: Omit<ParamsPropsType<CreateTeacherType>, "id">) {
+}: Omit<ParamsPropsType<PostCreateTeacherType>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.post(
@@ -22,7 +23,9 @@ function post_register({
   };
 }
 
-function post_login({ data }: Omit<ParamsPropsType<LoginTeacherType>, "id">) {
+function post_login({
+  data,
+}: Omit<ParamsPropsType<PostLoginTeacherType>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.post(
@@ -45,7 +48,7 @@ function get_teacher_me() {
 
 function put_teacher_me({
   data,
-}: Omit<ParamsPropsType<Partial<PutTeacherType>>, "id">) {
+}: Omit<ParamsPropsType<Partial<PutUpdateTeacherType>>, "id">) {
   const controller = loadAbort();
   return {
     call: axios.put(VITE_API_BASE_TEACHER + TEACHER_ENDPOINT.TEACHER_ME, {
