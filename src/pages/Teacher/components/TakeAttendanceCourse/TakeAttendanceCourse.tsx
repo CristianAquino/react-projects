@@ -9,7 +9,7 @@ import { get_course_one_id, post_attendance_create } from "../../services";
 import { useAttendanceStorage, useCourseStorage } from "../../store";
 import { CourseDataTarget } from "../CourseDataTarget";
 import { InputButtons } from "../Login/styled-components";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { TableTakeAttendanceStudent } from "../TableData/TableData";
 
 export type TakeAttendanceCourseProps = {
@@ -80,7 +80,7 @@ const TakeAttendanceCourse = ({}: TakeAttendanceCourseProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <Title>take attendance</Title>
       <CourseDataTarget course={course} handleRemove={handleRemoveCourse} />
       <Title>students</Title>
@@ -108,7 +108,7 @@ const TakeAttendanceCourse = ({}: TakeAttendanceCourseProps) => {
           </button>
         )}
       </InputButtons>
-    </Container>
+    </>
   );
 };
 

@@ -108,7 +108,7 @@ const ActionsInCourses = ({}: ActionsInCoursesProps) => {
   }, []);
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Actions in Courses"}
         description={"edit and/or delete a course"}
@@ -149,7 +149,7 @@ const ActionsInCourses = ({}: ActionsInCoursesProps) => {
           return e.name.toLowerCase().includes(search.toLowerCase());
         })}
       />
-    </Container>
+    </>
   );
 };
 

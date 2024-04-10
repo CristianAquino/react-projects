@@ -7,7 +7,7 @@ import { ONE_COURSE } from "../../helpers";
 import { useFetchAndLoad } from "../../hooks";
 import { GetOneCourseType } from "../../models/course.model";
 import { get_course_one_id } from "../../services";
-import { Container, Data, Label, Title } from "../Profile/styled-components";
+import { Data, Label, Title } from "../Profile/styled-components";
 import { TableDataStudentInfo } from "../TableData/TableData";
 
 export type InfoCourseProps = {
@@ -38,7 +38,7 @@ const InfoCourse = ({}: InfoCourseProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <SEO
         title={`Dashboard | Teacher - ${course.name} Information`}
         description={`information about ${course.name}`}
@@ -67,7 +67,7 @@ const InfoCourse = ({}: InfoCourseProps) => {
         datos={students}
         url={"/teacher/dashboard/student/info"}
       />
-    </Container>
+    </>
   );
 };
 

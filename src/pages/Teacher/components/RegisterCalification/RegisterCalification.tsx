@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useFetchAndLoad } from "../../hooks";
 import { get_course_list } from "../../services";
 import { useCalificationStore, useCourseStorage } from "../../store";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { SearchInTable } from "../SearchInTable";
 import { TableDataCourse } from "../TableData/TableData";
 
@@ -40,7 +40,7 @@ const RegisterCalification = ({}: RegisterCalificationProps) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Register Califications"}
         description={"record of the grades of students belonging to a course"}
@@ -61,7 +61,7 @@ const RegisterCalification = ({}: RegisterCalificationProps) => {
           return e.name.toLowerCase().includes(search.toLowerCase());
         })}
       />
-    </Container>
+    </>
   );
 };
 

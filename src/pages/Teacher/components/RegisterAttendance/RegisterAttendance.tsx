@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useFetchAndLoad } from "../../hooks";
 import { get_course_list } from "../../services";
 import { useAttendanceStorage, useCourseStorage } from "../../store";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { SearchInTable } from "../SearchInTable";
 import { TableDataCourse } from "../TableData/TableData";
 
@@ -38,7 +38,7 @@ const RegisterAttendance = ({}: RegisterAttendanceProps) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Register Attendance"}
         description={"take attendance from students"}
@@ -59,7 +59,7 @@ const RegisterAttendance = ({}: RegisterAttendanceProps) => {
           return e.name.toLowerCase().includes(search.toLowerCase());
         })}
       />
-    </Container>
+    </>
   );
 };
 

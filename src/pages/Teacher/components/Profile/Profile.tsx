@@ -7,7 +7,6 @@ import { get_teacher_me } from "../../services";
 import { useCourseStorage, useTeacherStorage } from "../../store";
 import { TableDataCourse } from "../TableData/TableData";
 import {
-  Container,
   ContentData,
   Data,
   ImageProfile,
@@ -42,7 +41,7 @@ const Profile = ({}: ProfileProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Profile"}
         description={"teacher information"}
@@ -73,7 +72,7 @@ const Profile = ({}: ProfileProps) => {
       </ContentData>
       <Title>me courses</Title>
       <TableDataCourse datos={courses} url={"/teacher/dashboard/course/info"} />
-    </Container>
+    </>
   );
 };
 

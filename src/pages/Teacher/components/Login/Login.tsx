@@ -24,9 +24,7 @@ const Login = ({ children }: LoginProps) => {
     const { data } = await callEndpoint(post_login({ data: form }));
     if (data) {
       setCookie<string>({ key: "_token", value: data.token, time: 15 });
-      navigate(
-        PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD + "/me/profile"
-      );
+      navigate(PROYECTS_ROUTE.TEACHER + PRIVATE_ROUTE.DASHBOARD);
       setForm(LOGIN_TEACHER);
     }
   }

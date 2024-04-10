@@ -7,7 +7,6 @@ import { useFetchAndLoad } from "../../hooks";
 import { MeStudentType } from "../../models";
 import { get_student_one_id } from "../../services";
 import {
-  Container,
   ContentData,
   Data,
   ImageProfile,
@@ -42,7 +41,7 @@ const Student = ({}: StudentProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <Title>profile student</Title>
       <ContentData>
         <div style={{ inlineSize: "40%" }}>
@@ -73,7 +72,7 @@ const Student = ({}: StudentProps) => {
           </Label>
         </Data>
       </ContentData>
-    </Container>
+    </>
   );
 };
 

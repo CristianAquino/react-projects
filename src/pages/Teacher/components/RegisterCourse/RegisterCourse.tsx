@@ -7,7 +7,7 @@ import { CreateCourseSchema, PostCreateCourseType } from "../../models";
 import { post_course_create } from "../../services";
 import { useCourseStorage } from "../../store";
 import { InputButtons, Label, LabelError } from "../Login/styled-components";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { FormCourse, Option, Select } from "./styled-components";
 
 export type RegisterCourseProps = {
@@ -50,7 +50,7 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
   };
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Register Course"}
         description={"course registration"}
@@ -120,7 +120,7 @@ const RegisterCourse = ({}: RegisterCourseProps) => {
           )}
         </InputButtons>
       </FormCourse>
-    </Container>
+    </>
   );
 };
 

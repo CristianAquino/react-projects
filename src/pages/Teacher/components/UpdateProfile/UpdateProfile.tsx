@@ -7,7 +7,7 @@ import { BaseTeacherDataSchema, PutUpdateTeacherType } from "../../models";
 import { put_teacher_me } from "../../services";
 import { useTeacherStorage } from "../../store";
 import { InputButtons, Label, LabelError } from "../Login/styled-components";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { FormCourse } from "../RegisterCourse/styled-components";
 
 export type UpdateProfileProps = {
@@ -45,7 +45,7 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Update Profile"}
         description={"teacher information update"}
@@ -95,7 +95,7 @@ const UpdateProfile = ({}: UpdateProfileProps) => {
           )}
         </InputButtons>
       </FormCourse>
-    </Container>
+    </>
   );
 };
 

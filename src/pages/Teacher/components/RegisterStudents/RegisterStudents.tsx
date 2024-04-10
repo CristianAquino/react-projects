@@ -6,7 +6,7 @@ import { RegisterStudentsInCourse, SearchInTable } from "..";
 import { useFetchAndLoad } from "../../hooks";
 import { get_course_list } from "../../services";
 import { useCourseStorage } from "../../store";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { TableDataCourseUpload } from "../TableData/TableData";
 
 export type RegisterStudentsProps = {
@@ -39,7 +39,7 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
   }, [selectCourse]);
 
   return (
-    <Container>
+    <>
       <SEO
         title={"Dashboard | Teacher - Add Students To Course"}
         description={"add students to previously created courses"}
@@ -70,7 +70,7 @@ const RegisterStudents = ({}: RegisterStudentsProps) => {
           uploadCourse={setSelectCourse}
         />
       )}
-    </Container>
+    </>
   );
 };
 

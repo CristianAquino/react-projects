@@ -1,6 +1,7 @@
 "use client";
 
 import { Outlet } from "react-router-dom";
+import { Container } from "./styled-components";
 
 export type HomeProps = {
   // types...
@@ -8,11 +9,9 @@ export type HomeProps = {
 
 const Home = ({}: HomeProps) => {
   return (
-    <div
-      style={{ inlineSize: "70%", blockSize: "100%", paddingInline: "1rem" }}
-    >
+    <Container>
       <Outlet />
-    </div>
+    </Container>
   );
 };
 
