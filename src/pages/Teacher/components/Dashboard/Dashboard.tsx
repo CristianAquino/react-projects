@@ -8,6 +8,9 @@ import { DashboardLayout } from "..";
 
 // home
 const Home = lazy(() => import("./Home/Home"));
+const InitialOptionPage = lazy(
+  () => import("../InitialOptionPage/InitialOptionPage")
+);
 // teacher
 const Profile = lazy(() => import("../Profile/Profile"));
 const UpdateProfile = lazy(() => import("../UpdateProfile/UpdateProfile"));
@@ -45,7 +48,7 @@ const Dashboard = ({}: DashboardProps) => {
     <RoutesWithNotFound message="Page not found">
       <Route path={`${PROYECTS_ROUTE.HOME}`} element={<DashboardLayout />}>
         <Route path="/" element={<Home />}>
-          <Route index element={<p>Ninguna accion realizada</p>} />
+          <Route index element={<InitialOptionPage />} />
           <Route path="me">
             <Route path="profile" element={<Profile />} />
             <Route path="update" element={<UpdateProfile />} />

@@ -9,7 +9,7 @@ import { get_course_one_id, post_calification_create } from "../../services";
 import { useCalificationStore, useCourseStorage } from "../../store";
 import { CourseDataTarget } from "../CourseDataTarget";
 import { InputButtons } from "../Login/styled-components";
-import { Container, Title } from "../Profile/styled-components";
+import { Title } from "../Profile/styled-components";
 import { TableSaveCalificationStudent } from "../TableData/TableData";
 
 export type SaveCalificationCourseProps = {
@@ -61,7 +61,7 @@ const SaveCalificationCourse = ({}: SaveCalificationCourseProps) => {
       if (e.pt) califications["pt"] = e.pt;
       if (e.pp) califications["pp"] = e.pp;
       if (e.pe) califications["pe"] = e.pe;
-      return { id: e.id, califications };
+      return { id: e.id, ...califications };
     });
     const resp = await callEndpoint(post_calification_create({ data: a }));
     if (resp.status < 300) {
@@ -88,7 +88,7 @@ const SaveCalificationCourse = ({}: SaveCalificationCourseProps) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <Container>
+    <>
       <Title>register califications</Title>
       <CourseDataTarget course={course} handleRemove={handleRemoveCourse} />
       <Title>students</Title>
@@ -110,7 +110,7 @@ const SaveCalificationCourse = ({}: SaveCalificationCourseProps) => {
           </button>
         )}
       </InputButtons>
-    </Container>
+    </>
   );
 };
 
