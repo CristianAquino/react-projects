@@ -6,7 +6,9 @@ import { Suspense, lazy } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route } from "react-router-dom";
 
-const Teacher = lazy(() => import("@pages/Teacher/Teacher"));
+const ComponentsCollection = lazy(
+  () => import("./pages/ComponentsCollection/ComponentsCollection")
+);
 
 function App() {
   return (
@@ -14,7 +16,10 @@ function App() {
       <BrowserRouter>
         <Toaster />
         <RoutesWithNotFound message="Proyect not found">
-          <Route path={`${PROYECTS_ROUTE.TEACHER}/*`} element={<Teacher />} />
+          <Route
+            path={`${PROYECTS_ROUTE.COMPONENT}/*`}
+            element={<ComponentsCollection />}
+          />
         </RoutesWithNotFound>
       </BrowserRouter>
     </Suspense>
