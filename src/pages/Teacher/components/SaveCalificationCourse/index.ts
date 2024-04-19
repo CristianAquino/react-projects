@@ -1,1 +1,0 @@
-export { default as SaveCalificationCourse } from './SaveCalificationCourse';

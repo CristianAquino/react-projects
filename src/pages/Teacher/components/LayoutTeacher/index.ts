@@ -1,1 +1,0 @@
-export { default as LayoutTeacher } from './LayoutTeacher';
