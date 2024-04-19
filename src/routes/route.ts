@@ -27,6 +27,7 @@ export const PROYECTS_ROUTE = {
   ECOMMERCE: "/ecommerce",
   GIFS: "/gif",
   TEACHER: "/teacher",
+  COMPONENT: "/components",
 };
 
 export const COMPONENTS_ROUTE = {};
