@@ -1,6 +1,5 @@
 "use client";
 
-import { ReactNode } from "react";
 import { AiFillAccountBook } from "react-icons/ai";
 import {
   BaseAvatar,
@@ -36,7 +35,15 @@ const Avatar = ({ thumbnails }: AvatarProps) => {
   );
 };
 
-const AvatarText = ({ text, shape }: { text: string; shape?: string }) => {
+export const AvatarText = ({
+  text,
+  shape,
+  style,
+}: {
+  text: string;
+  shape?: string;
+  style?: React.CSSProperties;
+}) => {
   const i = text.trim().charAt(0);
   let initial;
 
@@ -47,27 +54,55 @@ const AvatarText = ({ text, shape }: { text: string; shape?: string }) => {
   }
 
   return (
-    <BaseAvatar shape={shape}>
+    <BaseAvatar shape={shape} style={style}>
       <span>{initial}</span>
     </BaseAvatar>
   );
 };
-const AvatarIcon = ({ icon, shape }: { icon: ReactNode; shape?: string }) => {
-  return <BaseAvatarIcon shape={shape}>{icon}</BaseAvatarIcon>;
-};
-const AvatarImage = ({ src, shape }: { src: string; shape?: string }) => {
+export const AvatarIcon = ({
+  icon,
+  shape,
+  style,
+}: {
+  shape?: string;
+  icon: React.ReactNode;
+  style?: React.CSSProperties;
+}) => {
   return (
-    <BaseAvatarImage shape={shape}>
+    <BaseAvatarIcon shape={shape} style={style}>
+      {icon}
+    </BaseAvatarIcon>
+  );
+};
+export const AvatarImage = ({
+  src,
+  shape,
+  size,
+  style,
+}: {
+  src: string;
+  shape?: string;
+  size?: string;
+  style?: React.CSSProperties;
+}) => {
+  return (
+    <BaseAvatarImage shape={shape} size={size} style={style}>
       <img src={src} alt="" />
     </BaseAvatarImage>
   );
 };
-const AvatarGroup = ({
+export const AvatarGroup = ({
   children,
   type,
+  style,
 }: {
-  children: ReactNode;
   type?: string;
-}) => <Container type={type}>{children}</Container>;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}) => (
+  <Container type={type} style={style}>
+    {children}
+  </Container>
+);
 
 export default Avatar;

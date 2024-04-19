@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-const Base = styled.p<{ shape?: string }>`
-  --size: 3rem;
+const Base = styled.p<{ shape?: string; size?: string }>`
+  --size: ${({ size }) => size || "3rem"};
   --b: 0.5rem;
   display: flex;
   justify-content: center;
