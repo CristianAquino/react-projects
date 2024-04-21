@@ -1,0 +1,1 @@
+export { default as Futball } from './Futball';
