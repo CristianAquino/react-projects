@@ -3,91 +3,107 @@ import styled from "styled-components";
 const Cancha = styled.div`
   position: relative;
   max-inline-size: 1200px;
-  min-inline-size: 320px;
   max-block-size: 900px;
-  inline-size: 1200px;
-  block-size: 900px;
-  aspect-ratio: 16/9;
+  min-inline-size: 320px;
+  inline-size: 100vw;
+  block-size: 75vw;
+  aspect-ratio: 4/3;
   display: flex;
   justify-content: space-around;
-  border: 2px solid white;
+  border: 0.333vw solid white;
   background: 
   /* corner */ radial-gradient(
-        15px at 0 0,
+        1.25vw at 0 0,
         transparent 80%,
         white 80% 98%,
         transparent
       )
-      0 0/ 15px 15px no-repeat,
-    radial-gradient(15px at 100% 0, transparent 80%, white 80% 98%, transparent)
-      100% 0/ 15px 15px no-repeat,
+      0 0/ 1.25vw 1.25vw no-repeat,
     radial-gradient(
-        15px at 100% 100%,
+        1.25vw at 100% 0,
         transparent 80%,
         white 80% 98%,
         transparent
       )
-      100% 100%/ 15px 15px no-repeat,
-    radial-gradient(15px at 0 100%, transparent 80%, white 80% 98%, transparent)
-      0 100%/ 15px 15px no-repeat,
+      100% 0/ 1.25vw 1.25vw no-repeat,
+    radial-gradient(
+        1.25vw at 100% 100%,
+        transparent 80%,
+        white 80% 98%,
+        transparent
+      )
+      100% 100%/ 1.25vw 1.25vw no-repeat,
+    radial-gradient(
+        1.25vw at 0 100%,
+        transparent 80%,
+        white 80% 98%,
+        transparent
+      )
+      0 100%/ 1.25vw 1.25vw no-repeat,
     /* mid line  */
       linear-gradient(
         to right,
-        transparent 49.9%,
-        white 49.9% 50.1%,
-        transparent 50.1%
+        transparent 49.8%,
+        white 49.8% 50.2%,
+        transparent 50.2%
       ),
-    /* littel area */ linear-gradient(to right, transparent 98%, white 98%) 0
-      50%/55px 183.2px no-repeat,
-    linear-gradient(to bottom, transparent 99%, white 99%) 0 50%/55px 183.2px
-      no-repeat,
-    linear-gradient(to top, transparent 99%, white 99%) 0 50%/55px 183.2px
-      no-repeat,
-    /* point penalty */
-      radial-gradient(circle 4px at 110px 50%, white 0 4px, transparent 4px),
-    /* left area */ linear-gradient(to bottom, transparent 99%, white 99%) 0 50%/165px
-      403.2px no-repeat,
-    linear-gradient(to top, transparent 99%, white 99%) 0 50%/165px 403.2px
-      no-repeat,
-    linear-gradient(to right, #1e7200 73%, #268e00 73% 99%, white 98%) 0 50%/165px
-      403.2px no-repeat,
-    radial-gradient(
-      circle 4px at 110px 50%,
-      transparent 90px,
-      white 90px 92px,
-      transparent 92px 100%
-    ),
-    /* littel area */ linear-gradient(to left, transparent 98%, white 98%) 100%
-      50%/55px 183.2px no-repeat,
-    linear-gradient(to bottom, transparent 99%, white 99%) 100% 50%/55px 183.2px
-      no-repeat,
-    linear-gradient(to top, transparent 99%, white 99%) 100% 50%/55px 183.2px
+    /* little left area */ linear-gradient(to right, transparent 94%, white 94%)
+      0 50%/4.583vw 15.266vw no-repeat,
+    linear-gradient(to bottom, transparent 98%, white 98%) 0 50%/4.583vw
+      15.266vw no-repeat,
+    linear-gradient(to top, transparent 98%, white 98%) 0 50%/4.583vw 15.266vw
       no-repeat,
     /* point penalty */
       radial-gradient(
-        circle 4px at calc(100% - 110px) 50%,
-        white 0 4px,
-        transparent 4px
+        circle 0.333vw at 9.166vw 50%,
+        white 0 0.333vw,
+        transparent 0.333vw
       ),
-    /* right area */ linear-gradient(to bottom, transparent 99%, white 99%) 100%
-      50%/165px 403.2px no-repeat,
-    linear-gradient(to top, transparent 99%, white 99%) 100% 50%/165px 403.2px
+    /* big left area */ linear-gradient(to bottom, transparent 99%, white 99%) 0
+      50%/13.75vw 33.6vw no-repeat,
+    linear-gradient(to top, transparent 99%, white 99%) 0 50%/13.75vw 33.6vw
       no-repeat,
-    linear-gradient(to left, #268e00 73%, #1e7200 73% 99%, white 98%) 100% 50%/165px
-      403.2px no-repeat,
-    radial-gradient(
-      circle 4px at calc(100% - 110px) 50%,
-      transparent 90px,
-      white 90px 92px,
-      transparent 92px 100%
-    ),
+    linear-gradient(to right, #1e7200 72.5%, #268e00 72.5% 98%, white 98%) 0 50%/13.75vw
+      33.6vw no-repeat,
+    /* bomb */
+      radial-gradient(
+        circle 0.333vw at 9.166vw 50%,
+        transparent 7.5vw,
+        white 7.5vw 7.833vw,
+        transparent 7.833vw 100%
+      ),
+    /* little right area */ linear-gradient(to left, transparent 94%, white 94%)
+      100% 50%/4.583vw 15.266vw no-repeat,
+    linear-gradient(to bottom, transparent 98%, white 98%) 100% 50%/4.583vw
+      15.266vw no-repeat,
+    linear-gradient(to top, transparent 98%, white 98%) 100% 50%/4.583vw
+      15.266vw no-repeat,
+    /* point penalty */
+      radial-gradient(
+        circle 0.333vw at calc(100% - 9.166vw) 50%,
+        white 0 0.333vw,
+        transparent 0.333vw
+      ),
+    /* big right area */ linear-gradient(to bottom, transparent 99%, white 99%)
+      100% 50%/13.75vw 33.6vw no-repeat,
+    linear-gradient(to top, transparent 99%, white 99%) 100% 50%/13.75vw 33.6vw
+      no-repeat,
+    linear-gradient(to left, #268e00 72.5%, #1e7200 72.5% 98%, white 98%) 100%
+      50%/13.75vw 33.6vw no-repeat,
+    /* bomb */
+      radial-gradient(
+        circle 0.333vw at calc(100% - 9.166vw) 50%,
+        transparent 7.5vw,
+        white 7.5vw 7.833vw,
+        transparent 7.833vw 100%
+      ),
     /* center */
       radial-gradient(
         circle,
-        white 0 4px,
-        transparent 4px 90px,
-        white 90px 92px,
-        transparent 92px 100%
+        white 0 0.333vw,
+        transparent 0.333vw 7.5vw,
+        white 7.5vw 7.833vw,
+        transparent 7.833vw 100%
       ),
     /* cesped */
       repeating-linear-gradient(to right, #0003 0 10%, transparent 10% 20%),
