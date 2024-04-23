@@ -1,14 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Banda,
-  Cancha,
-  Content,
-  ItemPlayer,
-  ListPlayer,
-  Player,
-} from "./styled-components";
+import { Club, InputAlineation, PlayerLineUp, Team } from "..";
+import { Cancha, Container, Data } from "./styled-components";
 
 export type StadiumProps = {
   // types...
@@ -17,12 +11,7 @@ export type StadiumProps = {
 const Stadium = ({}: StadiumProps) => {
   const [formation, setFormation] = useState("");
   const [hijos, setHijos] = useState<any>([]);
-  const [col, setCol] = useState(0);
   const [{ team, players }, setPlayers] = useState<any>([]);
-  const n = Array.from({ length: 11 }).fill(
-    "https://i.postimg.cc/V6zbW55L/blank-profile-picture.png"
-  ) as string[];
-  const [urls, setUrl] = useState<string[]>(n);
 
   function handleFormation(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -55,18 +44,25 @@ const Stadium = ({}: StadiumProps) => {
       if (t > 10) {
         return setFormation(m[0].slice(0, m[0].lastIndexOf("-")));
       } else {
-        setCol(m[0].split("-").length - 1);
         return setFormation(m[0]);
       }
     }
   }
 
-  function handleClick() {
+  function handleRefresh() {
+    setHijos([]);
+    setFormation("");
+  }
+
+  function handleTeam() {
     let n = 2;
     const l = formation.split("-");
+    l.unshift("1");
     const check = [];
-    for (let i = 0; i <= col; i++) {
-      check.push(<Ja n={parseInt(l[i])} p={n} urls={urls} players={players} />);
+    for (let i = 0; i <= l.length; i++) {
+      check.push(
+        <PlayerLineUp len={parseInt(l[i])} players={players}></PlayerLineUp>
+      );
       n = n + parseInt(l[i]);
     }
     setHijos(check);
@@ -82,6 +78,7 @@ const Stadium = ({}: StadiumProps) => {
   }, []);
 
   useEffect(() => {
+    if (hijos.length === 0) return;
     const li = document.querySelectorAll("label");
     function ac(this: any) {
       li.forEach((e) => {
@@ -97,116 +94,39 @@ const Stadium = ({}: StadiumProps) => {
     };
   }, [hijos]);
 
-  function handleChange({ photo, pos }: { photo: string; pos: number }) {
-    const nuevo = [...urls].map((e, i) => {
-      if (i === pos) {
-        return photo;
-      }
-      return e;
+  useEffect(() => {
+    const details = document.querySelectorAll("details");
+    function action(this: any) {
+      details.forEach((e) => {
+        e.removeAttribute("open");
+      });
+      this.setAttribute("open");
+    }
+    details.forEach((e) => {
+      e.addEventListener("click", action);
     });
-    setUrl(nuevo);
-  }
+    return () => {
+      removeEventListener("click", action);
+    };
+  }, []);
 
   return (
-    <>
-      <input type="text" value={formation} onChange={handleFormation} />
-      <button onClick={handleClick}>click</button>
-      <p>{team?.name}</p>
-      <img src={team?.logo} alt="" />
-
-      <div style={{ display: "flex", placeContent: "center" }}>
-        <Cancha>
-          {hijos.length > 0 && (
-            <>
-              <Banda>
-                <Content>
-                  <Player>
-                    <img
-                      src={urls[0]}
-                      alt=""
-                      style={{
-                        width: "4.5rem",
-                        height: "4.5rem",
-                        borderRadius: "50%",
-                      }}
-                    />
-                  </Player>
-                  <ListPlayer>
-                    {players?.map((player: any) => (
-                      <ItemPlayer
-                        key={player.id}
-                        onClick={() =>
-                          handleChange({ photo: player.photo, pos: 0 })
-                        }
-                      >
-                        <img src={player.photo} />
-                        {player?.name}
-                      </ItemPlayer>
-                    ))}
-                  </ListPlayer>
-                </Content>
-              </Banda>
-              {hijos}
-            </>
-          )}
-        </Cancha>
+    <Container>
+      <div>
+        <Club team={team} />
+        <Cancha>{hijos.length > 0 && hijos}</Cancha>
       </div>
-    </>
+      <Data>
+        <InputAlineation
+          formation={formation}
+          handleFormation={handleFormation}
+          handleRefresh={handleRefresh}
+          handleTeam={handleTeam}
+        />
+        <Team players={players} />
+      </Data>
+    </Container>
   );
 };
 
-const Ja = ({
-  n,
-  p,
-  urls,
-  players,
-}: {
-  n: number;
-  p: number;
-  urls: string[];
-  players: string[];
-}) => {
-  const [ja, setJa] = useState(urls.slice(0, n));
-  function handleChange({ photo, pos }: { photo: string; pos: number }) {
-    const nuevo = [...ja].map((e, i) => {
-      if (i === pos) {
-        return photo;
-      }
-      return e;
-    });
-    setJa(nuevo);
-  }
-  return (
-    <Banda>
-      {Array.from({ length: n }).map((_, index) => (
-        <Content key={p + index}>
-          <Player>
-            <img
-              src={ja[index]}
-              alt=""
-              style={{
-                width: "4.5rem",
-                height: "4.5rem",
-                borderRadius: "50%",
-              }}
-            />
-          </Player>
-          <ListPlayer>
-            {players?.map((player: any) => (
-              <ItemPlayer
-                key={player.id}
-                onClick={() =>
-                  handleChange({ photo: player.photo, pos: index })
-                }
-              >
-                <img src={player.photo} />
-                {player?.name}
-              </ItemPlayer>
-            ))}
-          </ListPlayer>
-        </Content>
-      ))}
-    </Banda>
-  );
-};
 export default Stadium;
