@@ -11,9 +11,14 @@ const Club = ({ team }: ClubProps) => {
     <Logo>
       <img src={team?.logo} alt="" />
       <LogoData>
-        <span>{team?.name}</span>
+        <p>{team?.name}</p>
       </LogoData>
       {/* posible aqui del dt */}
+      <LogoData>
+        <p>{team?.manager}</p>
+        <span>DT</span>
+      </LogoData>
+      <img src={team?.photo} alt="" />
     </Logo>
   );
 };
