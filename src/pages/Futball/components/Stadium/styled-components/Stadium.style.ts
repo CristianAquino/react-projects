@@ -119,6 +119,18 @@ const Data = styled.aside`
   margin: 1vw;
   block-size: 136vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+
+  h3 {
+    margin-block-end: 0.5rem;
+  }
+
+  hr {
+    border: 0.5px solid #333a;
+    margin-block: 0.5rem;
+  }
 `;
 // main container
 const Container = styled.main`
