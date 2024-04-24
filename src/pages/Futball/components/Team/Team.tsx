@@ -10,9 +10,9 @@ export type TeamProps = {
 const Team = ({ players }: TeamProps) => {
   return (
     <div>
-      <h3>players</h3>
+      <h3>Players</h3>
       <Details open>
-        <summary>goalkeeper</summary>
+        <summary>Goalkeeper</summary>
         <ListPlayerData>
           {players
             ?.filter(
@@ -27,7 +27,7 @@ const Team = ({ players }: TeamProps) => {
         </ListPlayerData>
       </Details>
       <Details>
-        <summary>defender</summary>
+        <summary>Defender</summary>
         <ListPlayerData>
           {players
             ?.filter((e: any) => e.position.toLocaleLowerCase() === "defender")
@@ -40,7 +40,7 @@ const Team = ({ players }: TeamProps) => {
         </ListPlayerData>
       </Details>
       <Details>
-        <summary>midfielder</summary>
+        <summary>Midfielder</summary>
         <ListPlayerData>
           {players
             ?.filter(
@@ -55,7 +55,7 @@ const Team = ({ players }: TeamProps) => {
         </ListPlayerData>
       </Details>
       <Details>
-        <summary>attacker</summary>
+        <summary>Attacker</summary>
         <ListPlayerData>
           {players
             ?.filter((e: any) => e.position.toLocaleLowerCase() === "attacker")

@@ -2,13 +2,19 @@ import styled from "styled-components";
 
 const Details = styled.details`
   margin-block-end: 0.5rem;
+
   summary {
+    outline: none;
+    border: none;
     padding: 0.5rem;
     background-color: #333a;
     border-radius: 0.5rem;
   }
   summary::marker {
     content: none;
+  }
+  summary:focus {
+    border: 1px solid var(--blue);
   }
 `;
 const Player = styled.label`
