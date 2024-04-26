@@ -70,7 +70,7 @@ const Stadium = ({}: StadiumProps) => {
 
   useEffect(() => {
     async function getPlayers() {
-      const url = await fetch("/data/data.json");
+      const url = await fetch("/data/players.json");
       const data = await url.json();
       setPlayers(data);
     }
