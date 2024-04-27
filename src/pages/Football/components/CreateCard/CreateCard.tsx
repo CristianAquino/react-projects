@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Attribute,
   Attributes,
@@ -13,8 +13,10 @@ import {
   LeftCenter,
   Player,
   Preview,
+  RightCenter,
   TopLeft,
 } from "./styled-components";
+import { FaStar } from "react-icons/fa";
 
 export type CreateCardProps = {
   // types...
@@ -22,6 +24,13 @@ export type CreateCardProps = {
 
 const CreateCard = ({}: CreateCardProps) => {
   const [player, setPlayer] = useState("Maino");
+  const [image, setImage] = useState("/data/th.png");
+
+  function handleImage({ target }: ChangeEvent<HTMLInputElement>) {
+    if (target.files == null) return setImage("/data/th.png");
+    const img = target.files[0];
+    setImage(URL.createObjectURL(img));
+  }
 
   return (
     <Container>
@@ -53,8 +62,26 @@ const CreateCard = ({}: CreateCardProps) => {
               alt=""
             />
           </LeftCenter>
+          <RightCenter>
+            <div>
+              <p>skill</p>
+              <p>
+                4 <FaStar />
+              </p>
+            </div>
+            <div>
+              <p>weak</p>
+              <p>
+                4 <FaStar />
+              </p>
+            </div>
+            <div>
+              <p>work</p>
+              <p>H/W</p>
+            </div>
+          </RightCenter>
           <Bottom>
-            <p>Maino</p>
+            <p>{player}</p>
             <Attributes>
               <Attribute>
                 <span>PAC</span>
@@ -88,7 +115,7 @@ const CreateCard = ({}: CreateCardProps) => {
             </Flags>
           </Bottom>
           <Player>
-            <img src="/data/th.png" alt="" className="user" />
+            <img src={image} alt="" className="user" />
           </Player>
         </Box>
       </Preview>
@@ -108,7 +135,7 @@ const CreateCard = ({}: CreateCardProps) => {
         </ContentOption>
         <ContentOption>
           <label>image</label>
-          <input type="text" />
+          <input type="file" onChange={handleImage} />
         </ContentOption>
         <ContentOption>
           <label>chemistry style</label>
@@ -136,7 +163,6 @@ const CreateCard = ({}: CreateCardProps) => {
           {/*select max 5 stars*/}
           <input type="text" />
         </ContentOption>
-
         <ContentOption>
           <label>rating - overall</label>
         </ContentOption>

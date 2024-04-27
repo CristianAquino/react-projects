@@ -31,7 +31,6 @@ const TopLeft = styled.div`
 const Bottom = styled.footer`
   position: absolute;
   color: #f5db9b;
-  /* background-color: #a00a; */
   inset-inline: 3rem;
   block-size: 130px;
   inset-block-end: 0;
@@ -105,10 +104,33 @@ const LeftCenter = styled.div`
     inline-size: 2.5rem;
   }
   img:nth-child(2) {
-    transform: translateY(-0.75rem);
+    transform: translateY(-0.65rem);
   }
   img:nth-child(3) {
-    transform: translateY(-1.4rem);
+    transform: translateY(-1.3rem);
+  }
+`;
+const RightCenter = styled.div`
+  position: absolute;
+  inset-block-start: 13.75rem;
+  inset-inline-end: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.5rem;
+  line-height: 1;
+  color: #f5db9b;
+
+  p {
+    background-color: #161a4f;
+    padding: 0.1rem 0.4rem;
+    text-transform: uppercase;
+  }
+  p:nth-child(1) {
+    font-size: 0.5rem;
+  }
+  p:nth-child(2) {
+    font-size: 0.75rem;
   }
 `;
 const Player = styled.div`
@@ -137,5 +159,6 @@ export {
   LeftCenter,
   Player,
   Preview,
+  RightCenter,
   TopLeft,
 };
