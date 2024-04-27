@@ -24,6 +24,9 @@ const TopLeft = styled.div`
     inline-size: 2.5rem;
     transform: translateY(-0.5rem);
   }
+  span {
+    text-align: center;
+  }
   span:nth-child(2) {
     font-size: 1rem;
   }
@@ -44,6 +47,7 @@ const Attributes = styled.div`
   display: flex;
   justify-content: space-between;
   margin-block-end: 0.5rem;
+  text-align: center;
 `;
 const Attribute = styled.p`
   span {
