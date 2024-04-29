@@ -4,86 +4,28 @@ const Container = styled.main`
   max-width: 1120px;
   min-height: 100vh;
   display: flex;
+  margin: 0 auto;
 `;
 const Preview = styled.div`
   flex: 1;
-  padding: 2rem;
+  margin: 2rem;
   font-weight: 700;
-`;
-const TopLeft = styled.div`
-  position: absolute;
-  inset-block-start: 5rem;
-  inset-inline-start: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  font-size: 2rem;
-  line-height: 1;
-  color: #f5db9b;
-  img {
-    inline-size: 2.5rem;
-    transform: translateY(-0.5rem);
-  }
-  span {
-    text-align: center;
-  }
-  span:nth-child(2) {
-    font-size: 1rem;
-  }
-`;
-const Bottom = styled.footer`
-  position: absolute;
-  color: #f5db9b;
-  inset-inline: 3rem;
-  block-size: 130px;
-  inset-block-end: 0;
-  z-index: 2;
-  & > p {
-    text-align: center;
-    font-size: 1.5rem;
-  }
-`;
-const Attributes = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-block-end: 0.5rem;
-  text-align: center;
-`;
-const Attribute = styled.p`
-  span {
-    display: block;
-    line-height: 1.1;
-  }
-  span:nth-child(1) {
-    font-size: 0.75rem;
-  }
-  span:nth-child(2) {
-    font-size: 1.25rem;
-  }
-`;
-const Flags = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  img {
-    inline-size: 1.3rem;
-  }
-  img:first-child {
-    block-size: 1.1rem;
-  }
 `;
 const Content = styled.div`
   flex: 2;
-  padding: 2rem;
+  margin: 2rem;
   display: flex;
   gap: 1rem;
   flex-direction: column;
-`;
-const Box = styled.div`
   position: relative;
-  position: sticky;
-  inset-block-start: 0;
-  block-size: 432px;
+  &::before {
+    content: "";
+    position: fixed;
+    inset-block-start: 0;
+    background-color: var(--darkMode);
+    inline-size: 100%;
+    block-size: 2rem;
+  }
 `;
 const ContentOption = styled.div`
   label {
@@ -91,78 +33,38 @@ const ContentOption = styled.div`
     inline-size: 36%;
     display: inline-block;
     vertical-align: bottom;
-    line-height: 1;
+    /* line-height: 1; */
   }
-  input {
+  input,
+  select {
     inline-size: 56%;
     margin-inline-start: 8%;
   }
-`;
-const LeftCenter = styled.div`
-  position: absolute;
-  inset-block-start: 13.75rem;
-  inset-inline-start: 0.7rem;
-  display: flex;
-  flex-direction: column;
-  img {
-    inline-size: 2.5rem;
-  }
-  img:nth-child(2) {
-    transform: translateY(-0.65rem);
-  }
-  img:nth-child(3) {
-    transform: translateY(-1.3rem);
+  input {
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid var(--blue);
+    padding: 0.5rem;
+    min-inline-size: 3ch;
   }
 `;
-const RightCenter = styled.div`
-  position: absolute;
-  inset-block-start: 13.75rem;
-  inset-inline-end: 0.7rem;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  gap: 0.5rem;
-  line-height: 1;
-  color: #f5db9b;
-
-  p {
-    background-color: #161a4f;
-    padding: 0.1rem 0.4rem;
-    text-transform: uppercase;
+const Title = styled.h1`
+  padding: 0.5rem 1rem;
+  background: #333a;
+  border-radius: 0.5rem;
+`;
+const Attributes = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 1rem;
+  div label {
+    inline-size: 72%;
+    text-align: left;
   }
-  p:nth-child(1) {
-    font-size: 0.5rem;
-  }
-  p:nth-child(2) {
-    font-size: 0.75rem;
+  div input {
+    inline-size: 4ch;
   }
 `;
-const Player = styled.div`
-  block-size: 256px;
-  position: absolute;
-  inset-inline: 3rem;
-  inset-block-start: 50px;
-  overflow: hidden;
-  z-index: 1;
-
-  img {
-    block-size: 100%;
-    filter: drop-shadow(0 0 1rem #161a4f);
-  }
-`;
-
-export {
-  Attribute,
-  Attributes,
-  Bottom,
-  Box,
-  Container,
-  Content,
-  ContentOption,
-  Flags,
-  LeftCenter,
-  Player,
-  Preview,
-  RightCenter,
-  TopLeft,
-};
+export { Attributes, Container, Content, ContentOption, Preview, Title };

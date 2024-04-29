@@ -1,21 +1,14 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { FCCard } from "../FCCard";
 import {
-  Attribute,
   Attributes,
-  Bottom,
-  Box,
   Container,
   Content,
   ContentOption,
-  Flags,
-  LeftCenter,
-  Player,
   Preview,
-  RightCenter,
-  TopLeft,
+  Title,
 } from "./styled-components";
 
 export type CreateCardProps = {
@@ -86,76 +79,22 @@ const CreateCard = ({}: CreateCardProps) => {
   return (
     <Container>
       <Preview>
-        <Box>
-          <img src={card} alt="upscale-team_of_the_year" />
-          <TopLeft>
-            <span>{overall}</span>
-            <span>{position}</span>
-            <img src={chemistry} alt="" />
-          </TopLeft>
-          <LeftCenter>
-            {playStyle.map((e) => (
-              <img src={e} key={e} />
-            ))}
-          </LeftCenter>
-          <RightCenter>
-            <div>
-              <p>skill</p>
-              <p>
-                {skill} <FaStar />
-              </p>
-            </div>
-            <div>
-              <p>weak</p>
-              <p>
-                {weak} <FaStar />
-              </p>
-            </div>
-            <div>
-              <p>work</p>
-              <p>{work}</p>
-            </div>
-          </RightCenter>
-          <Bottom>
-            <p>{player}</p>
-            <Attributes>
-              <Attribute>
-                <span>PAC</span>
-                <span>{att[0]}</span>
-              </Attribute>
-              <Attribute>
-                <span>SHO</span>
-                <span>{att[1]}</span>
-              </Attribute>
-              <Attribute>
-                <span>PAS</span>
-                <span>{att[2]}</span>
-              </Attribute>
-              <Attribute>
-                <span>DRI</span>
-                <span>{att[3]}</span>
-              </Attribute>
-              <Attribute>
-                <span>DEF</span>
-                <span>{att[4]}</span>
-              </Attribute>
-              <Attribute>
-                <span>PHY</span>
-                <span>{att[5]}</span>
-              </Attribute>
-            </Attributes>
-            <Flags>
-              <img src="/data/FIFA/COUNTRY/england.png" alt="" />
-              <img src="/data/FIFA/LEAGUE/pl.png" alt="" />
-              <img src="/data/FIFA/TEAM/mu.png" alt="" />
-            </Flags>
-          </Bottom>
-          <Player>
-            <img src={image} alt="" className="user" />
-          </Player>
-        </Box>
+        <FCCard
+          att={att}
+          card={card}
+          chemistry={chemistry}
+          image={image}
+          overall={overall}
+          playStyle={playStyle}
+          player={player}
+          position={position}
+          skill={skill}
+          weak={weak}
+          work={work}
+        />
       </Preview>
       <Content>
+        <Title>Card Design Elements</Title>
         <ContentOption>
           <label>select card</label>
           <select
@@ -170,19 +109,6 @@ const CreateCard = ({}: CreateCardProps) => {
               team season
             </option>
           </select>
-        </ContentOption>
-        <ContentOption>
-          <label>name</label>
-          <input
-            type="text"
-            placeholder="insert your name"
-            value={player}
-            onChange={(e) => setPlayer(e.target.value)}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>image</label>
-          <input type="file" onChange={handleImage} />
         </ContentOption>
         <ContentOption>
           <label>chemistry style</label>
@@ -200,7 +126,7 @@ const CreateCard = ({}: CreateCardProps) => {
           </select>
         </ContentOption>
         <ContentOption>
-          <label>playstyle</label>
+          <label>playstyle1</label>
           <select
             name="0"
             value={playStyle[0]}
@@ -209,11 +135,13 @@ const CreateCard = ({}: CreateCardProps) => {
             <option value="/data/FIFA/PLAYSTYLE/PASES/incisive_pass.svg">
               incisive_pass
             </option>
-
             <option value="/data/FIFA/PLAYSTYLE/PASES/long_ball_pass.svg">
               lon ball pass
             </option>
           </select>
+        </ContentOption>
+        <ContentOption>
+          <label>playstyle2</label>
           <select
             name="1"
             value={playStyle[1]}
@@ -226,6 +154,9 @@ const CreateCard = ({}: CreateCardProps) => {
               far reach
             </option>
           </select>
+        </ContentOption>
+        <ContentOption>
+          <label>playstyle3</label>
           <select
             name="2"
             value={playStyle[2]}
@@ -279,6 +210,20 @@ const CreateCard = ({}: CreateCardProps) => {
             <option value="H">high</option>
           </select>
         </ContentOption>
+        <Title>Player Data Elements</Title>
+        <ContentOption>
+          <label>name</label>
+          <input
+            type="text"
+            placeholder="insert your name"
+            value={player}
+            onChange={(e) => setPlayer(e.target.value)}
+          />
+        </ContentOption>
+        <ContentOption>
+          <label>image</label>
+          <input type="file" onChange={handleImage} />
+        </ContentOption>
         <ContentOption>
           <label>rating - overall</label>
           <input
@@ -307,60 +252,63 @@ const CreateCard = ({}: CreateCardProps) => {
         <ContentOption>
           <label>atributes</label>
         </ContentOption>
-        <ContentOption>
-          <label>pace - pac</label>
-          <input
-            type="text"
-            name="0"
-            value={att[0]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>shooting - sho</label>
-          <input
-            type="text"
-            name="1"
-            value={att[1]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>passing - pass</label>
-          <input
-            type="text"
-            name="2"
-            value={att[2]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>dribbling - dri</label>
-          <input
-            type="text"
-            name="3"
-            value={att[3]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>defending - def</label>
-          <input
-            type="text"
-            name="4"
-            value={att[4]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
-        <ContentOption>
-          <label>physicality - phy</label>
-          <input
-            type="text"
-            name="5"
-            value={att[5]}
-            onChange={handleAttributesChange}
-          />
-        </ContentOption>
+        <Attributes>
+          <ContentOption>
+            <label>pace - pac</label>
+            <input
+              type="text"
+              name="0"
+              value={att[0]}
+              onChange={handleAttributesChange}
+            />
+          </ContentOption>
+          <ContentOption>
+            <label>shooting - sho</label>
+            <input
+              type="text"
+              name="1"
+              value={att[1]}
+              onChange={handleAttributesChange}
+            />
+          </ContentOption>
+          <ContentOption>
+            <label>passing - pass</label>
+            <input
+              type="text"
+              name="2"
+              value={att[2]}
+              onChange={handleAttributesChange}
+            />
+          </ContentOption>
+          <ContentOption>
+            <label>dribbling - dri</label>
+            <input
+              type="text"
+              name="3"
+              value={att[3]}
+              onChange={handleAttributesChange}
+            />
+          </ContentOption>
+          <ContentOption>
+            <label>defending - def</label>
+            <input
+              type="text"
+              name="4"
+              value={att[4]}
+              onChange={handleAttributesChange}
+            />
+          </ContentOption>
+          <ContentOption>
+            <label htmlFor="12">physicality - phy</label>
+            <input
+              type="text"
+              name="5"
+              value={att[5]}
+              onChange={handleAttributesChange}
+              id="12"
+            />
+          </ContentOption>
+        </Attributes>
       </Content>
     </Container>
   );
