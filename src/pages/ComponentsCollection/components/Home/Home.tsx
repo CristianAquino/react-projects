@@ -1,6 +1,8 @@
 "use client";
 
-import { Dropdown } from "../Dropdown";
+import React, { useState } from "react";
+import { DropdownWithPreviewImage, DropdownWithSVG } from "../Dropdown";
+import { Test } from "../Dropdown/Test";
 
 export type HomeProps = {
   // types...
@@ -24,7 +26,7 @@ const Home = ({}: HomeProps) => {
     "https://unavatar.io/twitter/kikobeats",
     "https://unavatar.io/soundcloud/gorillaz",
   ];
-  const card = [
+  const card1 = [
     { name: "Card 1", image: "https://unavatar.io/youtube/casey" },
     { name: "Card 2", image: "https://unavatar.io/twitter/kikobeats" },
     { name: "Card 3", image: "https://unavatar.io/youtube/casey" },
@@ -38,11 +40,17 @@ const Home = ({}: HomeProps) => {
     { name: "Card 333", image: "https://unavatar.io/youtube/casey" },
     { name: "Card 444", image: "https://unavatar.io/twitter/kikobeats" },
   ];
+  const card2 = [{ name: "Card 1", svg: <Test /> }];
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState<React.ReactNode | null>(null);
   return (
     <div>
       {/* <Avatar thumbnails={thumbnails} /> */}
       {/* <Card /> */}
-      <Dropdown list={card} />
+      {value2}
+      <DropdownWithPreviewImage list={card1} onchange={setValue1} />
+      <DropdownWithSVG list={card2} onchange={setValue2} />
+      <input type="text" />
     </div>
   );
 };
