@@ -1,1 +1,2 @@
-export { default as Dropdown } from './Dropdown';
+export { default as DropdownWithPreviewImage } from "./DropdownWithPreviewImage";
+export { default as DropdownWithSVG } from "./DropdownWithSVG";

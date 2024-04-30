@@ -1,1 +1,1 @@
-export * from "./Dropdown.style";
+export * from "./DropdownWithPreviewImage.style";
