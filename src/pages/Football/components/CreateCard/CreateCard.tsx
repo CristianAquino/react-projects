@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FCCard } from "../FCCard";
 import {
   Attributes,
@@ -10,12 +10,16 @@ import {
   Preview,
   Title,
 } from "./styled-components";
+import { Basic, DeadEye, Finisher } from "../Chemistry";
+import FirstTouch from "../PlayStyle/FirstTouch";
 
 export type CreateCardProps = {
   // types...
 };
 
 const CreateCard = ({}: CreateCardProps) => {
+  const nameS = ["basic", "deadeye", "finisher", "firstTouch"];
+  const [ssvg, setSvg] = useState<React.ReactNode | null>(null);
   const [player, setPlayer] = useState("Maino");
   const [image, setImage] = useState("/data/th.png");
   const [chemistry, setChemistry] = useState(
@@ -29,6 +33,15 @@ const CreateCard = ({}: CreateCardProps) => {
   const [card, setCard] = useState(
     "/data/FIFA/CARD/upscale-team_of_the_year.png"
   );
+  const pa = card.endsWith("year.png")
+    ? { one: "red", two: "blue" }
+    : { one: "yellow", two: "green" };
+  const svg = [
+    <Basic />,
+    <DeadEye />,
+    <Finisher />,
+    <FirstTouch border={pa.one} background={pa.two} />,
+  ];
   const [skill, setSkill] = useState("4");
   const [weak, setWeak] = useState("5");
   const [work, setWork] = useState("H/M");
@@ -76,6 +89,20 @@ const CreateCard = ({}: CreateCardProps) => {
     }
   }
 
+  function handleChangeSVG({ target }: ChangeEvent<HTMLSelectElement>) {
+    const pos = target.value;
+    setSvg(svg[+pos]);
+  }
+
+  useEffect(() => {
+    const svg = document.querySelector(".ja svg");
+    if (!svg) return;
+    // svg.style.background = "red";
+    // svg.style.color = "blue";
+    svg.setAttribute("background", pa.one);
+    svg.setAttribute("color", pa.two);
+  }, [card]);
+
   return (
     <Container>
       <Preview>
@@ -95,6 +122,14 @@ const CreateCard = ({}: CreateCardProps) => {
       </Preview>
       <Content>
         <Title>Card Design Elements</Title>
+        <select onChange={handleChangeSVG}>
+          {nameS.map((e, index) => (
+            <option key={e} value={index + ""}>
+              {e}
+            </option>
+          ))}
+        </select>
+        <p className="ja">{ssvg}</p>
         <ContentOption>
           <label>select card</label>
           <select

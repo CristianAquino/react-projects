@@ -12,6 +12,7 @@ import {
   RightCenter,
   TopLeft,
 } from "./styled-components";
+import { useEffect } from "react";
 
 export type FCCardProps = {
   // types...
@@ -41,6 +42,18 @@ const FCCard = ({
   att,
   image,
 }: FCCardProps) => {
+  useEffect(() => {
+    const c = "0123456789abcdef";
+    const a = Math.floor(Math.random() * 16);
+    const b = "#f1" + c[a];
+    const right = document.querySelector(".right") as HTMLElement;
+    const rightp = document.querySelectorAll(".right p") as any;
+    if (right) {
+      right.style.color = b;
+      rightp.forEach((e: HTMLElement) => (e.style.background = "#fff"));
+    }
+  }, [card]);
+
   return (
     <Box>
       <img src={card} alt="upscale-team_of_the_year" />
@@ -54,7 +67,7 @@ const FCCard = ({
           <img src={e} key={e} />
         ))}
       </LeftCenter>
-      <RightCenter>
+      <RightCenter className="right">
         <div>
           <p>skill</p>
           <p>
