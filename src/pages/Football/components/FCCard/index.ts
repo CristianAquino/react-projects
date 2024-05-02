@@ -1,0 +1,1 @@
+export { default as FCCard } from './FCCard';

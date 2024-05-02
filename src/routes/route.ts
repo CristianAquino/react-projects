@@ -28,6 +28,7 @@ export const PROYECTS_ROUTE = {
   GIFS: "/gif",
   TEACHER: "/teacher",
   COMPONENT: "/components",
+  FOOTBALL: "/football",
 };
 
 export const COMPONENTS_ROUTE = {};
