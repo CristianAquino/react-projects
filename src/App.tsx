@@ -6,6 +6,9 @@ import { Suspense, lazy } from "react";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Route } from "react-router-dom";
 
+const ComponentsCollection = lazy(
+  () => import("./pages/ComponentsCollection/ComponentsCollection")
+);
 const Football = lazy(() => import("@pages/Football/Football"));
 
 function App() {
@@ -14,6 +17,10 @@ function App() {
       <BrowserRouter>
         <Toaster />
         <RoutesWithNotFound message="Proyect not found">
+          <Route
+            path={`${PROYECTS_ROUTE.COMPONENT}/*`}
+            element={<ComponentsCollection />}
+          />
           <Route path={`${PROYECTS_ROUTE.FOOTBALL}/*`} element={<Football />} />
         </RoutesWithNotFound>
       </BrowserRouter>
