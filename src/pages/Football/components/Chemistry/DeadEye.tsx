@@ -1,4 +1,4 @@
-const DeadEye = () => (
+const Deadeye = () => (
   <svg
     version="1.0"
     xmlns="http://www.w3.org/2000/svg"
@@ -51,4 +51,4 @@ c-55 0 -100 -4 -100 -8z"
   </svg>
 );
 
-export default DeadEye;
+export default Deadeye;
