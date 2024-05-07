@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import {
   Attribute,
@@ -12,15 +13,14 @@ import {
   RightCenter,
   TopLeft,
 } from "./styled-components";
-import { useEffect } from "react";
 
 export type FCCardProps = {
   // types...
-  card: string;
+  card: any;
   overall: string;
   position: string;
-  chemistry: string;
-  playStyle: string[];
+  chemistry: any;
+  playStyle: any[];
   skill: string;
   weak: string;
   work: string;
@@ -43,31 +43,42 @@ const FCCard = ({
   image,
 }: FCCardProps) => {
   useEffect(() => {
-    const c = "0123456789abcdef";
-    const a = Math.floor(Math.random() * 16);
-    const b = "#f1" + c[a];
-    const right = document.querySelector(".right") as HTMLElement;
-    const rightp = document.querySelectorAll(".right p") as any;
-    if (right) {
-      right.style.color = b;
-      rightp.forEach((e: HTMLElement) => (e.style.background = "#fff"));
-    }
-  }, [card]);
+    const content = document.querySelector(".svgContent");
+    if (!content) return;
+    const svgs = content.querySelectorAll("svg");
+    svgs.forEach((svg) => {
+      let path = svg.querySelectorAll("path");
+      path.forEach((p, index) => {
+        if (index == 0) {
+          p.setAttribute("fill", card.style.background);
+        } else {
+          p.setAttribute("fill", card.style.color);
+        }
+      });
+    });
+  }, [card, playStyle]);
+
+  useEffect(() => {
+    const content = document.querySelector(".chemistry svg");
+    if (!content) return;
+    content.querySelector("g")?.setAttribute("fill", card.style.color);
+  }, [card, chemistry]);
 
   return (
     <Box>
-      <img src={card} alt="upscale-team_of_the_year" />
-      <TopLeft>
+      <img src={card?.card.image} alt="upscale-team_of_the_year" />
+      <TopLeft className="chemistry">
         <span>{overall}</span>
         <span>{position}</span>
-        <img src={chemistry} alt="" />
+        {chemistry}
       </TopLeft>
-      <LeftCenter>
-        {playStyle.map((e) => (
-          <img src={e} key={e} />
-        ))}
+      <LeftCenter className="svgContent">
+        {playStyle.map((ele) => {
+          if (typeof ele === "function") return ele();
+          return ele;
+        })}
       </LeftCenter>
-      <RightCenter className="right">
+      <RightCenter>
         <div>
           <p>skill</p>
           <p>

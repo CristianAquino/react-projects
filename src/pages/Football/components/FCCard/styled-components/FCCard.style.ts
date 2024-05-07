@@ -16,10 +16,15 @@ const TopLeft = styled.div`
   gap: 0.2rem;
   font-size: 2rem;
   line-height: 1;
-  color: #f5db9b;
-  img {
+  color: var(--colorCardFC);
+  /* img {
     inline-size: 2.5rem;
     transform: translateY(-0.5rem);
+  } */
+  svg {
+    inline-size: 2.5rem;
+    block-size: 2rem;
+    transform: translateY(-0.25rem);
   }
   span {
     text-align: center;
@@ -34,13 +39,23 @@ const LeftCenter = styled.div`
   inset-inline-start: 0.7rem;
   display: flex;
   flex-direction: column;
-  img {
+  /* img {
     inline-size: 2.5rem;
   }
   img:nth-child(2) {
     transform: translateY(-0.65rem);
   }
   img:nth-child(3) {
+    transform: translateY(-1.3rem);
+  } */
+  svg {
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+  }
+  svg:nth-child(2) {
+    transform: translateY(-0.65rem);
+  }
+  svg:nth-child(3) {
     transform: translateY(-1.3rem);
   }
 `;
@@ -53,10 +68,12 @@ const RightCenter = styled.div`
   text-align: center;
   gap: 0.5rem;
   line-height: 1;
-  color: #f5db9b;
+  color: var(--colorCardFC);
 
+  div {
+    background-color: var(--backgroundCardFC);
+  }
   p {
-    background-color: #161a4f;
     padding: 0.1rem 0.4rem;
     text-transform: uppercase;
   }
@@ -99,7 +116,7 @@ const Flags = styled.div`
 
 const Bottom = styled.footer`
   position: absolute;
-  color: #f5db9b;
+  color: var(--colorCardFC);
   inset-inline: 3rem;
   /* block-size: 130px; */
   block-size: 164px;
@@ -120,7 +137,7 @@ const Player = styled.div`
 
   img {
     block-size: 100%;
-    filter: drop-shadow(0 0 1rem #161a4f);
+    filter: drop-shadow(0 0 1rem var(--backgroundCardFC));
     object-fit: cover;
   }
 `;
@@ -135,3 +152,9 @@ export {
   RightCenter,
   TopLeft,
 };
+
+// :root {
+//   --color-primary: blue;
+// }
+
+// document.querySelector(":root").style.setProperty("--color-primary", "red");
