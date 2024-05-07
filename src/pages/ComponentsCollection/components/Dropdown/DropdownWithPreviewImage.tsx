@@ -3,14 +3,20 @@ import { ChangeEvent, useState } from "react";
 import { Container, Content, Item, List, Title } from "./styled-components";
 
 type Card = {
-  name: string;
-  image: string;
+  card: {
+    name: string;
+    image: string;
+  };
+  style: {
+    background: string;
+    color: string;
+  };
 };
 
 export type DropdownWithPreviewImageProps = {
   // types...
   list: Card[];
-  onchange: (value: string) => void;
+  onchange: ({ card }: Card) => void;
 };
 
 const DropdownWithPreviewImage = ({
@@ -19,24 +25,15 @@ const DropdownWithPreviewImage = ({
 }: DropdownWithPreviewImageProps) => {
   const [select, setSelect] = useState("Select your card");
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<Card[]>(list);
 
-  function handleSelect(name: string, url: string) {
-    setSelect(name);
-    onchange(url);
+  function handleSelect(value: Card) {
+    const { card } = value;
+    setSelect(card.name);
+    onchange(value);
   }
 
-  function handleSearch(value: string) {
-    if (value === "") setFilter(list);
-    setFilter(
-      list.filter((item) =>
-        item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-      )
-    );
-  }
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value);
-    handleSearch(e.target.value);
   }
 
   return (
@@ -50,15 +47,19 @@ const DropdownWithPreviewImage = ({
           onChange={handleChange}
         />
         <List>
-          {filter?.map((item) => (
-            <Item
-              onClick={() => handleSelect(item.name, item.image)}
-              key={item.name}
-            >
-              <p>{item.name}</p>
-              <img src={item.image} alt="" />
-            </Item>
-          ))}
+          {list
+            .filter(({ card }) => {
+              if (search === "") return true;
+              return card.name
+                .toLocaleLowerCase()
+                .includes(search.toLocaleLowerCase());
+            })
+            .map((value) => (
+              <Item onClick={() => handleSelect(value)} key={value.card.name}>
+                <p>{value.card.name}</p>
+                <img src={value.card.image} alt="" />
+              </Item>
+            ))}
         </List>
       </Content>
     </Container>

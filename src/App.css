@@ -50,5 +50,7 @@ svg.cent {
   --nameP: #002849;
   --primary: #15dbff;
   --dsc: #ffad48;
+  --backgroundCardFC: "#161a4f";
+  --colorCardFC: "#f5db9b";
   /* https://web.dev/i18n/es/prefers-color-scheme/ */
 }
