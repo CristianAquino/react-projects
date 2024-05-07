@@ -1,7 +1,10 @@
 "use client";
 
+import { DropdownWithPreviewImage } from "@app/pages/ComponentsCollection/components";
 import { ChangeEvent, useEffect, useState } from "react";
+import { Powerhouse } from "../Chemistry";
 import { FCCard } from "../FCCard";
+import { Acrobatic, Aerial, Anticipate } from "../PlayStyle";
 import {
   Attributes,
   Container,
@@ -10,38 +13,96 @@ import {
   Preview,
   Title,
 } from "./styled-components";
-import { Basic, DeadEye, Finisher } from "../Chemistry";
-import FirstTouch from "../PlayStyle/FirstTouch";
 
 export type CreateCardProps = {
   // types...
 };
 
 const CreateCard = ({}: CreateCardProps) => {
-  const nameS = ["basic", "deadeye", "finisher", "firstTouch"];
-  const [ssvg, setSvg] = useState<React.ReactNode | null>(null);
+  // card
+  const [cards, setCards] = useState<any>([]);
+  const [card, setCard] = useState({
+    card: {
+      name: "team_of_the_year",
+      image: "/data/FIFA/CARD/upscale-team_of_the_year.png",
+    },
+    style: {
+      background: "#161a4f",
+      color: "#f5db9b",
+    },
+  });
+  // chemistry
+  const chemistryName = [
+    "Anchor",
+    "Architect",
+    "Artist",
+    "Backbone",
+    "Basic",
+    "Cat",
+    "Catalyst",
+    "Deadeye",
+    "Engine",
+    "Finisher",
+    "Gladiator",
+    "Glove",
+    "Guardian",
+    "Hawk",
+    "Hunter",
+    "Maestro",
+    "Marksman",
+    "Powerhouse",
+    "Sentinel",
+    "Shadow",
+    "Shield",
+    "Sniper",
+    "Wall",
+  ];
+  const [chemistry, setChemistry] = useState(<Powerhouse />);
+  // playstyle
+  const playstyleName = [
+    "Acrobatic",
+    "Aerial",
+    "Anticipate",
+    "Block",
+    "Bruiser",
+    "ChipHot",
+    "CrossLaimer",
+    "DeadBall",
+    "FarReach",
+    "FarThrow",
+    "FinesseShot",
+    "FirstTouch",
+    "Flair",
+    "FootWork",
+    "IncisivePass",
+    "Intercept",
+    "Jockey",
+    "LongBallPass",
+    "LongThrow",
+    "PingedPass",
+    "PowerHeader",
+    "PowerShot",
+    "PressProven",
+    "QuickReflexes",
+    "QuickStep",
+    "Rapid",
+    "Relentless",
+    "RushOut",
+    "./SlideTackle",
+    "Technical",
+    "TikiTaka",
+    "Trickster",
+    "Trivela",
+    "WhippedPass",
+  ];
+  const [playStyle, setPlayStyle] = useState([
+    <Acrobatic />,
+    <Aerial />,
+    <Anticipate />,
+  ]);
+
   const [player, setPlayer] = useState("Maino");
   const [image, setImage] = useState("/data/th.png");
-  const [chemistry, setChemistry] = useState(
-    "/data/FIFA/CHEMISTRY_STYLE/Midfield/powerhouse.svg"
-  );
-  const [playStyle, setPlayStyle] = useState([
-    "/data/FIFA/PLAYSTYLE/TIROS_A_PUERTA/chip_hot.svg",
-    "/data/FIFA/PLAYSTYLE/TIROS_A_PUERTA/dead_ball.svg",
-    "/data/FIFA/PLAYSTYLE/TIROS_A_PUERTA/finesse_shot.svg",
-  ]);
-  const [card, setCard] = useState(
-    "/data/FIFA/CARD/upscale-team_of_the_year.png"
-  );
-  const pa = card.endsWith("year.png")
-    ? { one: "red", two: "blue" }
-    : { one: "yellow", two: "green" };
-  const svg = [
-    <Basic />,
-    <DeadEye />,
-    <Finisher />,
-    <FirstTouch border={pa.one} background={pa.two} />,
-  ];
   const [skill, setSkill] = useState("4");
   const [weak, setWeak] = useState("5");
   const [work, setWork] = useState("H/M");
@@ -55,19 +116,22 @@ const CreateCard = ({}: CreateCardProps) => {
     setImage(URL.createObjectURL(img));
   }
 
-  function handlePlayStyleChange(e: ChangeEvent<HTMLSelectElement>) {
-    const name = parseInt(e.target.name);
-    const nuevo = e.target.value;
-    setPlayStyle(
-      playStyle.map((e, i) => {
-        if (i == name) return nuevo;
-        return e;
-      })
-    );
+  function handlePlayStyleChange({ target }: ChangeEvent<HTMLSelectElement>) {
+    const name = parseInt(target.name);
+    const value = target.value;
+
+    import(`../PlayStyle/${value}.tsx`).then((element) => {
+      const nuevo = playStyle.map((ele, index) => {
+        if (index == name) return element.default;
+        return ele;
+      });
+      setPlayStyle(nuevo);
+    });
   }
-  function handleAttributesChange(e: ChangeEvent<HTMLInputElement>) {
-    const name = parseInt(e.target.name);
-    const nuevo = e.target.value;
+
+  function handleAttributesChange({ target }: ChangeEvent<HTMLInputElement>) {
+    const name = parseInt(target.name);
+    const nuevo = target.value;
     setAtt(
       att.map((e, i) => {
         if (i == name) return nuevo;
@@ -76,9 +140,9 @@ const CreateCard = ({}: CreateCardProps) => {
     );
   }
 
-  function handleWorkChange(e: ChangeEvent<HTMLSelectElement>) {
-    const name = e.target.name;
-    const value = e.target.value;
+  function handleWorkChange({ target }: ChangeEvent<HTMLSelectElement>) {
+    const name = target.name;
+    const value = target.value;
     if (name == "att") {
       let n = value + work.substring(1);
       setWork(n);
@@ -89,18 +153,55 @@ const CreateCard = ({}: CreateCardProps) => {
     }
   }
 
-  function handleChangeSVG({ target }: ChangeEvent<HTMLSelectElement>) {
-    const pos = target.value;
-    setSvg(svg[+pos]);
+  // chemistry
+  function handleChangeChemistry({ target }: ChangeEvent<HTMLSelectElement>) {
+    const value = target.value;
+    import(`../Chemistry/${value}.tsx`).then((element) => {
+      setChemistry(element.default);
+    });
   }
 
   useEffect(() => {
-    const svg = document.querySelector(".ja svg");
-    if (!svg) return;
-    // svg.style.background = "red";
-    // svg.style.color = "blue";
-    svg.setAttribute("background", pa.one);
-    svg.setAttribute("color", pa.two);
+    const cards = [
+      {
+        card: {
+          name: "team_of_the_year",
+          image: "/data/FIFA/CARD/upscale-team_of_the_year.png",
+        },
+        style: {
+          background: "#161a4f",
+          color: "#f5db9b",
+        },
+      },
+      {
+        card: {
+          name: "team_of_the_season",
+          image: "/data/FIFA/CARD/upscale-team_of_the_season_old.png",
+        },
+        style: {
+          background: "#090f23",
+          color: "#fbebab",
+        },
+      },
+      {
+        card: {
+          name: "end_of_the_era",
+          image: "/data/FIFA/CARD/upscale-end_of_the_era.png",
+        },
+        style: {
+          background: "#491e6f",
+          color: "#00f6ff",
+        },
+      },
+    ];
+    setCards(cards);
+  }, []);
+
+  useEffect(() => {
+    const root = document.querySelector(":root") as any;
+    if (!root) return;
+    root.style.setProperty("--backgroundCardFC", card.style.background);
+    root.style.setProperty("--colorCardFC", card.style.color);
   }, [card]);
 
   return (
@@ -122,87 +223,48 @@ const CreateCard = ({}: CreateCardProps) => {
       </Preview>
       <Content>
         <Title>Card Design Elements</Title>
-        <select onChange={handleChangeSVG}>
-          {nameS.map((e, index) => (
-            <option key={e} value={index + ""}>
-              {e}
-            </option>
-          ))}
-        </select>
-        <p className="ja">{ssvg}</p>
         <ContentOption>
           <label>select card</label>
-          <select
-            name="card"
-            value={card}
-            onChange={(e) => setCard(e.target.value)}
-          >
-            <option value="/data/FIFA/CARD/upscale-team_of_the_year.png">
-              team year
-            </option>
-            <option value="/data/FIFA/CARD/upscale-team_of_the_season_old.png">
-              team season
-            </option>
-          </select>
+          <DropdownWithPreviewImage list={cards} onchange={setCard} />
         </ContentOption>
         <ContentOption>
           <label>chemistry style</label>
-          <select
-            name="chemistry"
-            value={chemistry}
-            onChange={(e) => setChemistry(e.target.value)}
-          >
-            <option value="/data/FIFA/CHEMISTRY_STYLE/Midfield/powerhouse.svg">
-              powerhouse
-            </option>
-            <option value="/data/FIFA/CHEMISTRY_STYLE/Midfield/artist.svg">
-              artist
-            </option>
+          <select name="chemistry" onChange={handleChangeChemistry}>
+            {chemistryName.map((chemis) => (
+              <option key={chemis} value={chemis}>
+                {chemis}
+              </option>
+            ))}
           </select>
         </ContentOption>
         <ContentOption>
           <label>playstyle1</label>
-          <select
-            name="0"
-            value={playStyle[0]}
-            onChange={handlePlayStyleChange}
-          >
-            <option value="/data/FIFA/PLAYSTYLE/PASES/incisive_pass.svg">
-              incisive_pass
-            </option>
-            <option value="/data/FIFA/PLAYSTYLE/PASES/long_ball_pass.svg">
-              lon ball pass
-            </option>
+          <select name="0" onChange={handlePlayStyleChange}>
+            {playstyleName.map((ele) => (
+              <option key={ele} value={ele}>
+                {ele}
+              </option>
+            ))}
           </select>
         </ContentOption>
         <ContentOption>
           <label>playstyle2</label>
-          <select
-            name="1"
-            value={playStyle[1]}
-            onChange={handlePlayStyleChange}
-          >
-            <option value="/data/FIFA/PLAYSTYLE/GUARDAMETA/cross_laimer.svg">
-              cross_lamier
-            </option>
-            <option value="/data/FIFA/PLAYSTYLE/GUARDAMETA/far_reach.svg">
-              far reach
-            </option>
+          <select name="1" onChange={handlePlayStyleChange}>
+            {playstyleName.map((ele) => (
+              <option key={ele} value={ele}>
+                {ele}
+              </option>
+            ))}
           </select>
         </ContentOption>
         <ContentOption>
           <label>playstyle3</label>
-          <select
-            name="2"
-            value={playStyle[2]}
-            onChange={handlePlayStyleChange}
-          >
-            <option value="/data/FIFA/PLAYSTYLE/DEFENSA/anticipate.svg">
-              anticipate
-            </option>
-            <option value="/data/FIFA/PLAYSTYLE/DEFENSA/block.svg">
-              block
-            </option>
+          <select name="2" onChange={handlePlayStyleChange}>
+            {playstyleName.map((ele) => (
+              <option key={ele} value={ele}>
+                {ele}
+              </option>
+            ))}
           </select>
         </ContentOption>
         <ContentOption>
@@ -213,7 +275,9 @@ const CreateCard = ({}: CreateCardProps) => {
             onChange={(e) => setSkill(e.target.value)}
           >
             <option value="1">1*</option>
+            <option value="2">2*</option>
             <option value="3">3*</option>
+            <option value="4">4*</option>
             <option value="5">5*</option>
           </select>
         </ContentOption>
@@ -225,7 +289,9 @@ const CreateCard = ({}: CreateCardProps) => {
             onChange={(e) => setWeak(e.target.value)}
           >
             <option value="1">1*</option>
+            <option value="2">2*</option>
             <option value="3">3*</option>
+            <option value="4">4*</option>
             <option value="5">5*</option>
           </select>
         </ContentOption>

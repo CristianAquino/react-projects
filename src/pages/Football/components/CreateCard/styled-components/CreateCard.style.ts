@@ -35,12 +35,12 @@ const ContentOption = styled.div`
     vertical-align: bottom;
     /* line-height: 1; */
   }
-  input,
+  & > input,
   select {
     inline-size: 56%;
     margin-inline-start: 8%;
   }
-  input {
+  & > input {
     border: none;
     outline: none;
     background: transparent;
