@@ -9,7 +9,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 const ComponentsCollection = lazy(
   () => import("./pages/ComponentsCollection/ComponentsCollection")
 );
-const Football = lazy(() => import("@pages/Football/Football"));
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
             path={`${PROYECTS_ROUTE.COMPONENT}/*`}
             element={<ComponentsCollection />}
           />
-          <Route path={`${PROYECTS_ROUTE.FOOTBALL}/*`} element={<Football />} />
         </RoutesWithNotFound>
       </BrowserRouter>
     </Suspense>
