@@ -4,7 +4,6 @@ import { RoutesWithNotFound } from "@app/guards";
 import { PROYECTS_ROUTE } from "@app/routes";
 import { lazy } from "react";
 import { Route } from "react-router-dom";
-import { DropdownWithSearch } from "./components/Dropdown";
 
 export type ComponentsCollectionProps = {
   // types...
@@ -18,7 +17,7 @@ const ComponentsCollection = ({}: ComponentsCollectionProps) => {
       message="Page not found"
       pageRedirect={PROYECTS_ROUTE.COMPONENT}
     >
-      <Route path={PROYECTS_ROUTE.HOME} element={<DropdownWithSearch />} />
+      <Route path={PROYECTS_ROUTE.HOME} element={<Home />} />
     </RoutesWithNotFound>
   );
 };
