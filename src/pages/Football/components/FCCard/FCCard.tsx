@@ -21,8 +21,8 @@ export type FCCardProps = {
   position: string;
   chemistry: any;
   playStyle: any[];
-  skill: string;
-  weak: string;
+  skill: any;
+  weak: any;
   work: string;
   player: string;
   att: string[];
@@ -50,9 +50,9 @@ const FCCard = ({
       let path = svg.querySelectorAll("path");
       path.forEach((p, index) => {
         if (index == 0) {
-          p.setAttribute("fill", card.style.background);
+          p.setAttribute("fill", card.card.background);
         } else {
-          p.setAttribute("fill", card.style.color);
+          p.setAttribute("fill", card.card.color);
         }
       });
     });
@@ -61,7 +61,7 @@ const FCCard = ({
   useEffect(() => {
     const content = document.querySelector(".chemistry svg");
     if (!content) return;
-    content.querySelector("g")?.setAttribute("fill", card.style.color);
+    content.querySelector("g")?.setAttribute("fill", card.card.color);
   }, [card, chemistry]);
 
   return (
@@ -82,13 +82,13 @@ const FCCard = ({
         <div>
           <p>skill</p>
           <p>
-            {skill} <FaStar />
+            {skill.card.name} <FaStar />
           </p>
         </div>
         <div>
           <p>weak</p>
           <p>
-            {weak} <FaStar />
+            {weak.card.name} <FaStar />
           </p>
         </div>
         <div>

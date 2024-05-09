@@ -136,9 +136,13 @@ const Player = styled.div`
   z-index: 1;
 
   img {
+    position: absolute;
     block-size: 100%;
     filter: drop-shadow(0 0 1rem var(--backgroundCardFC));
     object-fit: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 export {
