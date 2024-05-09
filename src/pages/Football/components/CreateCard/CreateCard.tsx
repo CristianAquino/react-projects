@@ -1,7 +1,8 @@
 "use client";
 
-import { DropdownWithPreviewImage } from "@app/pages/ComponentsCollection/components";
+import { DropdownWithSearch } from "@app/pages/ComponentsCollection/components";
 import { ChangeEvent, useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { Powerhouse } from "../Chemistry";
 import { FCCard } from "../FCCard";
 import { Acrobatic, Aerial, Anticipate } from "../PlayStyle";
@@ -25,75 +26,73 @@ const CreateCard = ({}: CreateCardProps) => {
     card: {
       name: "team_of_the_year",
       image: "/data/FIFA/CARD/upscale-team_of_the_year.png",
-    },
-    style: {
       background: "#161a4f",
       color: "#f5db9b",
     },
   });
   // chemistry
   const chemistryName = [
-    "Anchor",
-    "Architect",
-    "Artist",
-    "Backbone",
-    "Basic",
-    "Cat",
-    "Catalyst",
-    "Deadeye",
-    "Engine",
-    "Finisher",
-    "Gladiator",
-    "Glove",
-    "Guardian",
-    "Hawk",
-    "Hunter",
-    "Maestro",
-    "Marksman",
-    "Powerhouse",
-    "Sentinel",
-    "Shadow",
-    "Shield",
-    "Sniper",
-    "Wall",
+    { name: "Anchor" },
+    { name: "Architect" },
+    { name: "Artist" },
+    { name: "Backbone" },
+    { name: "Basic" },
+    { name: "Cat" },
+    { name: "Catalyst" },
+    { name: "Deadeye" },
+    { name: "Engine" },
+    { name: "Finisher" },
+    { name: "Gladiator" },
+    { name: "Glove" },
+    { name: "Guardian" },
+    { name: "Hawk" },
+    { name: "Hunter" },
+    { name: "Maestro" },
+    { name: "Marksman" },
+    { name: "Powerhouse" },
+    { name: "Sentinel" },
+    { name: "Shadow" },
+    { name: "Shield" },
+    { name: "Sniper" },
+    { name: "Wall" },
   ];
   const [chemistry, setChemistry] = useState(<Powerhouse />);
   // playstyle
   const playstyleName = [
-    "Acrobatic",
-    "Aerial",
-    "Anticipate",
-    "Block",
-    "Bruiser",
-    "ChipHot",
-    "CrossLaimer",
-    "DeadBall",
-    "FarReach",
-    "FarThrow",
-    "FinesseShot",
-    "FirstTouch",
-    "Flair",
-    "FootWork",
-    "IncisivePass",
-    "Intercept",
-    "Jockey",
-    "LongBallPass",
-    "LongThrow",
-    "PingedPass",
-    "PowerHeader",
-    "PowerShot",
-    "PressProven",
-    "QuickReflexes",
-    "QuickStep",
-    "Rapid",
-    "Relentless",
-    "RushOut",
-    "./SlideTackle",
-    "Technical",
-    "TikiTaka",
-    "Trickster",
-    "Trivela",
-    "WhippedPass",
+    { name: "Acrobatic" },
+    { name: "Aerial" },
+    { name: "Anticipate" },
+    { name: "Block" },
+    { name: "Bruiser" },
+    { name: "ChipHot" },
+    { name: "CrossLaimer" },
+    { name: "DeadBall" },
+    { name: "FarReach" },
+    { name: "FarThrow" },
+    { name: "FinesseShot" },
+    { name: "FirstTouch" },
+    { name: "Flair" },
+    { name: "FootWork" },
+    { name: "IncisivePass" },
+    { name: "Intercept" },
+    { name: "Jockey" },
+    { name: "LongBallPass" },
+    { name: "LongThrow" },
+    { name: "PingedPass" },
+    { name: "PowerHeader" },
+    { name: "PowerShot" },
+    { name: "PressProven" },
+    { name: "QuickReflexes" },
+    { name: "QuickStep" },
+    { name: "Rapid" },
+    { name: "Relentless" },
+    { name: "RushOut" },
+    { name: "SlideTackle" },
+    { name: "Technical" },
+    { name: "TikiTaka" },
+    { name: "Trickster" },
+    { name: "Trivela" },
+    { name: "WhippedPass" },
   ];
   const [playStyle, setPlayStyle] = useState([
     <Acrobatic />,
@@ -103,8 +102,26 @@ const CreateCard = ({}: CreateCardProps) => {
 
   const [player, setPlayer] = useState("Maino");
   const [image, setImage] = useState("/data/th.png");
-  const [skill, setSkill] = useState("4");
-  const [weak, setWeak] = useState("5");
+  const [skill, setSkill] = useState({
+    card: { name: "4" },
+  });
+  const skillsName = [
+    { name: "1", svg: <FaStar /> },
+    { name: "2", svg: <FaStar /> },
+    { name: "3", svg: <FaStar /> },
+    { name: "4", svg: <FaStar /> },
+    { name: "5", svg: <FaStar /> },
+  ];
+  const [weak, setWeak] = useState({
+    card: { name: "5" },
+  });
+  const weaksName = [
+    { name: "1", svg: <FaStar /> },
+    { name: "2", svg: <FaStar /> },
+    { name: "3", svg: <FaStar /> },
+    { name: "4", svg: <FaStar /> },
+    { name: "5", svg: <FaStar /> },
+  ];
   const [work, setWork] = useState("H/M");
   const [overall, setOverall] = useState("92");
   const [position, setPosition] = useState("CDM");
@@ -116,13 +133,10 @@ const CreateCard = ({}: CreateCardProps) => {
     setImage(URL.createObjectURL(img));
   }
 
-  function handlePlayStyleChange({ target }: ChangeEvent<HTMLSelectElement>) {
-    const name = parseInt(target.name);
-    const value = target.value;
-
-    import(`../PlayStyle/${value}.tsx`).then((element) => {
+  function handlePlayStyleChange({ card, pos }: { card: any; pos: number }) {
+    import(`../PlayStyle/${card.name}.tsx`).then((element) => {
       const nuevo = playStyle.map((ele, index) => {
-        if (index == name) return element.default;
+        if (index == pos) return element.default;
         return ele;
       });
       setPlayStyle(nuevo);
@@ -140,23 +154,22 @@ const CreateCard = ({}: CreateCardProps) => {
     );
   }
 
-  function handleWorkChange({ target }: ChangeEvent<HTMLSelectElement>) {
-    const name = target.name;
-    const value = target.value;
-    if (name == "att") {
-      let n = value + work.substring(1);
+  function handleWorkChange({ card, pos }: { card: any; pos: number }) {
+    if (pos == 0) {
+      let n = card.name[0] + work.substring(1);
       setWork(n);
     }
-    if (name == "def") {
-      let n = work.substring(0, 2) + value;
+    if (pos == 1) {
+      let n = work.substring(0, 2) + card.name[0];
       setWork(n);
     }
   }
 
+  const worksName = [{ name: "Low" }, { name: "Medium" }, { name: "High" }];
+
   // chemistry
-  function handleChangeChemistry({ target }: ChangeEvent<HTMLSelectElement>) {
-    const value = target.value;
-    import(`../Chemistry/${value}.tsx`).then((element) => {
+  function handleChangeChemistry({ card }: { card: any }) {
+    import(`../Chemistry/${card.name}.tsx`).then((element) => {
       setChemistry(element.default);
     });
   }
@@ -164,34 +177,23 @@ const CreateCard = ({}: CreateCardProps) => {
   useEffect(() => {
     const cards = [
       {
-        card: {
-          name: "team_of_the_year",
-          image: "/data/FIFA/CARD/upscale-team_of_the_year.png",
-        },
-        style: {
-          background: "#161a4f",
-          color: "#f5db9b",
-        },
+        name: "Team of the year",
+        image: "/data/FIFA/CARD/upscale-team_of_the_year.png",
+        background: "#161a4f",
+        color: "#f5db9b",
       },
       {
-        card: {
-          name: "team_of_the_season",
-          image: "/data/FIFA/CARD/upscale-team_of_the_season_old.png",
-        },
-        style: {
-          background: "#090f23",
-          color: "#fbebab",
-        },
+        name: "Team of the season",
+        image: "/data/FIFA/CARD/upscale-team_of_the_season_old.png",
+        background: "#090f23",
+        color: "#fbebab",
       },
+
       {
-        card: {
-          name: "end_of_the_era",
-          image: "/data/FIFA/CARD/upscale-end_of_the_era.png",
-        },
-        style: {
-          background: "#491e6f",
-          color: "#00f6ff",
-        },
+        name: "End of the era",
+        image: "/data/FIFA/CARD/upscale-end_of_the_era.png",
+        background: "#491e6f",
+        color: "#00f6ff",
       },
     ];
     setCards(cards);
@@ -200,8 +202,8 @@ const CreateCard = ({}: CreateCardProps) => {
   useEffect(() => {
     const root = document.querySelector(":root") as any;
     if (!root) return;
-    root.style.setProperty("--backgroundCardFC", card.style.background);
-    root.style.setProperty("--colorCardFC", card.style.color);
+    root.style.setProperty("--backgroundCardFC", card?.card.background);
+    root.style.setProperty("--colorCardFC", card?.card.color);
   }, [card]);
 
   return (
@@ -225,91 +227,70 @@ const CreateCard = ({}: CreateCardProps) => {
         <Title>Card Design Elements</Title>
         <ContentOption>
           <label>select card</label>
-          <DropdownWithPreviewImage list={cards} onchange={setCard} />
+          <DropdownWithSearch list={cards} type="image" onChange={setCard} />
         </ContentOption>
         <ContentOption>
           <label>chemistry style</label>
-          <select name="chemistry" onChange={handleChangeChemistry}>
-            {chemistryName.map((chemis) => (
-              <option key={chemis} value={chemis}>
-                {chemis}
-              </option>
-            ))}
-          </select>
+          <DropdownWithSearch
+            list={chemistryName}
+            onChange={handleChangeChemistry}
+            placeholder="search your chemistry"
+          />
         </ContentOption>
         <ContentOption>
           <label>playstyle1</label>
-          <select name="0" onChange={handlePlayStyleChange}>
-            {playstyleName.map((ele) => (
-              <option key={ele} value={ele}>
-                {ele}
-              </option>
-            ))}
-          </select>
+          <DropdownWithSearch
+            list={playstyleName}
+            onChange={handlePlayStyleChange}
+            pos={0}
+            placeholder="search your playstyle"
+          />
         </ContentOption>
         <ContentOption>
           <label>playstyle2</label>
-          <select name="1" onChange={handlePlayStyleChange}>
-            {playstyleName.map((ele) => (
-              <option key={ele} value={ele}>
-                {ele}
-              </option>
-            ))}
-          </select>
+          <DropdownWithSearch
+            list={playstyleName}
+            onChange={handlePlayStyleChange}
+            pos={1}
+            placeholder="search your playstyle"
+          />
         </ContentOption>
         <ContentOption>
           <label>playstyle3</label>
-          <select name="2" onChange={handlePlayStyleChange}>
-            {playstyleName.map((ele) => (
-              <option key={ele} value={ele}>
-                {ele}
-              </option>
-            ))}
-          </select>
+          <DropdownWithSearch
+            list={playstyleName}
+            onChange={handlePlayStyleChange}
+            pos={2}
+            placeholder="search your playstyle"
+          />
         </ContentOption>
         <ContentOption>
           <label>Skill Moves</label>
-          <select
-            name="skill"
-            value={skill}
-            onChange={(e) => setSkill(e.target.value)}
-          >
-            <option value="1">1*</option>
-            <option value="2">2*</option>
-            <option value="3">3*</option>
-            <option value="4">4*</option>
-            <option value="5">5*</option>
-          </select>
+          <DropdownWithSearch
+            list={skillsName}
+            onChange={setSkill}
+            type="svg"
+          />
         </ContentOption>
         <ContentOption>
           <label>Weak Foot</label>
-          <select
-            name="weak"
-            value={weak}
-            onChange={(e) => setWeak(e.target.value)}
-          >
-            <option value="1">1*</option>
-            <option value="2">2*</option>
-            <option value="3">3*</option>
-            <option value="4">4*</option>
-            <option value="5">5*</option>
-          </select>
+          <DropdownWithSearch list={weaksName} onChange={setWeak} type="svg" />
         </ContentOption>
         <ContentOption>
           <label>Att Work Rate</label>
-          <select name="att" value={work[0]} onChange={handleWorkChange}>
-            <option value="L">low</option>
-            <option value="M">medium</option>
-            <option value="H">high</option>
-          </select>
+          <DropdownWithSearch
+            list={worksName}
+            onChange={handleWorkChange}
+            pos={0}
+          />
         </ContentOption>
         <ContentOption>
           <label>Def Work Rate</label>
-          <select name="def" value={work[2]} onChange={handleWorkChange}>
-            <option value="L">low</option>
-            <option value="M">medium</option>
-            <option value="H">high</option>
-          </select>
+          <DropdownWithSearch
+            list={worksName}
+            onChange={handleWorkChange}
+            pos={1}
+          />
         </ContentOption>
         <Title>Player Data Elements</Title>
         <ContentOption>
@@ -343,16 +324,17 @@ const CreateCard = ({}: CreateCardProps) => {
         </ContentOption>
         <ContentOption>
           <label>club</label>
+          <input type="text" name="" id="" />
         </ContentOption>
         <ContentOption>
           <label>league</label>
+          <input type="text" name="" id="" />
         </ContentOption>
         <ContentOption>
           <label>nation</label>
+          <input type="text" name="" id="" />
         </ContentOption>
-        <ContentOption>
-          <label>atributes</label>
-        </ContentOption>
+        <label>Atributes</label>
         <Attributes>
           <ContentOption>
             <label>pace - pac</label>
@@ -400,13 +382,12 @@ const CreateCard = ({}: CreateCardProps) => {
             />
           </ContentOption>
           <ContentOption>
-            <label htmlFor="12">physicality - phy</label>
+            <label>physicality - phy</label>
             <input
               type="text"
               name="5"
               value={att[5]}
               onChange={handleAttributesChange}
-              id="12"
             />
           </ContentOption>
         </Attributes>

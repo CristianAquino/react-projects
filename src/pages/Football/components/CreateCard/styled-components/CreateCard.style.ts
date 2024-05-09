@@ -28,25 +28,25 @@ const Content = styled.div`
   }
 `;
 const ContentOption = styled.div`
+  display: flex;
+  align-items: center;
+
   label {
     text-align: end;
-    inline-size: 36%;
-    display: inline-block;
-    vertical-align: bottom;
-    /* line-height: 1; */
-  }
-  & > input,
-  select {
-    inline-size: 56%;
-    margin-inline-start: 8%;
+    flex: 1;
   }
   & > input {
+    inline-size: 56%;
+    margin-inline-start: 8%;
     border: none;
     outline: none;
     background: transparent;
     border-bottom: 1px solid var(--blue);
     padding: 0.5rem;
     min-inline-size: 3ch;
+  }
+  & > div {
+    flex: 2;
   }
 `;
 const Title = styled.h1`
